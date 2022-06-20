@@ -1,12 +1,11 @@
-package com.fab.adpay.voidService;
+package com.fab.adpay.walletTransactions;
 
-public class VoidServiceResponse {
+public class WalletTransactionResponse {
 
     private String cardNo;
     private String cardId;
     private String errorText;
     private String avlBalAmount;
     private String curBalAmount;
-    private String requestRspTime;
-
+    private String transitAc;
 }
