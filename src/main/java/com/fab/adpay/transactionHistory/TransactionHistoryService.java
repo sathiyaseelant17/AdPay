@@ -14,7 +14,7 @@ public class TransactionHistoryService {
     public TransactionHistoryResponse getTransactionHistory(Map<String, String> headers,
             TransactionHistoryRequest request) throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_get_cardtxnhistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
+                "{call proc_get_cardtxnhistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
 
