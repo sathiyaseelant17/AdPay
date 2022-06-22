@@ -9,7 +9,7 @@ public class VoidService {
     public static VoidServiceResponse voidService(Map<String, String> headers, VoidServiceRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
-                     "{call Proc_credit_txn_wallet_v2(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+                     "{call proc_mml_channel_txnreverse(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
             callableStatement.registerOutParameter("@pio_vc_cardno", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_nm_avlbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
