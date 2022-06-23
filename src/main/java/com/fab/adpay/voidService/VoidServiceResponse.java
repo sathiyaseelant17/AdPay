@@ -1,12 +1,21 @@
 package com.fab.adpay.voidService;
 
-public class VoidServiceResponse {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-    private String cardNo;
+import java.math.BigDecimal;
+
+@Data
+@AllArgsConstructor
+@ToString
+@NoArgsConstructor
+public class VoidServiceResponse {
     private String cardId;
     private String errorText;
-    private String avlBalAmount;
-    private String curBalAmount;
+    private BigDecimal avlBalAmount;
+    private BigDecimal curBalAmount;
     private String requestRspTime;
-
+    private String errorCode;
 }
