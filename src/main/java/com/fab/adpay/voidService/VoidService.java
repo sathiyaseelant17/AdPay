@@ -2,14 +2,12 @@ package com.fab.adpay.voidService;
 
 
 import com.fab.adpay.Datasource;
-import com.fab.adpay.voidService.VoidServiceRequest;
-import com.fab.adpay.voidService.VoidServiceResponse;
 
 import java.sql.*;
 import java.util.Map;
 
 public class VoidService {
-    public static VoidServiceResponse voidService(Map<String, String> headers, VoidServiceRequest req) throws SQLException {
+    public static VoidServiceResponse voidTxnRvs(Map<String, String> headers, VoidServiceRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
                      "{call proc_mml_channel_txnreverse(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
