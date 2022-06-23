@@ -1,15 +1,12 @@
 package com.fab.adpay.transactionHistory;
 
 import com.fab.adpay.Datasource;
-import com.fab.cashee.exception.ElpasoException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class TransactionHistoryService {
@@ -17,57 +14,56 @@ public class TransactionHistoryService {
     public TransactionHistoryResponse getTransactionHistory(Map<String, String> headers,
             TransactionHistoryRequest request) throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_get_cardTxnHistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
-            callableStatement.registerOutParameter("@po_dt_txndatetime", Types.TIMESTAMP);
-            callableStatement.registerOutParameter("@po_vc_desc1", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_desc2", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_nm_txnamount", Types.NUMERIC);
-            callableStatement.registerOutParameter("@po_c_crdbflag", Types.CHAR);
-            callableStatement.registerOutParameter("@po_nm_currentbal", Types.NUMERIC);
-            callableStatement.registerOutParameter("@po_vc_txnsourcedesc", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_txntypedesc", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_txncurrcode", Types.VARCHAR);
-//            callableStatement.registerOutParameter("@po_nm_txnrate", Types.NUMERIC);
-            callableStatement.registerOutParameter("@po_vc_billcurrcode", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_nm_billamount", Types.NUMERIC);
-            callableStatement.registerOutParameter("@po_vc_txnrefno", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_mcc", Types.VARCHAR);
+                "{call proc_get_cardtxnhistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-            callableStatement.setTimestamp("@pi_dt_transactionDateTime",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
-            callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
+            callableStatement.setTimestamp("@pi_dt_transactiondate",Timestamp.valueOf(headers.get("transactiondatetime")));
+            callableStatement.setString("@pi_vc_clientIdentifier", headers.get("clientidentifier"));
+            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
+            callableStatement.setString("@pi_vc_countryOforgin", headers.get("contryOfOrgin"));
+            
+            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("txnSource")));
+            callableStatement.setShort("@pi_i_requesttype", (short) request.getRequestType());
             callableStatement.setString("@pi_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_startdate", request.getStartDate());
             callableStatement.setString("@pi_vc_enddate", request.getEndDate());
-            callableStatement.setInt("@pi_i_numberOfTxns", request.getNumberOfTxns());
+            callableStatement.setInt("@pi_i_maxrecordstofetch", request.getNumberOfTxns());
+            callableStatement.setInt("@pi_ti_requestmode", request.getRequestMode());
+            
             callableStatement.execute();
-
-            if ((callableStatement.getInt("@po_i_errorcode") != 0)) {
-                throw new ElpasoException(callableStatement.getInt("@po_i_errorcode"),
-                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
-            }
-
+            List<TransactionHistory> transactionHistoryList = new ArrayList<>();
             TransactionHistoryResponse response = new TransactionHistoryResponse();
-            response.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errorcode")));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
-            response.setTxnDateTime(String.valueOf(callableStatement.getTimestamp("@po_dt_txndatetime")));
-            response.setDesc1(callableStatement.getString("@po_vc_desc1"));
-            response.setDesc2(callableStatement.getString("@po_vc_desc2"));
-            response.setTransactionAmount(callableStatement.getBigDecimal("@po_nm_txnamount"));
-            response.setCreditDebitFlag(callableStatement.getString("@po_c_crdbflag"));
-            response.setCurrentBalance(callableStatement.getBigDecimal("@po_nm_currentbal"));
-            response.setTransactionSourceDesc(callableStatement.getString("@po_vc_txnsourcedesc"));
-            response.setTransactionTypeDesc(callableStatement.getString("@po_vc_txntypedesc"));
-            response.setTransactionCurrencyCode(callableStatement.getString("@po_vc_txncurrcode"));
-//            response.setTransactionRate(callableStatement.getBigDecimal("@po_nm_txnrate"));
-            response.setBilledCurrencyCode(callableStatement.getString("@po_vc_billcurrcode"));
-            response.setBilledAmount(callableStatement.getBigDecimal("@po_nm_billamount"));
-            response.setTransactionReferenceNumber(callableStatement.getString("@po_vc_txnrefno"));
-            response.setMcc(callableStatement.getString("@po_vc_mcc"));
+            if ((callableStatement.getInt("@po_i_errorcode") != 0)) {
+                response.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errorcode")));
+                response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+                response.setTransactionHistory(null);
+
+            } else {
+
+                ResultSet rs = callableStatement.getResultSet();
+                while (rs.next()) {
+                    TransactionHistory transactionHistory = new TransactionHistory();
+                    transactionHistory.setTxnDateTime(rs.getString("txndatetime"));
+                    transactionHistory.setDesc1(rs.getString("desc1"));
+                    transactionHistory.setDesc2(rs.getString("desc2"));
+                    transactionHistory.setTransactionAmount(rs.getBigDecimal("txnamount"));
+                    transactionHistory.setCreditDebitFlag(rs.getString("crdbflag"));
+                    transactionHistory.setCurrentBalance(rs.getBigDecimal("currentbalance"));
+                    transactionHistory.setTransactionSourceDesc(rs.getString("txnsourcedesc"));
+                    transactionHistory.setTransactionTypeDesc(rs.getString("txntypedesc"));
+                    transactionHistory.setTransactionCurrencyCode(rs.getString("txncurrencycode"));
+                    transactionHistory.setBilledCurrencyCode(rs.getString("billcurrencycode"));
+                    transactionHistory.setBilledAmount(rs.getBigDecimal("billamount"));
+                    transactionHistory.setTransactionReferenceNumber(rs.getString("txnreferenceNo"));
+                    transactionHistory.setMcc(rs.getString("mcc"));
+                    transactionHistoryList.add(transactionHistory);
+                }
+                response.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errorcode")));
+                response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+                response.setTransactionHistory(transactionHistoryList);
+            }
             return response;
         }
     }
