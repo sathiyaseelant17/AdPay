@@ -14,24 +14,18 @@ public class TransactionHistoryService {
     public TransactionHistoryResponse getTransactionHistory(Map<String, String> headers,
             TransactionHistoryRequest request) throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_get_cardtxnhistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
+                "{call proc_get_cardTxnHistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate",Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_clientIdentifier", headers.get("clientidentifier"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("contryOfOrgin"));
-            
-            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("txnSource")));
-            callableStatement.setShort("@pi_i_requesttype", (short) request.getRequestType());
+            callableStatement.setTimestamp("@pi_dt_transactionDateTime",Timestamp.valueOf(headers.get("transactiondatetime")));
+            callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+            callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
             callableStatement.setString("@pi_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_startdate", request.getStartDate());
             callableStatement.setString("@pi_vc_enddate", request.getEndDate());
-            callableStatement.setInt("@pi_i_maxrecordstofetch", request.getNumberOfTxns());
-            callableStatement.setInt("@pi_ti_requestmode", request.getRequestMode());
-            
+            callableStatement.setInt("@pi_i_numberOfTxns", request.getNumberOfTxns());
             callableStatement.execute();
             List<TransactionHistory> transactionHistoryList = new ArrayList<>();
             TransactionHistoryResponse response = new TransactionHistoryResponse();
