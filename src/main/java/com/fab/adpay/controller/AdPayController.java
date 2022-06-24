@@ -12,6 +12,9 @@ import com.fab.adpay.updateCustomer.UpdateCustomerService;
 import com.fab.adpay.voidService.VoidService;
 import com.fab.adpay.voidService.VoidServiceRequest;
 import com.fab.adpay.voidService.VoidServiceResponse;
+import com.fab.adpay.walletInquiry.WalletInquiryRequest;
+import com.fab.adpay.walletInquiry.WalletInquiryResponse;
+import com.fab.adpay.walletInquiry.WalletInquiryService;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateRequest;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateResponse;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateService;
@@ -57,6 +60,9 @@ public class AdPayController {
 
     @Autowired
     PreApprovalService preApprovalService;
+
+    @Autowired
+    WalletInquiryService walletInquiryService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -162,6 +168,21 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         PreApprovalResponse response = preApprovalService.preApprovalService(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+    
+    @PostMapping("/walletInquiry")
+    WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
+            @Valid @RequestBody WalletInquiryRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        WalletInquiryResponse response = walletInquiryService.walletInquiry(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));

@@ -6,7 +6,6 @@
 package com.fab.adpay.preApproval;
 
 import com.fab.adpay.Datasource;
-import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateService;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
