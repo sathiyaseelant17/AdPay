@@ -6,8 +6,6 @@
 package com.fab.adpay.preApproval;
 
 import com.fab.adpay.Datasource;
-import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateRequest;
-import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateResponse;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateService;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class PreApprovalService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WalletStatusUpdateService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PreApprovalService.class);
 
     public PreApprovalResponse preApprovalService(Map<String, String> headers, PreApprovalRequest request)
             throws SQLException {
