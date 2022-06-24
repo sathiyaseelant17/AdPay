@@ -1,5 +1,8 @@
 package com.fab.adpay.controller;
 
+import com.fab.adpay.preApproval.PreApprovalRequest;
+import com.fab.adpay.preApproval.PreApprovalResponse;
+import com.fab.adpay.preApproval.PreApprovalService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -51,6 +54,9 @@ public class AdPayController {
 
     @Autowired
     UpdateCustomerService updateCustomerService;
+
+    @Autowired
+    PreApprovalService preApprovalService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -119,7 +125,7 @@ public class AdPayController {
 
     @PostMapping("/walletTopUp")
     WalletTopUpResponse walletTopUp(@RequestHeader Map<String, String> headers,
-                                    @Valid @RequestBody WalletTopUpRequest request)
+            @Valid @RequestBody WalletTopUpRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -134,13 +140,28 @@ public class AdPayController {
 
     @PostMapping("/updateCustomer")
     UpdateCustomerResponse updateCustomer(@RequestHeader Map<String, String> headers,
-                                          @Valid @RequestBody UpdateCustomerRequest request)
+            @Valid @RequestBody UpdateCustomerRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
         UpdateCustomerResponse response = updateCustomerService.updateCustomerData(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+    @PostMapping("/preApproval")
+    PreApprovalResponse preApproval(@RequestHeader Map<String, String> headers,
+            @Valid @RequestBody PreApprovalRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        PreApprovalResponse response = preApprovalService.preApprovalService(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
