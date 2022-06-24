@@ -1,4 +1,7 @@
 package com.fab.adpay.controller;
+import com.fab.adpay.addWallet.AddWalletRequest;
+import com.fab.adpay.addWallet.AddWalletResponse;
+import com.fab.adpay.addWallet.AddWalletService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -55,6 +58,8 @@ public class AdPayController {
     @Autowired
     WalletInquiryService walletInquiryService;
 
+    @Autowired
+    AddWalletService addWalletService;
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -144,6 +149,17 @@ public class AdPayController {
         return response;
     }
 
+    @PostMapping("/addWallet")
+    AddWalletResponse addWallet(@RequestHeader Map<String, String> headers,
+                                  @Valid @RequestBody AddWalletRequest request)
+            throws SQLException, IOException {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        AddWalletResponse response = addWalletService.addWalletService(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
     
     @PostMapping("/walletInquiry")
     WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
@@ -159,6 +175,8 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(response));
         return response;
     }
+
+
 
 }
 
