@@ -51,8 +51,10 @@ public class AdPayController {
     UpdateCustomerService updateCustomerService;
     @Autowired
     PreApprovalService preApprovalService;
+
     @Autowired
     WalletInquiryService walletInquiryService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -141,4 +143,22 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(response));
         return response;
     }
+
+    
+    @PostMapping("/walletInquiry")
+    WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
+            @Valid @RequestBody WalletInquiryRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        WalletInquiryResponse response = walletInquiryService.walletInquiry(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
 }
+
