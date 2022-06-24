@@ -1,16 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.fab.adpay.walletStatusUpdate;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class WalletStatusUpdateRequest {
 
-    private int txnSource;
-    private String cardNo;
-    private int newStatus;
-    private String reasonText;
-    private int checkExpiryFlag ;
-    private String expiryDate;
-    private String cardID;
-    private int reasonKey;
-    private String marketId;
-    private String sourceTxnRef;
+	private String cardId;
+	private int newStatus;
+	private String reasonText;
 
 }

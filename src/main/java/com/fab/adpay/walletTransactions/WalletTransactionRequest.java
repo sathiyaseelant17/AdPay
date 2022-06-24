@@ -1,5 +1,6 @@
 package com.fab.adpay.walletTransactions;
 
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,7 +10,6 @@ import lombok.ToString;
 @ToString
 public class WalletTransactionRequest {
 
-    private String cardNo;
     private String cardId;
     private String txnIdentifier;
     private int txnSource;
@@ -20,26 +20,25 @@ public class WalletTransactionRequest {
     private String txnRefNo;
     private String desc1;
     private int feeType;
-    private int feeAmount;
-    private int txnAmount;
-    private int billAmount;
+    private BigDecimal feeAmount;
+    private BigDecimal txnAmount;
+    private BigDecimal billAmount;
     private String txnCurrCode;
     private String billCurrCode;
     private int txnRate;
-    private int donationAmount;
-    private String retrievalRefNo;
-    private String transitAc;
-    private String merchantLocation;
-    private int checkExpiryFlag;
+    private String authCode;
+    private String merchantlocation;
     private String expiryDate;
-    private int txtType;
-    private String loanId;
-
-
-
-
-
-
-
-
+    private int checkExpiryFlag;
+    private String retrievalRefNo;
+    private String passCode;
+    private String freezeExpiryDate;
+    private int begintranflag;
+    private String desc2;
+    private int txnType;
+    private String merchantcategorycode;
+    private String requestRcvTime;
+    private String adgeId;
+    private String serviceId;
+    private String feeDesc;
 }
