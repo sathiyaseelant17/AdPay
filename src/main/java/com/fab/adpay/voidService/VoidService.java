@@ -12,11 +12,12 @@ public class VoidService {
     public static VoidServiceResponse voidService(Map<String, String> headers, VoidServiceRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
-                     "{call proc_mml_channel_txnreverse(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+                     "{call proc_mml_channel_txnreverse(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
+            callableStatement.registerOutParameter("@pio_vc_cardid", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_nm_avlbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errortext", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_vc_errCode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
@@ -46,7 +47,7 @@ public class VoidService {
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             VoidServiceResponse res = new VoidServiceResponse();
-            res.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errorcode")));
+            res.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errcode")));
             res.setErrorText(callableStatement.getString("@po_vc_errortext"));
             res.setAvlBalAmount(callableStatement.getBigDecimal("@po_nm_avlbalamount"));
             res.setCurBalAmount(callableStatement.getBigDecimal("@po_nm_curbalamount"));
