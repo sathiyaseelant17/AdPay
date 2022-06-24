@@ -3,6 +3,9 @@ package com.fab.adpay.controller;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
+import com.fab.adpay.updateCustomer.UpdateCustomerRequest;
+import com.fab.adpay.updateCustomer.UpdateCustomerResponse;
+import com.fab.adpay.updateCustomer.UpdateCustomerService;
 import com.fab.adpay.voidService.VoidService;
 import com.fab.adpay.voidService.VoidServiceRequest;
 import com.fab.adpay.voidService.VoidServiceResponse;
@@ -45,6 +48,9 @@ public class AdPayController {
 
     @Autowired
     WalletTopUpService walletTopUpService;
+
+    @Autowired
+    UpdateCustomerService updateCustomerService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -111,7 +117,7 @@ public class AdPayController {
         return response;
     }
 
-    @PostMapping("/voidService")
+    @PostMapping("/walletTopUp")
     WalletTopUpResponse walletTopUp(@RequestHeader Map<String, String> headers,
                                     @Valid @RequestBody WalletTopUpRequest request)
             throws SQLException, IOException {
@@ -120,6 +126,21 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         WalletTopUpResponse response = walletTopUpService.WalletTopUpService(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+    @PostMapping("/updateCustomer")
+    UpdateCustomerResponse updateCustomer(@RequestHeader Map<String, String> headers,
+                                          @Valid @RequestBody UpdateCustomerRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        UpdateCustomerResponse response = updateCustomerService.updateCustomerData(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));

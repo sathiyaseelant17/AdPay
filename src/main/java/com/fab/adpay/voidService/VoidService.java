@@ -17,12 +17,16 @@ public class VoidService {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errCode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
+
+
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+
+
             callableStatement.setString("@pio_vc_cardid", req.getCardId());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
             callableStatement.setString("@pi_vc_orgtxnidentifier", req.getOrgTxnIdentifier());
