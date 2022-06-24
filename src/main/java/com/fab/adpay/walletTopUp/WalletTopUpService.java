@@ -1,10 +1,13 @@
 package com.fab.adpay.walletTopUp;
 
 import com.fab.adpay.Datasource;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Map;
 
+
+@Service
 public class WalletTopUpService {
     public static WalletTopUpResponse WalletTopUpService(Map<String, String> headers, WalletTopUpRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();

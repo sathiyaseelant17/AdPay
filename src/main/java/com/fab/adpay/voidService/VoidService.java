@@ -2,10 +2,12 @@ package com.fab.adpay.voidService;
 
 
 import com.fab.adpay.Datasource;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Map;
 
+@Service
 public class VoidService {
     public static VoidServiceResponse voidTxnRvs(Map<String, String> headers, VoidServiceRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();

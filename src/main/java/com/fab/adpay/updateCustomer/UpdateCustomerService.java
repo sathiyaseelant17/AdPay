@@ -1,10 +1,12 @@
 package com.fab.adpay.updateCustomer;
 
 import com.fab.adpay.Datasource;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Map;
 
+@Service
 public class UpdateCustomerService {
 
     public UpdateCustomerResponse updateCustomerData(Map<String, String> headers, UpdateCustomerRequest request)

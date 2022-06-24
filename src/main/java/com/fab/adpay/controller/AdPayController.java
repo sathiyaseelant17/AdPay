@@ -1,5 +1,8 @@
 package com.fab.adpay.controller;
 
+import com.fab.adpay.addWallet.AddWalletRequest;
+import com.fab.adpay.addWallet.AddWalletResponse;
+import com.fab.adpay.addWallet.AddWalletService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -52,6 +55,8 @@ public class AdPayController {
     @Autowired
     UpdateCustomerService updateCustomerService;
 
+    @Autowired
+    AddWalletService addWalletService;
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -141,6 +146,21 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         UpdateCustomerResponse response = updateCustomerService.updateCustomerData(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+    @PostMapping("/addWallet")
+    AddWalletResponse addWallet(@RequestHeader Map<String, String> headers,
+                                     @Valid @RequestBody AddWalletRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        AddWalletResponse response = addWalletService.addWalletService(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
