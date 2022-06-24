@@ -1,8 +1,6 @@
 package com.fab.adpay.walletTopUp;
 
 import com.fab.adpay.Datasource;
-import com.fab.adpay.voidService.VoidServiceRequest;
-import com.fab.adpay.voidService.VoidServiceResponse;
 
 import java.sql.*;
 import java.util.Map;

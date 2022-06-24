@@ -9,6 +9,9 @@ import com.fab.adpay.voidService.VoidServiceResponse;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateRequest;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateResponse;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateService;
+import com.fab.adpay.walletTopUp.WalletTopUpRequest;
+import com.fab.adpay.walletTopUp.WalletTopUpResponse;
+import com.fab.adpay.walletTopUp.WalletTopUpService;
 import com.fab.adpay.walletTransactions.WalletTransactionRequest;
 import com.fab.adpay.walletTransactions.WalletTransactionResponse;
 import com.fab.adpay.walletTransactions.WalletTransactionService;
@@ -39,6 +42,9 @@ public class AdPayController {
 
     @Autowired
     WalletStatusUpdateService walletStatusUpdateService;
+
+    @Autowired
+    WalletTopUpService walletTopUpService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -99,6 +105,21 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         WalletStatusUpdateResponse response = walletStatusUpdateService.walletStatusUpdate(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+    @PostMapping("/voidService")
+    WalletTopUpResponse walletTopUp(@RequestHeader Map<String, String> headers,
+                                    @Valid @RequestBody WalletTopUpRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        WalletTopUpResponse response = walletTopUpService.WalletTopUpService(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
