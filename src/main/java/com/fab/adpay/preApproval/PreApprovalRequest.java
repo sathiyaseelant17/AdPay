@@ -16,4 +16,5 @@ public class PreApprovalRequest {
     private String adgeId;
     private String serviceId;
     private int requestType;
+    private String serviceName;
 }

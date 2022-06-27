@@ -21,7 +21,7 @@ public class WalletTransactionService {
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_c_trackexpirydate", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_i_errorcode", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_i_errcode", Types.VARCHAR);
 
             callableStatement.setString("@pio_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_txnidentifier", headers.get("transactionId"));
@@ -63,8 +63,8 @@ public class WalletTransactionService {
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
             callableStatement.execute();
-            if (!(callableStatement.getInt("@po_i_errorcode") == 0)) {
-                throw new ElpasoException(callableStatement.getInt("@po_i_errorcode"),
+            if (!(callableStatement.getInt("@po_i_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_i_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             WalletTransactionResponse walletTransactionResponse = new WalletTransactionResponse();
@@ -74,7 +74,7 @@ public class WalletTransactionService {
             walletTransactionResponse.setCurBalAmount(callableStatement.getBigDecimal("@po_nm_curbalamount"));
             walletTransactionResponse.setReqRspTime(callableStatement.getString("@po_vc_RequestRspTime"));
             walletTransactionResponse.setTrackExpiryDate(callableStatement.getString("@po_c_trackexpirydate"));
-            walletTransactionResponse.setErrorCode(callableStatement.getString("@po_i_errorcode"));
+            walletTransactionResponse.setErrorCode(callableStatement.getInt("@po_i_errorcode"));
 
             return walletTransactionResponse;
         }

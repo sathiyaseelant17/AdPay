@@ -14,7 +14,7 @@ public class AddWalletService {
                 "{call proc_mml_i_addwallets(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_newwalletid", Types.VARCHAR);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
@@ -32,7 +32,7 @@ public class AddWalletService {
 
             AddWalletResponse response = new AddWalletResponse();
             response.setNewWalletId(callableStatement.getString("@po_vc_newwalletid"));
-            response.setErrorCode(callableStatement.getString("@po_vc_errcode"));
+            response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
 
             return response;

@@ -13,5 +13,5 @@ public class AddWalletResponse {
 
     private String newWalletId;
     private String errorText;
-    private String errorCode;
+    private int errorCode;
 }

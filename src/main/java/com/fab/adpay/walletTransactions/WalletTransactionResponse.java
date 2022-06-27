@@ -12,7 +12,7 @@ public class WalletTransactionResponse {
 
     private String cardId;
     private String errorText;
-    private String errorCode;
+    private int errorCode;
     private BigDecimal avlBalAmount;
     private BigDecimal curBalAmount;
     private String reqRspTime;

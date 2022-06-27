@@ -17,7 +17,7 @@ public class VoidService {
             callableStatement.registerOutParameter("@po_nm_avlbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errCode", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
 
 
@@ -46,12 +46,12 @@ public class VoidService {
             callableStatement.setString("@pi_vc_serviceid", req.getServiceId());
 
             callableStatement.execute();
-            if (!(callableStatement.getInt("@po_i_errorcode") == 0)) {
-                throw new com.fab.cashee.exception.ElpasoException(callableStatement.getInt("@po_i_errorcode"),
+            if (!(callableStatement.getInt("@po_i_errcode") == 0)) {
+                throw new com.fab.cashee.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             VoidServiceResponse res = new VoidServiceResponse();
-            res.setErrorCode(String.valueOf(callableStatement.getInt("@po_i_errcode")));
+            res.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             res.setErrorText(callableStatement.getString("@po_vc_errortext"));
             res.setAvlBalAmount(callableStatement.getBigDecimal("@po_nm_avlbalamount"));
             res.setCurBalAmount(callableStatement.getBigDecimal("@po_nm_curbalamount"));

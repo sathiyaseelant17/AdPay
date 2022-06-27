@@ -24,5 +24,5 @@ public class WalletTopUpResponse {
     private String creditAc;
     private String creditAcPosId;
     private String errorText;
-    private String errorCode;
+    private int errorCode;
 }

@@ -25,7 +25,7 @@ public class WalletInquiryService {
                 "{call proc_mml_get_walletsbyid(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_i_errorCode", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_i_errcode", Types.INTEGER);
 
             callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
@@ -38,7 +38,7 @@ public class WalletInquiryService {
             callableStatement.execute();
 
             WalletInquiryResponse response = new WalletInquiryResponse();
-            response.setErrorCode(callableStatement.getString("@po_i_errorCode"));
+            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
 
             logger.debug("TRANSACTION ID: {} UPDATE CARD STATUS RESPONSE:{}", headers.get("transactionid"), response);

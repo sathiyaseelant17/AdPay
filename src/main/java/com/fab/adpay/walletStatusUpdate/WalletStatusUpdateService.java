@@ -28,7 +28,7 @@ public class WalletStatusUpdateService {
                 "{call Proc_setcardstatus_wallet_v2(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_i_errorCode", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_i_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_i_txnid#", Types.INTEGER);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
@@ -48,7 +48,7 @@ public class WalletStatusUpdateService {
             callableStatement.execute();
 
             WalletStatusUpdateResponse response = new WalletStatusUpdateResponse();
-            response.setErrorCode(callableStatement.getInt("@po_i_errorCode"));
+            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
 
             logger.debug("TRANSACTION ID: {} UPDATE CARD STATUS RESPONSE:{}", headers.get("transactionid"), response);

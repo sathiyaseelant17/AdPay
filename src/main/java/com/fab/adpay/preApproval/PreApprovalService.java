@@ -22,10 +22,10 @@ public class PreApprovalService {
     public PreApprovalResponse preApprovalService(Map<String, String> headers, PreApprovalRequest request)
             throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_preapproval(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+                "{call proc_mml_preapproval(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_i_errorCode", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_i_errcode", Types.INTEGER);
 
             callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
@@ -35,12 +35,13 @@ public class PreApprovalService {
             callableStatement.setString("@pi_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_adgeid", request.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", request.getServiceId());
+            callableStatement.setString("@@Pi_vc_servicename", request.getServiceName());
             callableStatement.setInt("@pi_ti_requesttype", request.getRequestType());
 
             callableStatement.execute();
 
             PreApprovalResponse response = new PreApprovalResponse();
-            response.setErrorCode(callableStatement.getString("@po_i_errorCode"));
+            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
 
             logger.debug("TRANSACTION ID: {} UPDATE CARD STATUS RESPONSE:{}", headers.get("transactionid"), response);

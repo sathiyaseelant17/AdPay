@@ -23,7 +23,7 @@ public class WalletTopUpService {
             callableStatement.registerOutParameter("@po_c_expirydate", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_creditac", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_creditacposid", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
 
 
@@ -88,7 +88,7 @@ public class WalletTopUpService {
             res.setExpiryDate(callableStatement.getString("@po_c_expirydate"));
             res.setCreditAc(callableStatement.getString("@po_vc_creditac"));
             res.setCreditAcPosId(callableStatement.getString("@po_vc_creditacposid"));
-            res.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
+            res.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
             res.setErrorText(callableStatement.getString("@po_vc_errortext"));
 
             return res;

@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class PreApprovalResponse {
 
     private String errorText;
-    private String errorCode;
+    private int errorCode;
 }

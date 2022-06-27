@@ -17,5 +17,5 @@ public class VoidServiceResponse {
     private BigDecimal avlBalAmount;
     private BigDecimal curBalAmount;
     private String requestRspTime;
-    private String errorCode;
+    private int errorCode;
 }

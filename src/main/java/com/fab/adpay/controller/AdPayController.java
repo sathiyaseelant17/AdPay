@@ -20,6 +20,9 @@ import com.fab.adpay.walletInquiry.WalletInquiryService;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateRequest;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateResponse;
 import com.fab.adpay.walletStatusUpdate.WalletStatusUpdateService;
+import com.fab.adpay.walletToWalletTransactions.WalletToWalletTransactionRequest;
+import com.fab.adpay.walletToWalletTransactions.WalletToWalletTransactionResponse;
+import com.fab.adpay.walletToWalletTransactions.WalletToWalletTransactionService;
 import com.fab.adpay.walletTopUp.WalletTopUpRequest;
 import com.fab.adpay.walletTopUp.WalletTopUpResponse;
 import com.fab.adpay.walletTopUp.WalletTopUpService;
@@ -60,6 +63,9 @@ public class AdPayController {
 
     @Autowired
     AddWalletService addWalletService;
+
+    @Autowired
+    WalletToWalletTransactionService walletToWalletTransactionService;
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -170,6 +176,21 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         WalletInquiryResponse response = walletInquiryService.walletInquiry(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+    @PostMapping("/walletToWalletTransaction")
+    WalletToWalletTransactionResponse walletToWalletTransaction(@RequestHeader Map<String, String> headers,
+                                                    @Valid @RequestBody WalletToWalletTransactionRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        WalletToWalletTransactionResponse response = walletToWalletTransactionService.walletToWalletTxnService(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
