@@ -51,8 +51,8 @@ public class WalletTopUpService {
             callableStatement.setString("@pi_vc_feedesc1", req.getFeeDescription());
             callableStatement.setBigDecimal("@pi_nm_txnamount", req.getTransactionAmount());
             callableStatement.setBigDecimal("@pi_nm_billamount  ", req.getEquivalentAmount());
-            callableStatement.setString("@pi_vc_txncurrcode", req.getTransactionCurrency());
-            callableStatement.setString("@pi_vc_billcurrcode", req.getEquivalentCurrency());
+            callableStatement.setBigDecimal("@pi_vc_txncurrcode", req.getTransactionCurrency());
+            callableStatement.setBigDecimal("@pi_vc_billcurrcode", req.getEquivalentCurrency());
             callableStatement.setInt("@pi_nm_txnrate", req.getTransactionRate());
             callableStatement.setString("@pi_vc_authcode", req.getAuthorizationCode());
             callableStatement.setString("@pi_vc_merchantlocation", req.getMerchantLocation());

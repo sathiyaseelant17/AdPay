@@ -28,8 +28,8 @@ public class WalletTopUpRequest {
     private String feeDescription;
     private BigDecimal transactionAmount;
     private BigDecimal equivalentAmount;
-    private String transactionCurrency;
-    private String equivalentCurrency;
+    private BigDecimal transactionCurrency;
+    private BigDecimal equivalentCurrency;
     private int transactionRate;
     private String authorizationCode;
     private String merchantLocation;
