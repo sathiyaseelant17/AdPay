@@ -64,7 +64,6 @@ public class WalletToWalletTransactionService {
             res.setCurrentBalance_02(callableStatement.getBigDecimal("@po_de_currentBalance_02"));
             res.setTxnId(callableStatement.getInt("@po_i_txnId"));
 
-
             return res;
         }
     }

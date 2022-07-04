@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 public class WalletTopUpRequest {
 
     private String cardId;
-    private int txnSource;
     private int txntype;
     private String txnIdentifier;
     private String sourceMakerId;

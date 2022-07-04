@@ -2,6 +2,8 @@ package com.fab.adpay.walletTransactions;
 
 import com.fab.adpay.Datasource;
 import com.fab.cashee.exception.ElpasoException;
+import org.springframework.stereotype.Service;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,9 +11,10 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Map;
 
+@Service
 public class WalletTransactionService {
 
-    public static WalletTransactionResponse walletTransaction(Map<String, String> headers, WalletTransactionRequest request)
+    public  WalletTransactionResponse walletTransaction(Map<String, String> headers, WalletTransactionRequest request)
             throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
                 "{call proc_mml_authtransaction(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
@@ -23,10 +26,17 @@ public class WalletTransactionService {
             callableStatement.registerOutParameter("@po_c_trackexpirydate", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_i_errcode", Types.VARCHAR);
 
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
+            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
+            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    Timestamp.valueOf(headers.get("transactionDateTime")));
+            callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("transactionsource")));
+
+
             callableStatement.setString("@pio_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_txnidentifier", headers.get("transactionId"));
-            callableStatement.setInt("@pi_ti_txnsource", request.getTxnSource());
-//            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("transactionsource")));
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTxnRef());

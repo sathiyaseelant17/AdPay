@@ -16,7 +16,6 @@ public class VoidServiceRequest {
     private String cardId;
     private String txnIdentifier;
     private String orgTxnIdentifier;
-    private int txnSource;
     private String sourceMakerId;
     private String sourcePosId;
     private int technicalRevFlag;

@@ -33,10 +33,10 @@ public class WalletTopUpService {
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("transactionsource")));
 
 
             callableStatement.setString("@pio_vc_cardid", req.getCardId());
-            callableStatement.setInt("@pi_ti_txnsource", req.getTxnSource());
             callableStatement.setInt("@pi_si_txntype", req.getTxntype());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
             callableStatement.setString("@pi_vc_sourcemakerid", req.getSourceMakerId());
