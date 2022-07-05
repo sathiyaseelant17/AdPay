@@ -3,10 +3,12 @@ package com.fab.adpay.walletToWalletTransactions;
 import com.fab.adpay.Datasource;
 import com.fab.adpay.voidService.VoidServiceRequest;
 import com.fab.adpay.voidService.VoidServiceResponse;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Map;
 
+@Service
 public class WalletToWalletTransactionService {
 
     public static WalletToWalletTransactionResponse walletToWalletTxnService(Map<String, String> headers, WalletToWalletTransactionRequest req) throws SQLException {
