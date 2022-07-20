@@ -9,6 +9,9 @@ import com.fab.adpay.customerOnboard.CustomerOnboardService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryRequest;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -87,6 +90,9 @@ public class AdPayController {
 
     @Autowired
     CustomerOnboardService customerOnboardService;
+
+    @Autowired
+    RedemptionInquiryService redemptionInquiryService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     
@@ -244,6 +250,22 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         CustomerOnboardResponse response = customerOnboardService.customerOnboard(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
+        return response;
+    }
+
+    @PostMapping("/redemptionInquiry")
+    RedemptionInquiryResponse redemptionInquiry(@RequestHeader Map<String, String> headers,
+                                              @Valid @RequestBody RedemptionInquiryRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        RedemptionInquiryResponse response = redemptionInquiryService.redemptionInquiry(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
