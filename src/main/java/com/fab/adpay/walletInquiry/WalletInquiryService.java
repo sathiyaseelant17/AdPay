@@ -32,7 +32,7 @@ public class WalletInquiryService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
             callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
+            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
