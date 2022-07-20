@@ -8,10 +8,13 @@ package com.fab.adpay.walletInquiry;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class WalletInquiryResponse {
 
     private int errorCode;
     private String errorText;
+    private List<WalletInquiryData> walletInquiryDataList;
 }
