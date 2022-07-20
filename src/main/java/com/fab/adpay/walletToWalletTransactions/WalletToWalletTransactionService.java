@@ -52,7 +52,7 @@ public class WalletToWalletTransactionService {
 
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_i_errcode") == 0)) {
-                throw new com.fab.cashee.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
+                throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             WalletToWalletTransactionResponse res = new WalletToWalletTransactionResponse();

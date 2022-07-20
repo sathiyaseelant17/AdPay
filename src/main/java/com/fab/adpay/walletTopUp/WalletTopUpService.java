@@ -72,7 +72,7 @@ public class WalletTopUpService {
 
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_i_errorcode") == 0)) {
-                throw new com.fab.cashee.exception.ElpasoException(callableStatement.getInt("@po_i_errorcode"),
+                throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_i_errorcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
 

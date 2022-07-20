@@ -1,7 +1,8 @@
 package com.fab.adpay.walletTransactions;
 
 import com.fab.adpay.Datasource;
-import com.fab.cashee.exception.ElpasoException;
+import com.fab.adpay.exception.ElpasoException;
+import com.fab.adpay.exception.ElpasoException;
 import org.springframework.stereotype.Service;
 
 import java.sql.CallableStatement;

@@ -20,7 +20,6 @@ public class VoidService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
 
-
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
@@ -28,7 +27,6 @@ public class VoidService {
                     Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
             callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("transactionsource")));
-
 
             callableStatement.setString("@pio_vc_cardid", req.getCardId());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
@@ -42,12 +40,12 @@ public class VoidService {
             callableStatement.setString("@pi_vc_loanID", req.getLoanId());
             callableStatement.setString("@pi_vc_sourceTxnReferenceNo", req.getSourceTxnReferenceNo());
             callableStatement.setString("@pi_vc_nmc", req.getNmc());
-            callableStatement.setString("@pi_vc_ageid", req.getAgeId());
+            callableStatement.setString("@pi_vc_ageid", req.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", req.getServiceId());
 
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_i_errcode") == 0)) {
-                throw new com.fab.cashee.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
+                throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             VoidServiceResponse res = new VoidServiceResponse();

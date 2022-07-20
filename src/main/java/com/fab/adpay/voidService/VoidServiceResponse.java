@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 public class VoidServiceResponse {
-    private String cardId;
+        private String cardId;
     private String errorText;
     private BigDecimal avlBalAmount;
     private BigDecimal curBalAmount;

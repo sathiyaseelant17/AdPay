@@ -3,6 +3,7 @@ package com.fab.adpay;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -23,5 +24,9 @@ public class AdpayApplication {
 				.apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any())
 				.build();
+	}
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

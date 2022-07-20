@@ -24,10 +24,8 @@ public class VoidServiceRequest {
     private String loanId;
     private String sourceTxnReferenceNo;
     private String nmc;
-    private String ageId;
+    private String adgeId;
     private String serviceId;
-
-
 
 
 }

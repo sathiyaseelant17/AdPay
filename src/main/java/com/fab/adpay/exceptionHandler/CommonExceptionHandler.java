@@ -2,7 +2,7 @@ package com.fab.adpay.exceptionHandler;
 
 import com.fab.adpay.model.ApiError;
 import com.fab.adpay.model.ElpasoError;
-import com.fab.cashee.exception.ElpasoException;
+import com.fab.adpay.exception.ElpasoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -45,12 +45,6 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, HttpStatus.OK);
     }
 
-    @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException ex, WebRequest request) {
-        LOGGER.error(request.getHeader("transactionid"), ex.getMessage(), ex);
-        final ApiError apiError = new ApiError(String.valueOf(294),
-                "Technical Error Occured, please contact Magnati support");
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.OK);
-    }
+    
 
 }

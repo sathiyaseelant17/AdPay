@@ -12,14 +12,15 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+@Service
 public class CustomerOnboardService {
 
     @Autowired
     RestTemplate restTemplate;
 
-    public Object customerOnboard(Map<String, String> headers, CustomerOnboardRequest request) {
+    public CustomerOnboardResponse customerOnboard(Map<String, String> headers, CustomerOnboardRequest request) {
 
         String URL = "";
         HttpHeaders header = new HttpHeaders();
@@ -29,7 +30,7 @@ public class CustomerOnboardService {
         header.set("channelID", headers.get("channelID"));
         HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
 
-        return restTemplate.exchange(URL, HttpMethod.POST, entity, Object.class).getBody();
+        return restTemplate.exchange(URL, HttpMethod.POST, entity, CustomerOnboardResponse.class).getBody();
     }
 
 }

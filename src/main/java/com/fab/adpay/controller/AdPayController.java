@@ -3,6 +3,9 @@ package com.fab.adpay.controller;
 import com.fab.adpay.addWallet.AddWalletRequest;
 import com.fab.adpay.addWallet.AddWalletResponse;
 import com.fab.adpay.addWallet.AddWalletService;
+import com.fab.adpay.customerOnboard.CustomerOnboardRequest;
+import com.fab.adpay.customerOnboard.CustomerOnboardResponse;
+import com.fab.adpay.customerOnboard.CustomerOnboardService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -82,12 +85,15 @@ public class AdPayController {
     @Autowired
     UpdateWalletLimitService updateWalletLimitService;
 
+    @Autowired
+    CustomerOnboardService customerOnboardService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
     
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @PostMapping("/transactionHistory")
-    TransactionHistoryResponse checkScreeningStatus(@RequestHeader Map<String, String> headers,
+    TransactionHistoryResponse transactionHistory(@RequestHeader Map<String, String> headers,
             @Valid @RequestBody TransactionHistoryRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -226,6 +232,22 @@ public class AdPayController {
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
+        @PostMapping("/customerOnboarding")
+    CustomerOnboardResponse customerOnboard(@RequestHeader Map<String, String> headers,
+                                              @Valid @RequestBody CustomerOnboardRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        CustomerOnboardResponse response = customerOnboardService.customerOnboard(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
         return response;
     }
 

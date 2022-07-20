@@ -1,4 +1,4 @@
-package com.fab.cashee.exception;
+package com.fab.adpay.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
