@@ -17,4 +17,5 @@ public class WalletInquiryResponse {
     private int errorCode;
     private String errorText;
     private List<WalletInquiryData> walletInquiryDataList;
+
 }

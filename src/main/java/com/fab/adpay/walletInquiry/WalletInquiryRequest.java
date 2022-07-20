@@ -14,4 +14,5 @@ public class WalletInquiryRequest {
 
     private int identityType;
     private String identityNumber;
+
 }
