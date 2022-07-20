@@ -9,6 +9,12 @@ import com.fab.adpay.customerOnboard.CustomerOnboardService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
+import com.fab.adpay.redemptionCallback.RedemptionCallbackRequest;
+import com.fab.adpay.redemptionCallback.RedemptionCallbackResponse;
+import com.fab.adpay.redemptionCallback.RedemptionCallbackService;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryRequest;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
+import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -36,11 +42,14 @@ import com.fab.adpay.walletTopUp.WalletTopUpService;
 import com.fab.adpay.walletTransactions.WalletTransactionRequest;
 import com.fab.adpay.walletTransactions.WalletTransactionResponse;
 import com.fab.adpay.walletTransactions.WalletTransactionService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,22 +63,22 @@ public class AdPayController {
 
     @Autowired
     TransactionHistoryService transactionHistoryService;
-    
+
     @Autowired
     VoidService voidService;
-    
+
     @Autowired
     WalletTransactionService walletTransactionService;
-    
+
     @Autowired
     WalletStatusUpdateService walletStatusUpdateService;
-    
+
     @Autowired
     WalletTopUpService walletTopUpService;
-    
+
     @Autowired
     UpdateCustomerService updateCustomerService;
-    
+
     @Autowired
     PreApprovalService preApprovalService;
 
@@ -95,12 +104,12 @@ public class AdPayController {
     RedemptionInquiryService redemptionInquiryService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
-    
+
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @PostMapping("/transactionHistory")
     TransactionHistoryResponse transactionHistory(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody TransactionHistoryRequest request)
+                                                  @Valid @RequestBody TransactionHistoryRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -113,7 +122,7 @@ public class AdPayController {
 
     @PostMapping("/voidService")
     VoidServiceResponse voidService(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody VoidServiceRequest request)
+                                    @Valid @RequestBody VoidServiceRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -126,7 +135,7 @@ public class AdPayController {
 
     @PostMapping("/walletTransaction")
     WalletTransactionResponse walletTransaction(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody WalletTransactionRequest request)
+                                                @Valid @RequestBody WalletTransactionRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -138,7 +147,7 @@ public class AdPayController {
 
     @PostMapping("/walletStatusUpdate")
     WalletStatusUpdateResponse walletStatusUpdate(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody WalletStatusUpdateRequest request)
+                                                  @Valid @RequestBody WalletStatusUpdateRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -150,7 +159,7 @@ public class AdPayController {
 
     @PostMapping("/walletTopUp")
     WalletTopUpResponse walletTopUp(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody WalletTopUpRequest request)
+                                    @Valid @RequestBody WalletTopUpRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -162,7 +171,7 @@ public class AdPayController {
 
     @PostMapping("/updateCustomer")
     UpdateCustomerResponse updateCustomer(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody UpdateCustomerRequest request)
+                                          @Valid @RequestBody UpdateCustomerRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -174,7 +183,7 @@ public class AdPayController {
 
     @PostMapping("/preApproval")
     PreApprovalResponse preApproval(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody PreApprovalRequest request)
+                                    @Valid @RequestBody PreApprovalRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -186,7 +195,7 @@ public class AdPayController {
 
     @PostMapping("/addWallet")
     AddWalletResponse addWallet(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody AddWalletRequest request)
+                                @Valid @RequestBody AddWalletRequest request)
             throws SQLException, IOException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -198,7 +207,7 @@ public class AdPayController {
 
     @PostMapping("/walletInquiry")
     WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody WalletInquiryRequest request)
+                                        @Valid @RequestBody WalletInquiryRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -213,7 +222,7 @@ public class AdPayController {
 
     @PostMapping("/walletToWalletTransaction")
     WalletToWalletTransactionResponse walletToWalletTransaction(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody WalletToWalletTransactionRequest request)
+                                                                @Valid @RequestBody WalletToWalletTransactionRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -228,7 +237,7 @@ public class AdPayController {
 
     @PostMapping("/walletLimitUpdate")
     UpdateWalletLimitResponse walletLimitUpdate(@RequestHeader Map<String, String> headers,
-            @Valid @RequestBody UpdateWalletLimitRequest request)
+                                                @Valid @RequestBody UpdateWalletLimitRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -241,9 +250,9 @@ public class AdPayController {
         return response;
     }
 
-        @PostMapping("/customerOnboarding")
+    @PostMapping("/customerOnboarding")
     CustomerOnboardResponse customerOnboard(@RequestHeader Map<String, String> headers,
-                                              @Valid @RequestBody CustomerOnboardRequest request)
+                                            @Valid @RequestBody CustomerOnboardRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -259,7 +268,7 @@ public class AdPayController {
 
     @PostMapping("/redemptionInquiry")
     RedemptionInquiryResponse redemptionInquiry(@RequestHeader Map<String, String> headers,
-                                              @Valid @RequestBody RedemptionInquiryRequest request)
+                                                @Valid @RequestBody RedemptionInquiryRequest request)
             throws SQLException, IOException {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -274,8 +283,14 @@ public class AdPayController {
     }
 
     @PostMapping("/redemptionCallback")
-    public RedemptionCallbackResponse redemptionCallback(@RequestHeader Map<String, String> headers, @RequestBody RedemptionCallbackRequest request) throws SQLException {
-        return redemptionCallbackService.fundsTransferStatusUpdate(headers, request);
+    public RedemptionCallbackResponse redemptionCallback(@RequestHeader Map<String, String> headers, @RequestBody RedemptionCallbackRequest request) throws SQLException, JsonProcessingException {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        RedemptionCallbackResponse response = redemptionCallbackService.fundsTransferStatusUpdate(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
+        return response;
     }
 
 }
