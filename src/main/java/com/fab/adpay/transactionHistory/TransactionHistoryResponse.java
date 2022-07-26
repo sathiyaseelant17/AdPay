@@ -19,5 +19,4 @@ public class TransactionHistoryResponse {
     private String errorCode;
     private String errorText;
     private List<TransactionHistory> transactionHistory;
-
 }
