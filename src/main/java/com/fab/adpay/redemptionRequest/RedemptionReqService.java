@@ -6,10 +6,12 @@ import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Map;
 
+@Service
 public class RedemptionReqService {
 
     private static final Logger logger = LoggerFactory.getLogger(RedemptionReqService.class);

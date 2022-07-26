@@ -1,6 +1,6 @@
 package com.fab.adpay.otpgeneration;
 
-import com.magnati.authenticationservices.commons.model.ApplicationArea;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

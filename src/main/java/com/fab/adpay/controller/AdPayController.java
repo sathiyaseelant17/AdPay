@@ -9,6 +9,9 @@ import com.fab.adpay.customerOnboard.CustomerOnboardService;
 import com.fab.adpay.otpgeneration.OtpGenerationRequest;
 import com.fab.adpay.otpgeneration.OtpGenerationResponse;
 import com.fab.adpay.otpgeneration.OtpGenerationService;
+import com.fab.adpay.otpvalidation.OtpValidationRequest;
+import com.fab.adpay.otpvalidation.OtpValidationResponse;
+import com.fab.adpay.otpvalidation.OtpValidationService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -114,6 +117,9 @@ public class AdPayController {
 
     @Autowired
     RedemptionReqService redemptionReqService;
+
+    @Autowired
+    OtpValidationService otpValidationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -323,6 +329,16 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
 
+        return response;
+    }
+
+    @PostMapping("/validate-otp")
+    OtpValidationResponse validateOtp(@RequestHeader Map<String, String> headers, @RequestBody OtpValidationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpValidationResponse response = otpValidationService.validateOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
         return response;
     }
 
