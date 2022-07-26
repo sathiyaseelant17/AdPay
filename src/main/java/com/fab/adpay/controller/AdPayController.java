@@ -6,6 +6,9 @@ import com.fab.adpay.addWallet.AddWalletService;
 import com.fab.adpay.customerOnboard.CustomerOnboardRequest;
 import com.fab.adpay.customerOnboard.CustomerOnboardResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardService;
+import com.fab.adpay.otpgeneration.OtpGenerationRequest;
+import com.fab.adpay.otpgeneration.OtpGenerationResponse;
+import com.fab.adpay.otpgeneration.OtpGenerationService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -102,6 +105,9 @@ public class AdPayController {
 
     @Autowired
     RedemptionInquiryService redemptionInquiryService;
+
+    @Autowired
+    OtpGenerationService otpGenerationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -292,5 +298,16 @@ public class AdPayController {
 
         return response;
     }
+
+    @PostMapping("/generate-otp")
+    OtpGenerationResponse otpGeneration(@RequestHeader Map<String, String> headers, @RequestBody OtpGenerationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpGenerationResponse response = otpGenerationService.createOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
 
 }
