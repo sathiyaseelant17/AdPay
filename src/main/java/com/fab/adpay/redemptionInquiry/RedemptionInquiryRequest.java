@@ -11,6 +11,7 @@ public class RedemptionInquiryRequest {
 
     private String cardId;
     private int transactionType;
+    private int transactionSource;
     private String sourceMakerId;
     private String sourcePosId;
     private String sourceTransactionRef;

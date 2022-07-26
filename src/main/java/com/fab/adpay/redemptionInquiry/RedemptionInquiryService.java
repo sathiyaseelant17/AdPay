@@ -19,7 +19,7 @@ public class RedemptionInquiryService {
     public RedemptionInquiryResponse redemptionInquiry(Map<String, String> headers, RedemptionInquiryRequest request)
             throws SQLException {
         try (Connection connection = Datasource.getConnection(); CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_FundsTransfer_Inquiry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)}")) {
+                "{call proc_mml_FundsTransfer_Inquiry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_si_errcode", Types.INTEGER);
@@ -32,6 +32,7 @@ public class RedemptionInquiryService {
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
+            callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_cardId", request.getCardId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());

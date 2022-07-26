@@ -12,6 +12,7 @@ public class WalletTransactionRequest {
 
     private String cardId;
     private String txnIdentifier;
+    private int transactionSource;
     private String sourceMakerId;
     private String sourcePosId;
     private String sourceTxnRef;

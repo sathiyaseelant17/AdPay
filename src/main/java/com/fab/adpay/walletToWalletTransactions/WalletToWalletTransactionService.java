@@ -14,7 +14,7 @@ public class WalletToWalletTransactionService {
     public static WalletToWalletTransactionResponse walletToWalletTxnService(Map<String, String> headers, WalletToWalletTransactionRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
-                     "{call  proc_mml_i_wallettowallet_trans(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)}")) {
+                     "{call  proc_mml_i_wallettowallet_trans(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)}")) {
             callableStatement.registerOutParameter("@po_vc_wallet id_01", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_de_availableBalance_01", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_currentBalance_01", Types.DECIMAL);
@@ -34,7 +34,6 @@ public class WalletToWalletTransactionService {
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
 
 
-            callableStatement.setInt("@pi_ti_transactiontype", req.getTransactionType());
             callableStatement.setString("@pi_vc_wallet id_01", req.getWalletId_01());
             callableStatement.setString("@pi_vc_wallet id_02", req.getWalletId_02());
             callableStatement.setString("@pi_vc_rrn", req.getRrn());

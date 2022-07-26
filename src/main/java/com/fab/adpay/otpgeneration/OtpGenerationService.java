@@ -56,9 +56,7 @@ public class OtpGenerationService {
         GenerateOtpServiceRequest generateOtpServiceRequest = buildGenerateOtpServiceRequest(mobileNumber);
         String referenceNumber = fetchReferenceNumberFromExternalOTPGenerationApi(generateOtpServiceRequest);
         otpGenerationResponse.setReferenceNumber(referenceNumber);
-        otpGenerationResponse.setCardId(tokenDetails.getCardId());
-
-
+        otpGenerationResponse.setCardId(request.getValue());
         return otpGenerationResponse;
     }
 

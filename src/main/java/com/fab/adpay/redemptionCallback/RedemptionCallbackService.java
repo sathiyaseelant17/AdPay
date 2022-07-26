@@ -15,7 +15,6 @@ public class RedemptionCallbackService {
             callableStatement.registerOutParameter("@pi_vc_RedeemAckRef", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_si_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.setInt("@pi_ti_txnsource", Integer.parseInt(headers.get("transactionsource")));
             callableStatement.setString("@pi_vc_cardId", request.getCardId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
@@ -23,6 +22,7 @@ public class RedemptionCallbackService {
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactiontimezone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryoforigin"));
+            callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTxnRef());

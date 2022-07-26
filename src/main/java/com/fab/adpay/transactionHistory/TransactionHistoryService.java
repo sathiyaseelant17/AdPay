@@ -21,6 +21,8 @@ public class TransactionHistoryService {
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setTimestamp("@pi_dt_transactionDateTime",Timestamp.valueOf(headers.get("transactiondatetime")));
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+
+            callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
             callableStatement.setString("@pi_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_startdate", request.getStartDate());
