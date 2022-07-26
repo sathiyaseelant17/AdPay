@@ -15,6 +15,9 @@ import com.fab.adpay.redemptionCallback.RedemptionCallbackService;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryRequest;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
+import com.fab.adpay.redemptionRequest.RedemptionReqRequest;
+import com.fab.adpay.redemptionRequest.RedemptionReqResponse;
+import com.fab.adpay.redemptionRequest.RedemptionReqService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -102,6 +105,9 @@ public class AdPayController {
 
     @Autowired
     RedemptionInquiryService redemptionInquiryService;
+
+    @Autowired
+    RedemptionReqService redemptionReqService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -293,4 +299,14 @@ public class AdPayController {
         return response;
     }
 
+    @PostMapping("/redemptionRequest")
+    public RedemptionReqResponse redemptionRequest(@RequestHeader Map<String, String> headers, @RequestBody RedemptionReqRequest request) throws SQLException, JsonProcessingException {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        RedemptionReqResponse response = redemptionReqService.redemptionRequest(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
+        return response;
+    }
 }

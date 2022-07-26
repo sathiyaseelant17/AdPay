@@ -35,10 +35,10 @@ public class UpdateWalletLimitService {
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
-            callableStatement.setString("@pi_vc_wallet id", request.getWalletId());
-            callableStatement.setString("@pi_vc_default wallet", request.getDefaultWallet());
-            callableStatement.setString("@pi_vc_wallet label", request.getWalletLabel());
-            callableStatement.setInt("@pi_de_wallet limit", request.getWalletLimit());
+            callableStatement.setString("@pi_vc_wallet_id", request.getWalletId());
+            callableStatement.setString("@pi_vc_default_wallet", request.getDefaultWallet());
+            callableStatement.setString("@pi_vc_wallet_label", request.getWalletLabel());
+            callableStatement.setInt("@pi_de_wallet_limit", request.getWalletLimit());
 
             callableStatement.execute();
 

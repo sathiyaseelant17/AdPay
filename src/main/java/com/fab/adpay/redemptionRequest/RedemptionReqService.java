@@ -17,12 +17,14 @@ public class RedemptionReqService {
     public RedemptionReqResponse redemptionRequest(Map<String, String> headers, RedemptionReqRequest request)
             throws SQLException {
         try (Connection connection = Datasource.getConnection(); CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_FundsTransfer_request(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?)}")) {
+                "{call proc_mml_FundsTransfer_request(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_si_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_de_avlbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_curbal", Types.DECIMAL);
+            callableStatement.registerOutParameter("@pi_vc_cardId", Types.VARCHAR);
+            callableStatement.registerOutParameter("@pi_vc_RedeemAckRef", Types.VARCHAR);
 
             callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
@@ -30,13 +32,13 @@ public class RedemptionReqService {
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
+            callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_cardId", request.getCardId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTransactionRef());
             callableStatement.setInt("@pi_nm_txnamount", request.getTransactionAmount());
-            callableStatement.setString("@pi_vc_RedeemAckRef", request.getRedeemAcknowledgementRef());
             callableStatement.setInt("@pi_nm_billamount", request.getBillAmount());
             callableStatement.setString("@pi_vc_txncurrcode", request.getTransactionCurrencyCode());
             callableStatement.setString("@pi_vc_billcurrcode", request.getBillCurrencyCode());
@@ -74,6 +76,9 @@ public class RedemptionReqService {
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
             response.setAvailableBalance(callableStatement.getBigDecimal("@po_de_avlbal"));
             response.setCurrentBalance(callableStatement.getBigDecimal("@po_de_curbal"));
+            response.setCardId(callableStatement.getString("@pi_vc_cardId"));
+            response.setCardId(callableStatement.getString("@pi_vc_RedeemAckRef"));
+
 
             logger.debug("TRANSACTION ID: {} Redemption Inquiry RESPONSE:{}", headers.get("transactionid"), response);
 

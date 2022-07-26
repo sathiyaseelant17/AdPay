@@ -10,10 +10,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @ToString
 public class RedemptionReqResponse {
-
+    private String cardId;
     private int errorCode;
     private String errorText;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;
+    private String redeemAcknowledgementRef;
+
 
 }

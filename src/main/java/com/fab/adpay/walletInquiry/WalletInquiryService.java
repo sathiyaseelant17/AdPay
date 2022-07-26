@@ -61,6 +61,19 @@ public class WalletInquiryService {
                     walletInquiryData.setFirstNameArabic(callableStatement.getString("firstname_arabic"));
                     walletInquiryData.setMiddleNameArabic(callableStatement.getString("middlename_arabic"));
                     walletInquiryData.setLastNameEnglish(callableStatement.getString("lastname_arabic"));
+                    walletInquiryData.setMobile(callableStatement.getString("mobile"));
+                    walletInquiryData.setEmailId(callableStatement.getString("email"));
+                    walletInquiryData.setWalletStatus(callableStatement.getString("walletstatus#"));
+                    walletInquiryData.setCreateDate(callableStatement.getString("createdate"));
+                    walletInquiryData.setLastTransactionDate(callableStatement.getInt("lasttxndate"));
+                    walletInquiryData.setLastTopupAmount(callableStatement.getString("lasttopupamount"));
+                    walletInquiryData.setLastTopupDate(callableStatement.getString("lasttopupdate"));
+                    walletInquiryData.setWalletTopupLimit(callableStatement.getBigDecimal("wallettopuplimit"));
+                    walletInquiryData.setAvailableBalance(callableStatement.getString("avlbal"));
+                    walletInquiryData.setCurrentBalance(callableStatement.getBigDecimal("curbal"));
+                    walletInquiryData.setAdgeId(callableStatement.getString("adge id"));
+                    walletInquiryData.setServiceId(callableStatement.getString("service id"));
+
                     walletInquiryDataList.add(walletInquiryData);
                 }
                 response.setErrorCode(callableStatement.getInt("@po_i_errcode"));

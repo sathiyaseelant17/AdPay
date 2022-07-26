@@ -15,7 +15,7 @@ public class AddWalletService {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
-            callableStatement.registerOutParameter("@po_vc_newwalletid", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_new_wallet_id", Types.VARCHAR);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
@@ -24,14 +24,14 @@ public class AddWalletService {
                     Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
 
-            callableStatement.setString("@pi_vc_walletid", req.getWalletId());
-            callableStatement.setString("@pi_vc_walletlabel",req.getWalletLabel());
-            callableStatement.setBigDecimal("@pi_de_walletlimit", req.getWalletLimit());
+            callableStatement.setString("@pi_vc_wallet_id", req.getWalletId());
+            callableStatement.setString("@pi_vc_wallet_label",req.getWalletLabel());
+            callableStatement.setBigDecimal("@pi_de_wallet_limit", req.getWalletLimit());
 
             callableStatement.execute();
 
             AddWalletResponse response = new AddWalletResponse();
-            response.setNewWalletId(callableStatement.getString("@po_vc_newwalletid"));
+            response.setNewWalletId(callableStatement.getString("@po_vc_new_wallet_id"));
             response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));
 

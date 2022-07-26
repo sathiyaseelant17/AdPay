@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RedemptionCallbackRequest {
+
     private String cardId;
+    private int transactionSource;
     private int transactionType;
     private String sourceMakerId;
     private String sourcePosId;
@@ -18,5 +20,4 @@ public class RedemptionCallbackRequest {
     private String redeemDateTime;
     private String redeemDeclCode;
     private String redeemDeclDesc;
-
 }

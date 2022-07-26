@@ -15,6 +15,7 @@ public class WalletTopUpRequest {
 
     private String cardId;
     private int txntype;
+    private int transactionSource;
     private String txnIdentifier;
     private String sourceMakerId;
     private String sourcePosId;

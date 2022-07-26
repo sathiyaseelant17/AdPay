@@ -10,6 +10,7 @@ import lombok.ToString;
 public class RedemptionReqRequest {
 
     private String cardId;
+    private int transactionSource;
     private int transactionType;
     private String sourceMakerId;
     private String sourcePosId;
@@ -44,7 +45,6 @@ public class RedemptionReqRequest {
     private String beneficiaryBankAddress2;
     private String beneficiaryBankAddress3;
     private String beneficiaryBankBic;
-    private String redeemAcknowledgementRef;
 
 }
 

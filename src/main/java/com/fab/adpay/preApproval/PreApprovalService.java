@@ -34,6 +34,7 @@ public class PreApprovalService {
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+
             callableStatement.setString("@pi_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_adgeid", request.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", request.getServiceId());
