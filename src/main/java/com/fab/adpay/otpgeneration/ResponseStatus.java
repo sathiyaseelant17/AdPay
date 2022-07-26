@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GenerateOtpServiceResponse {
+public class ResponseStatus {
 
-	private ApplicationArea applicationArea;
-	private ResponseStatus responseStatus;
-	private ResponseDataArea dataArea;
+	private String status;
 
 }
