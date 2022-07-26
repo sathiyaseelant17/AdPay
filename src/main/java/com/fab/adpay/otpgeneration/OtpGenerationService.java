@@ -68,7 +68,7 @@ public class OtpGenerationService {
         walletInquiryRequest.setIdentityNumber(request.getValue());
         WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
         LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
-        return "";
+        return walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile();
     }
 
     public String fetchReferenceNumberFromExternalOTPGenerationApi(GenerateOtpServiceRequest generateOtpServiceRequest)
