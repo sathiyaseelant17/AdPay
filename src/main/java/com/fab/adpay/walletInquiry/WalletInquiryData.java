@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,13 +24,13 @@ public class WalletInquiryData {
     private String email;
     private String walletStatus;
     private String createDate;
-    private String lastTransaxtionDate;
-    private String lastTopupAmountDate;
-    private String walletTopupLimit;
+    private int lastTransactionDate;
+    private String lastTopupAmount;
+    private String lastTopupDate;
+    private BigDecimal walletTopupLimit;
     private String availableBalance;
-    private String currentBalance;
+    private BigDecimal currentBalance;
     private String adgeId;
     private String serviceId;
-    
-    
+
 }

@@ -26,13 +26,12 @@ public class WalletTopUpService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
 
-
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelid"));
+            callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
 
             callableStatement.setInt("@pi_ti_txnsource", req.getTransactionSource());
             callableStatement.setString("@pio_vc_cardid", req.getCardId());
