@@ -61,15 +61,17 @@ public class WalletInquiryService {
                     walletInquiryData.setLastNameEnglish(rs.getString("lastname_arabic"));
                     walletInquiryData.setMobile(rs.getString("mobile"));
                     walletInquiryData.setEmail(rs.getString("emailid"));
-//                    walletInquiryData.setWalletStatus(rs.getString("mobile"));
-//                    walletInquiryData.(rs.getString("email"));
-//                    walletInquiryData.setMobile(rs.getString("mobile"));
-//                    walletInquiryData.setEmail(rs.getString("email"));
-//                    walletInquiryData.setMobile(rs.getString("mobile"));	
-//                    walletInquiryData.setEmail(rs.getString("email"));
-//                    walletInquiryData.setMobile(rs.getString("mobile"));
-////                  walletInquiryData.setEmail(rs.getString("email"));
-                    walletInquiryDataList.add(walletInquiryData);
+                        walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
+                        walletInquiryData.setCreateDate(rs.getString("createdate"));
+//                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
+                        walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
+                        walletInquiryData.setWalletTopupLimit(rs.getBigDecimal("wallettopuplimit"));
+                        walletInquiryData.setAvailableBalance(rs.getString("avlbal"));
+                        walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
+                        walletInquiryData.setAdgeId(rs.getString("adge id"));
+                        walletInquiryData.setServiceId(rs.getString("service id"));
+
+                        walletInquiryDataList.add(walletInquiryData);
                 }
                 response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
                 response.setErrorText(callableStatement.getString("@po_vc_errortext"));
