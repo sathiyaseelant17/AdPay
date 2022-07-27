@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class WalletStatusUpdateResponse {
-
+	private String cardId;
+	private int transactionId;
 	private int errorCode;
 	private String errorText;
 }

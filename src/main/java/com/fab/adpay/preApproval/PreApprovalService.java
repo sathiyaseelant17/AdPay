@@ -25,20 +25,20 @@ public class PreApprovalService {
             throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
                 "{call proc_mml_preapproval(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
-
+        	
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
-            callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
+            callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
-            callableStatement.setString("@pi_vc_cardid", request.getCardId());
+            callableStatement.setString("@pio_vc_cardid", request.getCardId());
             callableStatement.setString("@pi_vc_adgeid", request.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", request.getServiceId());
-            callableStatement.setString("@@Pi_vc_servicename", request.getServiceName());
+            callableStatement.setString("@Pi_vc_servicename", request.getServiceName());
             callableStatement.setInt("@pi_ti_requesttype", request.getRequestType());
 
             callableStatement.execute();
