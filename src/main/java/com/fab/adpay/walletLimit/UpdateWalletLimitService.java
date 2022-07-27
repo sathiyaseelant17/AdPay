@@ -29,7 +29,7 @@ public class UpdateWalletLimitService {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
-            callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
+            callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));

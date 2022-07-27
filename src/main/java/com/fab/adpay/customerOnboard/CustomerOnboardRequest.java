@@ -5,7 +5,7 @@
  */
 package com.fab.adpay.customerOnboard;
 
-import java.util.List;
+import com.fab.adpay.customerOnboard.model.RequestData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,16 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerOnboardRequest {
+    private String requestId;
+    private String requestTimeStamp;
+    private String channelId;
+    private RequestData requestData;
 
-    private String applicationRefNo;
-    private String applicationStatus;
-    private String applicationRemarks;
-    private String product;
-    private String UAEPassResult;
-    private String TandCAgreed;
-    private String websitePageIdentifier;
-    private List<String> documentDetails;
-    private String actionName;
-    private  CustomerDetails customerDetails;
-    private FatcaCRSDetails fatcaCRSDetails;
 }

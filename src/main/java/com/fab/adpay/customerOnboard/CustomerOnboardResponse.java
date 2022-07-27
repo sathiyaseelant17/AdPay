@@ -5,6 +5,20 @@
  */
 package com.fab.adpay.customerOnboard;
 
-public class CustomerOnboardResponse {
+import com.fab.adpay.customerOnboard.model.ResponseData;
+import com.fab.adpay.customerOnboard.model.ResponseStatus;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerOnboardResponse {
+    private String requestId;
+    private String requestTimeStamp;
+    private String channelId;
+    private ResponseStatus responseStatus;
+    private String websitePageIdentifier;
+    private ResponseData responseData;
 }
