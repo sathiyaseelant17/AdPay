@@ -25,7 +25,7 @@ public class CustomerOnboardService {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Logger logger = LoggerFactory.getLogger(CustomerOnboardService.class);
 
-    public CustomerOnboardResponse customerOnboard(Map<String, String> headers, CustomerOnboardRequest request) throws JsonProcessingException {
+    public CustomerOnboardResponse customerOnboard(Map<String, String> headers, CustomerOnboardRequest request) throws Exception {
 
         String URL = System.getenv("INITIATE_BPMS");
         HttpHeaders header = new HttpHeaders();
@@ -33,6 +33,7 @@ public class CustomerOnboardService {
         HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
         CustomerOnboardResponse response=new CustomerOnboardResponse();
        try {
+           logger.info("Transaction Id : {}",URL);
            ResponseEntity<String> responseEntity =restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
            logger.info("Transaction Id : {} BPMS Status Code: {}",headers.get("transactionid"),responseEntity.getStatusCode());
            if (responseEntity.getStatusCode() == HttpStatus.OK) {
@@ -40,10 +41,11 @@ public class CustomerOnboardService {
              logger.info("Transaction Id : {} Response body: {}",headers.get("transactionid"),bpmsResponse);
              response = OBJECT_MAPPER.readValue(bpmsResponse,CustomerOnboardResponse.class);
         }else {
-            throw new RuntimeException("BPMS Service Response status fails");
+            throw new Exception("BPMS Service Response status fails");
         }
        }catch(Exception e){
-           throw new RuntimeException("Error while connecting to BPMS service");
+           logger.info("Transaction Id : {}",e);
+           throw new Exception("Error while connecting to BPMS service");
        }
 return response;
     }

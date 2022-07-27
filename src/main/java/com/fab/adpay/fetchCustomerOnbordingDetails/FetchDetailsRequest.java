@@ -1,6 +1,6 @@
 package com.fab.adpay.fetchCustomerOnbordingDetails;
 
-import com.fab.adpay.customerOnboard.model.RequestData;
+import com.fab.adpay.fetchCustomerOnbordingDetails.model.RequestData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

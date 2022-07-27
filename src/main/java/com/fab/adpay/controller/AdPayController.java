@@ -260,7 +260,7 @@ public class AdPayController {
     @PostMapping("/customerOnboarding")
     CustomerOnboardResponse customerOnboard(@RequestHeader Map<String, String> headers,
                                             @Valid @RequestBody CustomerOnboardRequest request)
-            throws SQLException, IOException {
+            throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
@@ -276,7 +276,7 @@ public class AdPayController {
     @PostMapping("/fetchOnboardingDetails")
     FetchDetailsResponse customerOnboard(@RequestHeader Map<String, String> headers,
                                          @Valid @RequestBody FetchDetailsRequest request)
-            throws SQLException, IOException {
+            throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
