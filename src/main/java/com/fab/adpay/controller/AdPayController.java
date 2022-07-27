@@ -6,6 +6,9 @@ import com.fab.adpay.addWallet.AddWalletService;
 import com.fab.adpay.customerOnboard.CustomerOnboardRequest;
 import com.fab.adpay.customerOnboard.CustomerOnboardResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardService;
+import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsRequest;
+import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsResponse;
+import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -102,6 +105,9 @@ public class AdPayController {
 
     @Autowired
     RedemptionInquiryService redemptionInquiryService;
+
+    @Autowired
+    FetchDetailsService fetchDetailsService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -260,6 +266,22 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         CustomerOnboardResponse response = customerOnboardService.customerOnboard(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
+        return response;
+    }
+
+    @PostMapping("/fetchOnboardingDetails")
+    FetchDetailsResponse customerOnboard(@RequestHeader Map<String, String> headers,
+                                         @Valid @RequestBody FetchDetailsRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        FetchDetailsResponse response = fetchDetailsService.fetchCustomerOnboardingDetails(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
