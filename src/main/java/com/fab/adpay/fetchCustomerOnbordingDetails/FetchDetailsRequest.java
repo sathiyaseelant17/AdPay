@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FetchDetailsRequest {
-    private String requestId;
+    private String requestID;
     private String requestTimeStamp;
-    private String channelId;
+    private String channelID;
     private RequestData requestData;
 }

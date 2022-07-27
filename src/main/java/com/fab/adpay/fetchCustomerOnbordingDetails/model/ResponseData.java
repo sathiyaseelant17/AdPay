@@ -19,7 +19,6 @@ public class ResponseData {
     private String TandCAgreed;
     private String websitePageIdentifier;
     private List<String> documentDetails;
-    private String actionName;
     private CustomerDetails customerDetails;
     private FatcaCRSDetails fatcaCRSDetails;
 }
