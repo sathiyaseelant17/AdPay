@@ -20,7 +20,7 @@ public class FetchDetailsService {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Logger logger = LoggerFactory.getLogger(FetchDetailsService.class);
 
-    public FetchDetailsResponse fetchCustomerOnboardingDetails(Map<String, String> headers, FetchDetailsRequest request) throws JsonProcessingException {
+    public FetchDetailsResponse fetchCustomerOnboardingDetails(Map<String, String> headers, FetchDetailsRequest request) throws Exception {
 
         String URL = System.getenv("BPMS_ENQUIRY");
         HttpHeaders header = new HttpHeaders();
@@ -28,6 +28,7 @@ public class FetchDetailsService {
         HttpEntity<FetchDetailsRequest> entity = new HttpEntity<FetchDetailsRequest>(request, header);
         FetchDetailsResponse response=new FetchDetailsResponse();
         try {
+            logger.info("Transaction Id : {}",URL);
             ResponseEntity<String> responseEntity =restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
             logger.info("Transaction Id : {} BPMS Status Code: {}",headers.get("transactionid"),responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
@@ -35,10 +36,11 @@ public class FetchDetailsService {
                 logger.info("Transaction Id : {} Response body: {}",headers.get("transactionid"),bpmsResponse);
                 response = OBJECT_MAPPER.readValue(bpmsResponse,FetchDetailsResponse.class);
             }else {
-                throw new RuntimeException("BPMS Service Response status fails");
+                throw new Exception("BPMS Service Response status fails");
             }
         }catch(Exception e){
-            throw new RuntimeException("Error while connecting to BPMS service");
+            logger.info("Transaction Id : {}",e);
+            throw new Exception("Error while connecting to BPMS fetch service");
         }
         return response;
     }
