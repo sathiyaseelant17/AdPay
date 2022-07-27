@@ -1,6 +1,7 @@
 package com.fab.adpay.transactionHistory;
 
 import com.fab.adpay.Datasource;
+import com.fab.adpay.exception.ElpasoException;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -28,6 +29,7 @@ public class TransactionHistoryService {
             callableStatement.setString("@pi_vc_startdate", request.getStartDate());
             callableStatement.setString("@pi_vc_enddate", request.getEndDate());
             callableStatement.setInt("@pi_i_maxrecordstofetch", request.getNumberOfTxns());
+            callableStatement.setInt("@pi_ti_requestmode",request.getRequestMode());
             callableStatement.execute();
             List<TransactionHistory> transactionHistoryList = new ArrayList<>();
             TransactionHistoryResponse response = new TransactionHistoryResponse();
@@ -37,28 +39,40 @@ public class TransactionHistoryService {
                 response.setTransactionHistory(null);
 
             } else {
-
-                ResultSet rs = callableStatement.getResultSet();
-                while (rs.next()) {
-                    TransactionHistory transactionHistory = new TransactionHistory();
-                    transactionHistory.setTxnDateTime(rs.getString("txndatetime"));
-                    transactionHistory.setDesc1(rs.getString("desc1"));
-                    transactionHistory.setDesc2(rs.getString("desc2"));
-                    transactionHistory.setTransactionAmount(rs.getBigDecimal("txnamount"));
-                    transactionHistory.setCreditDebitFlag(rs.getString("crdbflag"));
-                    transactionHistory.setCurrentBalance(rs.getBigDecimal("currentbalance"));
-                    transactionHistory.setTransactionSourceDesc(rs.getString("txnsourcedesc"));
-                    transactionHistory.setTransactionTypeDesc(rs.getString("txntypedesc"));
-                    transactionHistory.setTransactionCurrencyCode(rs.getString("txncurrencycode"));
-                    transactionHistory.setBilledCurrencyCode(rs.getString("billcurrencycode"));
-                    transactionHistory.setBilledAmount(rs.getBigDecimal("billamount"));
-                    transactionHistory.setTransactionReferenceNumber(rs.getString("txnreferenceNo"));
-                    transactionHistory.setMcc(rs.getString("mcc"));
-                    transactionHistoryList.add(transactionHistory);
+                try (ResultSet rs = callableStatement.executeQuery()) {
+                    if( rs!= null) {
+//                        ResultSet rs = callableStatement.getResultSet();
+                        while (rs.next()) {
+                            TransactionHistory transactionHistory = new TransactionHistory();
+                            transactionHistory.setTxnDateTime(rs.getString("txndatetime"));
+                            transactionHistory.setDesc1(rs.getString("desc1"));
+                            transactionHistory.setDesc2(rs.getString("desc2"));
+                            transactionHistory.setTransactionAmount(rs.getBigDecimal("txnamount"));
+                            transactionHistory.setCreditDebitFlag(rs.getString("crdbflag"));
+                            transactionHistory.setCurrentBalance(rs.getBigDecimal("currentbalance"));
+                            transactionHistory.setTransactionSourceDesc(rs.getString("txnsourcedesc"));
+                            transactionHistory.setTransactionTypeDesc(rs.getString("txntypedesc"));
+                            transactionHistory.setTransactionCurrencyCode(rs.getString("txncurrencycode"));
+                            transactionHistory.setBilledCurrencyCode(rs.getString("billcurrencycode"));
+                            transactionHistory.setBilledAmount(rs.getBigDecimal("billamount"));
+                            transactionHistory.setTransactionReferenceNumber(rs.getString("txnreferenceNo"));
+                            transactionHistory.setMcc(rs.getString("mcc"));
+                            transactionHistoryList.add(transactionHistory);
+                        }
+                        response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
+                        response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+                        response.setTransactionHistory(transactionHistoryList);
+                    }  else {
+                        response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
+                        response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+                        response.setTransactionHistory(null);
+                    }
+                } catch ( Exception e) {
+                    if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
+                        throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                                callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+                    }
                 }
-                response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
-                response.setErrorText(callableStatement.getString("@po_vc_errortext"));
-                response.setTransactionHistory(transactionHistoryList);
             }
             return response;
         }
