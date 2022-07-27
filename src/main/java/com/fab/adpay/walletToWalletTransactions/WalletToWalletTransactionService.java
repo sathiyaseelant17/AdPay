@@ -14,8 +14,9 @@ public class WalletToWalletTransactionService {
     public static WalletToWalletTransactionResponse walletToWalletTxnService(Map<String, String> headers, WalletToWalletTransactionRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
-                     "{call  proc_mml_i_wallettowallet_trans(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)}")) {
-            callableStatement.registerOutParameter("@po_vc_wallet_id_01", Types.VARCHAR);
+                     "{call  proc_mml_i_wallettowallet_trans(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?)}")) {
+           
+        	callableStatement.registerOutParameter("@po_vc_wallet_id_01", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_de_availableBalance_01", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_currentBalance_01", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_vc_wallet_id_02", Types.VARCHAR);
@@ -31,8 +32,7 @@ public class WalletToWalletTransactionService {
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@Pi_vc_clientIdentifer", headers.get("channelId"));
-
+            callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));
 
             callableStatement.setString("@pi_vc_wallet_id_01", req.getWalletId_01());
             callableStatement.setString("@pi_vc_wallet_id_02", req.getWalletId_02());
@@ -49,15 +49,21 @@ public class WalletToWalletTransactionService {
             callableStatement.setString("@pi_vc_feedescription", req.getFeeDescription());
 
             callableStatement.execute();
-            if (!(callableStatement.getInt("@po_i_errcode") == 0)) {
-                throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_i_errcode"),
+            
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+            	 System.out.println(callableStatement.getString("@po_vc_errortext"));
+            	 System.out.println(callableStatement.getInt("@po_vc_errcode"));
+            	 System.out.println(headers.get("transactionid"));
+
+                throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_vc_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+               
             }
             WalletToWalletTransactionResponse res = new WalletToWalletTransactionResponse();
-            res.setErrorCode(callableStatement.getInt("@po_i_errcode"));
+            res.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
             res.setErrorText(callableStatement.getString("@po_vc_errortext"));
-            res.setWalletId_01(callableStatement.getString("@po_vc_wallet id_01"));
-            res.setWalletId_02(callableStatement.getString("@po_vc_wallet id_02"));
+            res.setWalletId_01(callableStatement.getString("@po_vc_wallet_id_01"));
+            res.setWalletId_02(callableStatement.getString("@po_vc_wallet_id_02"));
             res.setAvailableBalance_01(callableStatement.getBigDecimal("@po_de_availableBalance_01"));
             res.setAvailableBalance_02(callableStatement.getBigDecimal("@po_de_availableBalance_02"));
             res.setCurrentBalance_01(callableStatement.getBigDecimal("@po_de_currentBalance_01"));

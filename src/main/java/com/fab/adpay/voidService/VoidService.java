@@ -25,7 +25,7 @@ public class VoidService {
             callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
+            callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
 
             callableStatement.setString("@pio_vc_cardid", req.getCardId());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
@@ -39,7 +39,7 @@ public class VoidService {
             callableStatement.setString("@pi_vc_org_URN", req.getOrg_URN());
             callableStatement.setString("@pi_vc_loanID", req.getLoanId());
             callableStatement.setString("@pi_vc_sourceTxnReferenceNo", req.getSourceTxnReferenceNo());
-            callableStatement.setString("@pi_vc_mcc", req.getNmc());
+            callableStatement.setString("@pi_vc_mcc", req.getMcc());
             callableStatement.setString("@pi_vc_adgeid", req.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", req.getServiceId());
 
