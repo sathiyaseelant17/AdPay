@@ -1,79 +1,86 @@
 package com.fab.adpay.transactionHistory;
 
-import com.fab.adpay.Datasource;
-import com.fab.adpay.exception.ElpasoException;
-import org.springframework.stereotype.Service;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.fab.adpay.Datasource;
+import com.fab.adpay.exception.ElpasoException;
 
 @Service
 public class TransactionHistoryService {
 
-    public TransactionHistoryResponse getTransactionHistory(Map<String, String> headers,
-            TransactionHistoryRequest request) throws SQLException {
-        try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_get_cardtxnhistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
-            callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionHistoryService.class);
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-            callableStatement.setTimestamp("@pi_dt_transactionDateTime",Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+	public TransactionHistoryResponse getTransactionHistory(Map<String, String> headers,
+															TransactionHistoryRequest request) throws SQLException {
+		try (Connection connection = Datasource.getConnection();
+			 CallableStatement callableStatement = connection.prepareCall(
+					 "{call proc_get_cardTxnHistory_wallet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
+			callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
+			callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
+			callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
+			callableStatement.setTimestamp("@pi_dt_transactionDateTime",
+					Timestamp.valueOf(headers.get("transactiondatetime")));
+			callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
+			callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
+			callableStatement.setString("@pi_vc_cardid", request.getValue());
+			callableStatement.setString("@pi_vc_startdate", request.getStartDate());
+			callableStatement.setString("@pi_vc_enddate", request.getEndDate());
+			callableStatement.setInt("@pi_i_numberOfTxns", request.getNumberOfTxns());
+			List<TransactionHistory> transactionHistoryResponseList=new ArrayList<>();
+			TransactionHistoryResponse res=new TransactionHistoryResponse();
+			try(ResultSet rs=callableStatement.executeQuery()){
+				if(rs!=null) {
+					while(rs.next()){
+						LOGGER.info("Transaction id: {} currentBal: {}", headers.get("transactionid"),
+								rs.getBigDecimal("@po_nm_currentbal"));
 
-            callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
-            callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
-            callableStatement.setString("@pi_vc_cardid", request.getCardId());
-            callableStatement.setString("@pi_vc_startdate", request.getStartDate());
-            callableStatement.setString("@pi_vc_enddate", request.getEndDate());
-            callableStatement.setInt("@pi_i_maxrecordstofetch", request.getNumberOfTxns());
-            callableStatement.execute();
-            List<TransactionHistory> transactionHistoryList = new ArrayList<>();
-            TransactionHistoryResponse response = new TransactionHistoryResponse();
-            if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
-                response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
-                response.setErrorText(callableStatement.getString("@po_vc_errortext"));
-                response.setTransactionHistory(null);
+						TransactionHistory response = new TransactionHistory();
+						response.setTxnDateTime(String.valueOf(rs.getTimestamp("@po_dt_txndatetime")));
+						response.setDesc1(rs.getString("@po_vc_desc1"));
+						response.setDesc2(rs.getString("@po_vc_desc2"));
+						response.setTransactionAmount(rs.getBigDecimal("@po_nm_txnamount"));
+						response.setCreditDebitFlag(rs.getString("@po_c_crdbflag"));
+						response.setCurrentBalance(rs.getBigDecimal("@po_nm_currentbal"));
+						response.setTransactionSourceDesc(rs.getString("@po_vc_txnsourcedesc"));
+						response.setTransactionTypeDesc(rs.getString("@po_vc_txntypedesc"));
+						response.setTransactionCurrencyCode(rs.getString("@po_vc_txncurrcode"));
+						response.setBilledCurrencyCode(rs.getString("@po_vc_billcurrcode"));
+						response.setBilledAmount(rs.getBigDecimal("@po_nm_billamount"));
+						response.setTransactionReferenceNumber(rs.getString("@po_vc_txnrefno"));
+						response.setMcc(rs.getString("@po_vc_mcc"));
 
-            } else {
-                try (ResultSet rs = callableStatement.executeQuery()) {
-                    if( rs!= null) {
-//                        ResultSet rs = callableStatement.getResultSet();
-                        while (rs.next()) {
-                            TransactionHistory transactionHistory = new TransactionHistory();
-                            transactionHistory.setTxnDateTime(rs.getString("txndatetime"));
-                            transactionHistory.setDesc1(rs.getString("desc1"));
-                            transactionHistory.setDesc2(rs.getString("desc2"));
-                            transactionHistory.setTransactionAmount(rs.getBigDecimal("txnamount"));
-                            transactionHistory.setCreditDebitFlag(rs.getString("crdbflag"));
-                            transactionHistory.setCurrentBalance(rs.getBigDecimal("currentbalance"));
-                            transactionHistory.setTransactionSourceDesc(rs.getString("txnsourcedesc"));
-                            transactionHistory.setTransactionTypeDesc(rs.getString("txntypedesc"));
-                            transactionHistory.setTransactionCurrencyCode(rs.getString("txncurrencycode"));
-                            transactionHistory.setBilledCurrencyCode(rs.getString("billcurrencycode"));
-                            transactionHistory.setBilledAmount(rs.getBigDecimal("billamount"));
-                            transactionHistory.setTransactionReferenceNumber(rs.getString("txnreferenceNo"));
-                            transactionHistory.setMcc(rs.getString("mcc"));
-                            transactionHistoryList.add(transactionHistory);
-                        }
-                        response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
-                        response.setErrorText(callableStatement.getString("@po_vc_errortext"));
-                        response.setTransactionHistory(transactionHistoryList);
-                    }  else {
-                        response.setErrorCode(String.valueOf(callableStatement.getInt("@po_vc_errcode")));
-                        response.setErrorText(callableStatement.getString("@po_vc_errortext"));
-                        response.setTransactionHistory(null);
-                    }
-                } catch ( Exception e) {
-                    if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
-                        throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
-                                callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
-                    }
-                }
-            }
-            return response;
-        }
-    }
+						transactionHistoryResponseList.add(response);
+
+					}
+					LOGGER.info("Transaction id: {} TransactionResultSet data: {}", headers.get("transactionid"),
+							OBJECT_MAPPER.writeValueAsString(transactionHistoryResponseList));
+
+					res.setErrorCode(callableStatement.getInt("@po_i_errorcode"));
+					res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+					res.setTransactionHistory(transactionHistoryResponseList);
+				}else {
+					res.setErrorCode(callableStatement.getInt("@po_i_errorcode"));
+					res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+
+				}
+
+			}catch(Exception e) {
+				if ((callableStatement.getInt("@po_i_errorcode") != 0)) {
+					throw new ElpasoException(callableStatement.getInt("@po_i_errorcode"),
+							callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+				}
+			}
+
+			return res;
+		}
+	}
+
 }

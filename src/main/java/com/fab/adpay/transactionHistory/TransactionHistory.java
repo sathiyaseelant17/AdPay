@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class TransactionHistory {
-
     private BigDecimal billedAmount;
     private String billedCurrencyCode;
     private String creditDebitFlag;
@@ -25,4 +23,5 @@ public class TransactionHistory {
     private String transactionSourceDesc;
     private String transactionTypeDesc;
     private String txnDateTime;
+
 }
