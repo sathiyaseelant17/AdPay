@@ -32,9 +32,9 @@ public class FetchDetailsService {
             ResponseEntity<String> responseEntity =restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
             logger.info("Transaction Id : {} BPMS Status Code: {}",request.getRequestID(),responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                String bpmsResponse = responseEntity.getBody();
-                logger.info("Transaction Id : {} Response body: {}",request.getRequestID(),bpmsResponse);
-                response = OBJECT_MAPPER.readValue(bpmsResponse,FetchDetailsResponse.class);
+                String bpmsFetchResponse = responseEntity.getBody();
+                logger.info("Transaction Id : {} Response body: {}",request.getRequestID(),bpmsFetchResponse);
+                response = OBJECT_MAPPER.readValue(bpmsFetchResponse,FetchDetailsResponse.class);
             }else {
                 logger.info("Transaction Id : {} BPMS Status Code: {}",request.getRequestID(),responseEntity.getStatusCode());
                 throw new Exception("BPMS Service Response status fails");

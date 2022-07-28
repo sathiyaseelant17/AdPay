@@ -22,6 +22,7 @@ D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\customerOnboa
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\otpvalidation\OtpValidationService.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\controller\AdPayController.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\customerOnboard\model\FatcaCRSDetails.java
+D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\fetchCustomerOnbordingDetails\model\CustomerDetails.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\otpgeneration\GenerateOtpServiceRequest.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\transactionHistory\TransactionHistoryResponse.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\model\DuplicateCardError.java
@@ -43,6 +44,7 @@ D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\walletTransac
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\walletInquiry\WalletInquiryData.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\addWallet\AddWalletService.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\fetchCustomerOnbordingDetails\ApplicationDetails.java
+D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\fetchCustomerOnbordingDetails\model\FatcaCRSDetails.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\addWallet\AddWalletResponse.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\walletToWalletTransactions\WalletToWalletTransactionResponse.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\otpvalidation\OtpValidationApiPayload.java
@@ -60,6 +62,7 @@ D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\preApproval\P
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\redemptionCallback\RedemptionCallbackRequest.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\otpgeneration\OtpGenerationRequest.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\transactionHistory\TransactionHistoryRequest.java
+D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\fetchCustomerOnbordingDetails\model\ResponseStatus.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\customerOnboard\CustomerOnboardRequest.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\updateCustomer\UpdateCustomerRequest.java
 D:\asif\prodian\prodian_projects\AdPay\src\main\java\com\fab\adpay\otpvalidation\ErrorDetail.java

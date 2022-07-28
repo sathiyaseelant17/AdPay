@@ -1,7 +1,6 @@
 package com.fab.adpay.fetchCustomerOnbordingDetails.model;
 
-import com.fab.adpay.customerOnboard.model.CustomerDetails;
-import com.fab.adpay.customerOnboard.model.FatcaCRSDetails;
+
 import com.fab.adpay.fetchCustomerOnbordingDetails.ApplicationDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
