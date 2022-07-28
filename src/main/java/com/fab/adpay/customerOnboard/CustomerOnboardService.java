@@ -35,10 +35,10 @@ public class CustomerOnboardService {
        try {
            logger.info("Transaction Id : {}",URL);
            ResponseEntity<String> responseEntity =restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
-           logger.info("Transaction Id : {} BPMS Status Code: {}",headers.get("transactionid"),responseEntity.getStatusCode());
+           logger.info("Transaction Id : {} BPMS Status Code: {}",request.getRequestID(),responseEntity.getStatusCode());
            if (responseEntity.getStatusCode() == HttpStatus.OK) {
              String bpmsResponse = responseEntity.getBody();
-             logger.info("Transaction Id : {} Response body: {}",headers.get("transactionid"),bpmsResponse);
+             logger.info("Transaction Id : {} Response body: {}",request.getRequestID(),bpmsResponse);
              response = OBJECT_MAPPER.readValue(bpmsResponse,CustomerOnboardResponse.class);
         }else {
             throw new Exception("BPMS Service Response status fails");
