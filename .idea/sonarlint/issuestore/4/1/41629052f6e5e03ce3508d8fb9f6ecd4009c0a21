@@ -1,0 +1,28 @@
+
+w
+java:S2629E"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(®€ö°ûÿÿÿÿ
+w
+java:S2629Q"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(ÕÓøÿÿÿÿ
+R
+java:S2629X"7Use the built-in formatting to construct this argument.(ËÇ‘îüÿÿÿÿ
+M
+java:S2629^"7Use the built-in formatting to construct this argument.(”¶¨ÿ
+`	java:S112>"FDefine and throw a dedicated exception instead of using a generic one.(úøÂ‘øÿÿÿÿ
+`	java:S112_"FDefine and throw a dedicated exception instead of using a generic one.(¹…¶ºûÿÿÿÿ
+`	java:S112J"FDefine and throw a dedicated exception instead of using a generic one.(èİÎÑşÿÿÿÿ
+U
+java:S1854?":Remove this useless assignment to local variable "cardId".( î˜·ÿÿÿÿÿ
+\
+java:S3457E"AFormat specifiers should be used instead of string concatenation.(®€ö°ûÿÿÿÿ
+\
+java:S3457Q"AFormat specifiers should be used instead of string concatenation.(ÕÓøÿÿÿÿ
+[
+java:S1117T"@Rename "objectMapper" which hides the field declared at line 24.(¡ôó‰ùÿÿÿÿ
+\
+java:S3457X"AFormat specifiers should be used instead of string concatenation.(ËÇ‘îüÿÿÿÿ
+W
+java:S3457^"AFormat specifiers should be used instead of string concatenation.(”¶¨ÿ
+F
+java:S1481?"+Remove this unused "cardId" local variable.( î˜·ÿÿÿÿÿ
+L
+java:S1481@"1Remove this unused "mobileNumber" local variable.(ú—’‡øÿÿÿÿ
