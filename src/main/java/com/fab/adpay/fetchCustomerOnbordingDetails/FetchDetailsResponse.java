@@ -1,7 +1,8 @@
 package com.fab.adpay.fetchCustomerOnbordingDetails;
 
-import com.fab.adpay.customerOnboard.model.ResponseStatus;
+
 import com.fab.adpay.fetchCustomerOnbordingDetails.model.ResponseData;
+import com.fab.adpay.fetchCustomerOnbordingDetails.model.ResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
