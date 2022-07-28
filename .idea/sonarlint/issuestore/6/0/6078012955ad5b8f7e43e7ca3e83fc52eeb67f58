@@ -1,0 +1,6 @@
+
+n	java:S116!"YRename this field "CRSDeclaration" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ŒÊ¶
+m	java:S116 "SRename this field "USPerson" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ™Œùÿÿÿÿ
+w	java:S116'"bRename this field "UAEResidencyByRBIScheme" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ¥šÊ
+i	java:S116"TRename this field "TINNumber" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©äáÅ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œé½Õşÿÿÿÿ

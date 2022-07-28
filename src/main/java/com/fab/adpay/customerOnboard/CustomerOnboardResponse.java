@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class CustomerOnboardResponse {
     private String requestID;
     private String requestTimeStamp;
+    private String responseTimeStamp;
     private String channelID;
     private ResponseStatus responseStatus;
     private String websitePageIdentifier;
