@@ -58,7 +58,7 @@ public class CustomerOnboardService {
             callableStatement.setString("@pi_vc_copn_eng", "");
             callableStatement.setString("@pi_vc_copn_arb", "");
             callableStatement.setString("@pi_vc_embnm_eng", request.getEmbossedName());
-            callableStatement.setString("@pi_country_of_Residence", request.getCountryOfResidence());
+            callableStatement.setString("@pi_country_of_Residence", request.getCountryCode());
             callableStatement.setString("@pi_vc_dob",  request.getDateOfBirth());
             callableStatement.setString("@pi_vc_add1", request.getAddressLine1());
             callableStatement.setString("@pi_vc_occupation", request.getOccupation());
@@ -83,11 +83,11 @@ public class CustomerOnboardService {
             callableStatement.setString("@pi_vc_companyembname_english", request.getCompanyEmbName());
             callableStatement.setInt("@pi_i_identitytype", request.getIdType());
             callableStatement.setString("@pi_vc_identitytypedesc", "");
-            callableStatement.setString("@pi_vc_identityissuedate", request.getIdIssueDate());
-            callableStatement.setString("@pi_vc_identityexpirydate", request.getIdExpiryDate());
+            callableStatement.setString("@pi_vc_identityissuedate", request.getEidIssueDate());
+            callableStatement.setString("@pi_vc_identityexpirydate", request.getEidExpiryDate());
             callableStatement.setString("@pi_vc_identityno", "");
-            callableStatement.setString("@pi_vc_identityissueplace", request.getIdIssuePlace());
-            callableStatement.setString("@pi_i_identityissuecountry", request.getIdIssueCountry());
+            callableStatement.setString("@pi_vc_identityissueplace", request.getEidIssuePlace());
+            callableStatement.setString("@pi_i_identityissuecountry", request.getEidIssueCountry());
             callableStatement.setString("@pi_vc_preflanguage", request.getPreferredLanguage());
             callableStatement.setInt("@pi_ti_deliverymode", 2);
             callableStatement.setString("@pi_vc_deliveryposid", "A01");
