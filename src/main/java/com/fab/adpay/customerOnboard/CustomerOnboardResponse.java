@@ -15,9 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerOnboardResponse {
-    private String applicationRefNo;
-    private String applicationCreatedDate;
-    private String applicationExpiryDate;
-    private String applicationStatus;
-    private String applicationRemarks;
+//    private String applicationRefNo;
+//    private String applicationCreatedDate;
+//    private String applicationExpiryDate;
+//    private String applicationStatus;
+//    private String applicationRemarks;
+    private String errorCode;
+    private String errorText;
+    private String applicationId;
 }

@@ -66,7 +66,6 @@ public class CustomerOnboardRequest {
     private String dateOfEstablishment;
     private String telephoneNo;
     private float RiskRating;
-    private String RiskRatingAMLSegment;
     private String PEPStatus;
     private String T24Company;
     private String T24CompanyCode;
@@ -74,8 +73,7 @@ public class CustomerOnboardRequest {
     private String T24Target;
     private String T24AccountOfficer;
     private String T24Industry;
-    private String HoldMailService;
-    private String CashTransactionMode;
+    private String T24AMLSegment;
     private String employerName;
     private Float monthlyIncome;
     private String trdLicensePlaceOfIssue;
@@ -83,8 +81,6 @@ public class CustomerOnboardRequest {
     private String dualNationality;
     private String alternateNationality;
     private String employmentStatus;
-    private String industries;
-    private String avgTransactionValue;
     private String declaration;
     private String reasonForNoDeclaration;
     private String TINNumber;
@@ -92,11 +88,25 @@ public class CustomerOnboardRequest {
     private String USPerson;
     private String CRSDeclaration;
     private String nonUAENonUSTaxResident;
-    private String taxResidency;
     private String residentInOtherJurisdiction;
-    private String jurisdiction;
-    private String personalTaxJurisdiction;
     private String UAEResidencyByRBIScheme;
+    private String personalTaxJurisdiction;
+    private String averageTransactionValue;
+    private String industries;
+    private String jurisdiction;
+    private String tIN;
+    private String reasonNoTIN;
+    private String reason;
+    private String otherResidency;
+    private String residenceFromDate;
+    private String residenceToDate;
+
+
+
+
+
+
+
 
 
 }
