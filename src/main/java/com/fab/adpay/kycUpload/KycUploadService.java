@@ -74,12 +74,10 @@ public class KycUploadService {
 								callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
 				}
 			}catch(Exception e) {
-				LOGGER.info("Transaction id: {} Catch block excecuted: {}", headers.get("transactionid"),"Kyc catch block");
+				LOGGER.info("Transaction id: {} Catch block excecuted erorrCode: {}", headers.get("transactionid"),callableStatement.getInt("@po_vc_errcode"));
 				callableStatement.execute();
-				if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
 					throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
 							callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
-				}
 			}
 			DMSConfiguration DMSConfiguration = new DMSConfiguration();
 			DMSConfiguration.setRequestId("");
