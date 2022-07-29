@@ -26,17 +26,17 @@ public class FetchDetailsService {
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<FetchDetailsRequest> entity = new HttpEntity<FetchDetailsRequest>(request, header);
-        logger.info("Transaction Id : {} BPMS request entity: {}",request.getRequestID(),entity);
+        logger.info("Transaction Id : {} BPMS request entity: {}",headers.get("transactionid"),entity);
         FetchDetailsResponse response=new FetchDetailsResponse();
             logger.info("Transaction Id : {}",URL);
             ResponseEntity<String> responseEntity =restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
-            logger.info("Transaction Id : {} BPMS Status Code: {}",request.getRequestID(),responseEntity.getStatusCode());
+            logger.info("Transaction Id : {} BPMS Status Code: {}",headers.get("transactionid"),responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String bpmsFetchResponse = responseEntity.getBody();
-                logger.info("Transaction Id : {} Response body: {}",request.getRequestID(),bpmsFetchResponse);
+                logger.info("Transaction Id : {} Response body: {}",headers.get("transactionid"),bpmsFetchResponse);
                 response = OBJECT_MAPPER.readValue(bpmsFetchResponse,FetchDetailsResponse.class);
             }else {
-                logger.info("Transaction Id : {} BPMS Status Code: {}",request.getRequestID(),responseEntity.getStatusCode());
+                logger.info("Transaction Id : {} BPMS Status Code: {}",headers.get("transactionid"),responseEntity.getStatusCode());
                 throw new Exception("BPMS Service Response status fails");
             }
         return response;

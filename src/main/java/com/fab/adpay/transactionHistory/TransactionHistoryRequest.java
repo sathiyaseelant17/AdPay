@@ -12,7 +12,6 @@ public class TransactionHistoryRequest {
 
 	private int requestType;
 	private String value;
-	private String requestMode;
 	private String startDate;
 	private String endDate;
 	private int numberOfTxns;
