@@ -15,11 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerOnboardResponse {
-    private String requestID;
-    private String requestTimeStamp;
-    private String responseTimeStamp;
-    private String channelID;
-    private ResponseStatus responseStatus;
-    private String websitePageIdentifier;
-    private ResponseData responseData;
+    private String applicationRefNo;
+    private String applicationCreatedDate;
+    private String applicationExpiryDate;
+    private String applicationStatus;
+    private String applicationRemarks;
 }
