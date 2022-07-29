@@ -1,13 +1,13 @@
 
-i	java:S1167"TRename this field "PEPStatus" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šŸŒ¢
-n	java:S116:"TRename this field "T24Sector" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚öÈÒýÿÿÿÿ
 i	java:S116;"TRename this field "T24Target" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®€ÍÎ
-q	java:S116<"\Rename this field "T24AccountOfficer" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥Àå
 k	java:S116="VRename this field "T24Industry" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥©ãß
 o	java:S1168"URename this field "T24Company" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìçÓ¯øÿÿÿÿ
-x	java:S116?"^Rename this field "CashTransactionMode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆçÄûùÿÿÿÿ
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œé½Õþÿÿÿÿ
-n	java:S116>"ZRename this field "HoldMailService" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä€ã!
+n	java:S116:"TRename this field "T24Sector" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚öÈÒýÿÿÿÿ
 j	java:S1165"URename this field "RiskRating" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å¢óŠ
+i	java:S1167"TRename this field "PEPStatus" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šŸŒ¢
+n	java:S116>"ZRename this field "HoldMailService" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä€ã!
+q	java:S116<"\Rename this field "T24AccountOfficer" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¥Àå
 y	java:S1166"_Rename this field "RiskRatingAMLSegment" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ™¹øÿÿÿÿ
 m	java:S1169"YRename this field "T24CompanyCode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ž³v
+x	java:S116?"^Rename this field "CashTransactionMode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆçÄûùÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œé½Õþÿÿÿÿ

@@ -9,6 +9,10 @@ import com.fab.adpay.customerOnboard.CustomerOnboardService;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsRequest;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsResponse;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsService;
+import com.fab.adpay.kycUpload.DMSConfiguration;
+import com.fab.adpay.kycUpload.KycUploadRequest;
+import com.fab.adpay.kycUpload.KycUploadResponse;
+import com.fab.adpay.kycUpload.KycUploadService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -46,20 +50,22 @@ import com.fab.adpay.walletTransactions.WalletTransactionRequest;
 import com.fab.adpay.walletTransactions.WalletTransactionResponse;
 import com.fab.adpay.walletTransactions.WalletTransactionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Map;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class AdPayController {
@@ -314,6 +320,22 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(response));
 
         return response;
+    }
+    @PostMapping("/kycUpload")
+    KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestBody KycUploadRequest kycUploadRequest)
+            throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(kycUploadRequest));
+        DMSConfiguration dmsConfiguration = KycUploadService.getDMSConfiguration(headers, kycUploadRequest);
+        LOGGER.debug("Elpaso response:\n{}", OBJECT_MAPPER.writeValueAsString(dmsConfiguration));
+        String dmsResponse = KycUploadService.uploadDocument(dmsConfiguration, kycUploadRequest, headers);
+        LOGGER.debug("DMS response:\n{}", dmsResponse);
+        XmlMapper xmlMapper = new XmlMapper();
+        JsonNode node = xmlMapper.readTree(dmsResponse.getBytes(StandardCharsets.UTF_8));
+        KycUploadResponse kycUploadResponse = KycUploadService.updateDocumentUploadStatus(headers,node);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(kycUploadResponse));
+        return kycUploadResponse;
     }
 
 }
