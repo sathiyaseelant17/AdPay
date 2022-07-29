@@ -36,11 +36,11 @@ public class KycUploadService {
 
 			callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 			callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-			callableStatement.setString("pi_c_type","T");
+			callableStatement.setString("@pi_c_type","T");
 			callableStatement.setString("@pi_vc_cardno","");
 			callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryoforigin"));
 			callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-			callableStatement.setTimestamp("@pi_dt_transactionDateTime",
+			callableStatement.setTimestamp("@pi_dt_transactionDate",
 					Timestamp.valueOf(headers.get("transactiondatetime")));
 			callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
 			callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactiontimezone"));
