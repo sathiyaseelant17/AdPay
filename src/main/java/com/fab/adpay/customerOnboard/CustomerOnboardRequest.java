@@ -91,7 +91,7 @@ public class CustomerOnboardRequest {
     private String residentInOtherJurisdiction;
     private String UAEResidencyByRBIScheme;
     private String personalTaxJurisdiction;
-    private String averageTransactionValue;
+    private String AvgTransactionValue;
     private String industries;
     private String jurisdiction;
     private String tIN;
