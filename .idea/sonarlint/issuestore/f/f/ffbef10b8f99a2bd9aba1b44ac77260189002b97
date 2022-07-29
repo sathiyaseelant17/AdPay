@@ -1,24 +1,20 @@
 
-M
-java:S2629."7Use the built-in formatting to construct this argument.(„™ô™
-w
-java:S26290"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(“×š€ÿÿÿÿÿ
+[	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(üÑÊ¾
 R
 java:S2629;"7Use the built-in formatting to construct this argument.(‚â¢úşÿÿÿÿ
+[	java:S112Y"FDefine and throw a dedicated exception instead of using a generic one.(üÑÊ¾
+M
+java:S2629."7Use the built-in formatting to construct this argument.(„™ô™
+\
+java:S3457;"AFormat specifiers should be used instead of string concatenation.(‚â¢úşÿÿÿÿ
+W
+java:S3457."AFormat specifiers should be used instead of string concatenation.(„™ô™
 M
 java:S2629O"7Use the built-in formatting to construct this argument.(‘ßá³
-[	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(üÑÊ¾
-[	java:S112Y"FDefine and throw a dedicated exception instead of using a generic one.(üÑÊ¾
 `	java:S112,"FDefine and throw a dedicated exception instead of using a generic one.(èİÎÑşÿÿÿÿ
+W
+java:S3457O"AFormat specifiers should be used instead of string concatenation.(‘ßá³
 {
 java:S1488'"`Immediately return this expression instead of assigning it to the temporary variable "response".(ô–¥şÿÿÿÿ
 D
 java:S1172$".Remove this unused method parameter "headers".(šå‘¨
-W
-java:S3457."AFormat specifiers should be used instead of string concatenation.(„™ô™
-\
-java:S34570"AFormat specifiers should be used instead of string concatenation.(“×š€ÿÿÿÿÿ
-\
-java:S3457;"AFormat specifiers should be used instead of string concatenation.(‚â¢úşÿÿÿÿ
-W
-java:S3457O"AFormat specifiers should be used instead of string concatenation.(‘ßá³

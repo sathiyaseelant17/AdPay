@@ -1,13 +1,13 @@
 
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½Õ˜˜8áº—ö£0
 q
 java:S1128"ORemove this unused import 'com.fasterxml.jackson.core.JsonProcessingException'.(ßÔïÇûÿÿÿÿ8ûÉ°ÿ£0
+P
+java:S1172".Remove this unused method parameter "headers".(Œ”©šÿÿÿÿÿ8‡…òš¤0
 O
 java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8Îäïš¤0
-g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Œ”©šÿÿÿÿÿ8ûÉ°ÿ£0
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½Õ˜˜8áº—ö£0
+b	java:S112("FDefine and throw a dedicated exception instead of using a generic one.(ÓÑ×ó8áº—ö£0
 Y
 java:S1854"<Remove this useless assignment to local variable "response".(áþ°Ÿ8ò°Ÿ›¤0
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(›ñüõûÿÿÿÿ
-b	java:S112("FDefine and throw a dedicated exception instead of using a generic one.(ÓÑ×ó8áº—ö£0
-P
-java:S1172".Remove this unused method parameter "headers".(Œ”©šÿÿÿÿÿ8‡…òš¤0
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Œ”©šÿÿÿÿÿ8ûÉ°ÿ£0

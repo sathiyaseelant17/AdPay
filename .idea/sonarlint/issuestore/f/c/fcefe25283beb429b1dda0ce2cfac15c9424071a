@@ -1,0 +1,36 @@
+
+M
+java:S1172Z"7Remove this unused method parameter "dmsConfiguration".( ·û…
+p
+java:S1192+"NDefine a constant instead of duplicating this literal "transactionid" 8 times.(‹âÂüÿÿÿÿ8÷Ó˜Â¤0
+k	java:S117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íşúƒÿÿÿÿÿ
+b
+java:S1192Ÿ"KDefine a constant instead of duplicating this literal "\t<value>" 12 times.(Ş“œ
+s
+java:S1192"WDefine a constant instead of duplicating this literal "\t<objectAttributes>\n" 3 times.(Şò°Åøÿÿÿÿ
+r
+java:S1192g"WDefine a constant instead of duplicating this literal "UploadDocumentResponse" 6 times.(¨ÀÎúÿÿÿÿ
+E	java:S1082")Either remove or fill this block of code.(Ã÷‹å8£à¶Â¤0
+l
+java:S1192'"QDefine a constant instead of duplicating this literal "@po_vc_errortext" 6 times.(Ó²¼îøÿÿÿÿ
+o
+java:S1192-"TDefine a constant instead of duplicating this literal "transactiondatetime" 3 times.(ıÎãøÿÿÿÿ
+t
+java:S1192 "XDefine a constant instead of duplicating this literal "\t</objectAttributes>\n" 3 times.(ÅÑ‘‹şÿÿÿÿ
+w
+java:S1192§"[Define a constant instead of duplicating this literal "\t</documentAttributes>\n" 10 times.(Ê³Ï¯ûÿÿÿÿ
+b
+java:S1192g"GDefine a constant instead of duplicating this literal "status" 3 times.(¨ÀÎúÿÿÿÿ
+v
+java:S1192¦"ZDefine a constant instead of duplicating this literal "\t<documentAttributes>\n" 10 times.(Éõ´âúÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(ø˜ï´ıÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨ÆÉ¥üÿÿÿÿ
+D
+java:S19407")Use the opposite operator ("!=") instead.(¡ÔÃÓıÿÿÿÿ
+k
+java:S1192&"PDefine a constant instead of duplicating this literal "@po_i_errorCode" 6 times.(¦—ıÓÿÿÿÿÿ
+h
+java:S1192 "LDefine a constant instead of duplicating this literal "</value>\n" 12 times.(ÅÑ‘‹şÿÿÿÿ
+Y
+java:S1172"7Remove this unused method parameter "kycUploadRequest".(êç§şÿÿÿÿ8šõ¢Â¤0

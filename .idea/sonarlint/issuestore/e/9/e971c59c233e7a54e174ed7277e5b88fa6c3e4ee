@@ -1,0 +1,8 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨ÆÉ¥üÿÿÿÿ
+?
+java:S1068"*Remove this unused "cardId" private field.(Á…°.
+F
+java:S1068"+Remove this unused "content" private field.(ÃÇÿôøÿÿÿÿ
+K
+java:S1068"0Remove this unused "documentType" private field.(µÞ«øûÿÿÿÿ
