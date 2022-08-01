@@ -271,7 +271,7 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
-        CustomerOnboardResponse response = customerOnboardService.customerOnboard(headers, request);
+        CustomerOnboardResponse response = customerOnboardService.customerOnboarding(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));

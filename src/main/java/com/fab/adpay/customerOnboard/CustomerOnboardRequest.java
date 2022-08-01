@@ -47,10 +47,10 @@ public class CustomerOnboardRequest {
     private String emailID;
     private int idType;
     private String emiratesID;
-    private String idIssueDate;
-    private String idExpiryDate;
-    private String idIssuePlace;
-    private String idIssueCountry;
+    private String eidIssueDate;
+    private String eidExpiryDate;
+    private String eidIssuePlace;
+    private String eidIssueCountry;
     private String embossedName;
     private String dateOfBirth;
     private String placeOfBirth;
