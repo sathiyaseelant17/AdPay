@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PreApprovalRequest {
 
-    private String cardId;
+    private String walletId;
     private String adgeId;
     private String serviceId;
     private int requestType;

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @ToString
 public class WalletTopUpRequest {
 
-    private String cardId;
+    private String walletId;
     private int txntype;
     private int transactionSource;
     private String txnIdentifier;

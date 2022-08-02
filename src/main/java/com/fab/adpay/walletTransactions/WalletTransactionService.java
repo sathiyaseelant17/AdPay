@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -27,15 +28,15 @@ public class WalletTransactionService {
             callableStatement.registerOutParameter("@po_c_trackexpirydate", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
+                    new Timestamp(new Date().getTime()));
             callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));
 
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
-            callableStatement.setString("@pio_vc_cardid", request.getCardId());
+            callableStatement.setString("@pio_vc_cardid", request.getWalletId());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTxnRef());
@@ -65,11 +66,6 @@ public class WalletTransactionService {
             callableStatement.setString("@pi_vc_adgeid", request.getAdgeId());
             callableStatement.setString("@pi_vc_serviceid", request.getServiceId());
             callableStatement.setString("@pi_vc_feeDescription", request.getFeeDesc());
-            callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
 
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
@@ -77,13 +73,13 @@ public class WalletTransactionService {
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             WalletTransactionResponse walletTransactionResponse = new WalletTransactionResponse();
-            walletTransactionResponse.setCardId(callableStatement.getString("@pio_vc_cardid"));
-            walletTransactionResponse.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            walletTransactionResponse.setWalletId(callableStatement.getString("@pio_vc_cardid"));
+            walletTransactionResponse.setStatusText(callableStatement.getString("@po_vc_errortext"));
             walletTransactionResponse.setAvlBalAmount(callableStatement.getBigDecimal("@po_nm_avlbalamount"));
             walletTransactionResponse.setCurBalAmount(callableStatement.getBigDecimal("@po_nm_curbalamount"));
             walletTransactionResponse.setReqRspTime(callableStatement.getString("@po_vc_RequestRspTime"));
             walletTransactionResponse.setTrackExpiryDate(callableStatement.getString("@po_c_trackexpirydate"));
-            walletTransactionResponse.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
+            walletTransactionResponse.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
 
             return walletTransactionResponse;
         }

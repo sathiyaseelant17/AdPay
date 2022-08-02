@@ -10,9 +10,9 @@ import lombok.ToString;
 @ToString
 public class WalletTransactionResponse {
 
-    private String cardId;
-    private String errorText;
-    private int errorCode;
+    private String walletId;
+    private String statusText;
+    private int statusCode;
     private BigDecimal avlBalAmount;
     private BigDecimal curBalAmount;
     private String reqRspTime;

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Date;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +30,12 @@ public class UpdateWalletLimitService {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
-
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setString("@pi_vc_wallet_id", request.getWalletId());
             callableStatement.setString("@pi_vc_default_wallet", request.getDefaultWallet());
             callableStatement.setString("@pi_vc_wallet_label", request.getWalletLabel());
@@ -43,8 +44,8 @@ public class UpdateWalletLimitService {
             callableStatement.execute();
 
             UpdateWalletLimitResponse response = new UpdateWalletLimitResponse();
-            response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
 
             logger.debug("TRANSACTION ID: {} WALLET LIMIT RESPONSE:{}", headers.get("transactionid"), response);
 

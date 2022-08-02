@@ -6,6 +6,7 @@ import com.fab.adpay.voidService.VoidServiceResponse;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -27,11 +28,11 @@ public class WalletToWalletTransactionService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
+                    new Timestamp(new Date().getTime()));
             callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));
 
             callableStatement.setString("@pi_vc_wallet_id_01", req.getWalletId_01());
@@ -60,8 +61,8 @@ public class WalletToWalletTransactionService {
                
             }
             WalletToWalletTransactionResponse res = new WalletToWalletTransactionResponse();
-            res.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-            res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            res.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+            res.setStatusText(callableStatement.getString("@po_vc_errortext"));
             res.setWalletId_01(callableStatement.getString("@po_vc_wallet_id_01"));
             res.setWalletId_02(callableStatement.getString("@po_vc_wallet_id_02"));
             res.setAvailableBalance_01(callableStatement.getBigDecimal("@po_de_availableBalance_01"));

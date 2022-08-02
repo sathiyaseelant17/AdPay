@@ -10,6 +10,7 @@ import com.fab.adpay.exception.ElpasoException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,10 +33,11 @@ public class WalletInquiryService {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_identitytype", request.getIdentityType());
             callableStatement.setString("@pi_vc_identitynumber", request.getIdentityNumber());
 
@@ -73,12 +75,12 @@ public class WalletInquiryService {
 
                         walletInquiryDataList.add(walletInquiryData);
                 }
-                response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-                response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+                response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+                response.setStatusText(callableStatement.getString("@po_vc_errortext"));
                 response.setWalletInquiryDataList(walletInquiryDataList);
              }else {
-           		   response.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-                   response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+           		   response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+                   response.setStatusText(callableStatement.getString("@po_vc_errortext"));
                    response.setWalletInquiryDataList(null);
             	   }
                }catch(Exception e) {

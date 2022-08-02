@@ -20,8 +20,8 @@ public class WalletToWalletTransactionResponse {
     private BigDecimal availableBalance_02;
     private BigDecimal currentBalance_02;
     private int txnId;
-    private String errorText;
-    private int errorCode;
+    private String statusText;
+    private int statusCode;
 
 
 }

@@ -20,7 +20,7 @@ public class CustomerOnboardResponse {
 //    private String applicationExpiryDate;
 //    private String applicationStatus;
 //    private String applicationRemarks;
-    private String errorCode;
-    private String errorText;
+    private String statusCode;
+    private String statusText;
     private String applicationId;
 }

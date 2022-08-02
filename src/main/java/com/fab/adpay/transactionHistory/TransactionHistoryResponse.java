@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class TransactionHistoryResponse {
-	private int errorCode;
-	private String errorText;
+	private int statusCode;
+	private String statusText;
 	private List<TransactionHistory> transactionHistory;
 }

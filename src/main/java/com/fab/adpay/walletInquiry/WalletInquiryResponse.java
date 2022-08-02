@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class WalletInquiryResponse {
 
-    private int errorCode;
-    private String errorText;
+    private String statusText;
+    private int statusCode;
     private List<WalletInquiryData> walletInquiryDataList;
 
 }

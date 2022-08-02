@@ -4,6 +4,7 @@ import com.fab.adpay.Datasource;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -18,10 +19,10 @@ public class RedemptionCallbackService {
             callableStatement.setString("@pi_vc_cardId", request.getCardId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactiontimezone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryoforigin"));
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());

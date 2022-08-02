@@ -12,6 +12,6 @@ import lombok.ToString;
 public class AddWalletResponse {
 
     private String newWalletId;
-    private String errorText;
-    private int errorCode;
+    private String statusText;
+    private int statusCode;
 }

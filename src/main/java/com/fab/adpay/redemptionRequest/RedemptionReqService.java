@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Map;
 
 public class RedemptionReqService {
@@ -26,12 +27,12 @@ public class RedemptionReqService {
             callableStatement.registerOutParameter("@pi_vc_cardId", Types.VARCHAR);
             callableStatement.registerOutParameter("@pi_vc_RedeemAckRef", Types.VARCHAR);
 
-            callableStatement.setString("@Pi_vc_clientIdentifier", headers.get("channelId"));
+            callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
             callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
-
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_cardId", request.getCardId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());

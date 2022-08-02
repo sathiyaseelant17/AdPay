@@ -3,6 +3,7 @@ package com.fab.adpay.customerOnboard;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import com.fab.adpay.Datasource;
@@ -27,12 +28,12 @@ public class CustomerOnboardService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_i_ApplicationID", Types.VARCHAR);
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryorigin", headers.get("countryOfOrgin"));
+            callableStatement.setString("@pi_vc_transactionidentifier", headers.get("transactionId"));
+            callableStatement.setString("@pi_vc_transactiontimezone", "GST");
+            callableStatement.setString("@pi_vc_countryorigin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
-            callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
+                    new Timestamp(new Date().getTime()));
+            callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));
 
 
             callableStatement.setInt("@pi_ti_txnsource", 48);
@@ -95,8 +96,8 @@ public class CustomerOnboardService {
             callableStatement.execute();
 
             CustomerOnboardResponse response = new CustomerOnboardResponse();
-            response.setErrorCode(callableStatement.getString("@po_vc_errcode"));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            response.setStatusCode(callableStatement.getString("@po_vc_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setApplicationId(callableStatement.getString("@po_i_ApplicationID"));
             return response;
         }

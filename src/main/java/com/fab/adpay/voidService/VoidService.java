@@ -5,6 +5,7 @@ import com.fab.adpay.Datasource;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -20,14 +21,14 @@ public class VoidService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
+                    new Timestamp(new Date().getTime()));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
 
-            callableStatement.setString("@pio_vc_cardid", req.getCardId());
+            callableStatement.setString("@pio_vc_cardid", req.getWalletId());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
             callableStatement.setInt("@pi_ti_txnsource", req.getTransactionSource());
             callableStatement.setString("@pi_vc_orgtxnidentifier", req.getOrgTxnIdentifier());
@@ -49,11 +50,11 @@ public class VoidService {
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             VoidServiceResponse res = new VoidServiceResponse();
-            res.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-            res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            res.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+            res.setStatusText(callableStatement.getString("@po_vc_errortext"));
             res.setAvlBalAmount(callableStatement.getBigDecimal("@po_nm_avlbalamount"));
             res.setCurBalAmount(callableStatement.getBigDecimal("@po_nm_curbalamount"));
-            res.setCardId(callableStatement.getString("@pio_vc_cardid"));
+            res.setWalletId(callableStatement.getString("@pio_vc_cardid"));
             res.setRequestRspTime(callableStatement.getString("@po_vc_RequestRspTime"));
 
             return res;

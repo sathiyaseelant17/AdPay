@@ -4,6 +4,7 @@ import com.fab.adpay.Datasource;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -26,15 +27,14 @@ public class WalletTopUpService {
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
 
-            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionId"));
-            callableStatement.setString("@pi_vc_transactionTimezone", headers.get("transactionTimeZone"));
-            callableStatement.setString("@pi_vc_countryOforgin", headers.get("countryOfOrgin"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
-
+            callableStatement.setString("@pi_vc_transactionTimezone", "GST");
+            callableStatement.setString("@pi_vc_countryOforgin", "AE");
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", req.getTransactionSource());
-            callableStatement.setString("@pio_vc_cardid", req.getCardId());
+            callableStatement.setString("@pio_vc_cardid", req.getWalletId());
             callableStatement.setInt("@pi_si_txntype", req.getTxntype());
             callableStatement.setString("@pi_vc_txnidentifier", req.getTxnIdentifier());
             callableStatement.setString("@pi_vc_sourcemakerid", req.getSourceMakerId());
@@ -76,7 +76,7 @@ public class WalletTopUpService {
 
 
             WalletTopUpResponse res = new WalletTopUpResponse();
-            res.setCardId(callableStatement.getString("@pio_vc_cardid"));
+            res.setWalletId(callableStatement.getString("@pio_vc_cardid"));
             res.setTrackExpiryDate(callableStatement.getString("@po_c_trackexpirydate"));
             res.setAvailableBalance(callableStatement.getBigDecimal("@po_nm_avlbal"));
             res.setCurrentBalance(callableStatement.getBigDecimal("@po_nm_curbal"));
@@ -86,8 +86,8 @@ public class WalletTopUpService {
             res.setExpiryDate(callableStatement.getString("@po_c_expirydate"));
             res.setCreditAc(callableStatement.getString("@po_vc_creditac"));
             res.setCreditAcPosId(callableStatement.getString("@po_vc_creditacposid"));
-            res.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-            res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            res.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+            res.setStatusText(callableStatement.getString("@po_vc_errortext"));
 
             return res;
         }

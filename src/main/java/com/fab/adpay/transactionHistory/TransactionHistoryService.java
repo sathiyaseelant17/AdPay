@@ -2,6 +2,7 @@ package com.fab.adpay.transactionHistory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,8 +27,8 @@ public class TransactionHistoryService {
 			callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
 			callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
 			callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-			callableStatement.setTimestamp("@pi_dt_transactionDateTime",
-					Timestamp.valueOf(headers.get("transactiondatetime")));
+			callableStatement.setTimestamp("@pi_dt_transactiondate",
+					new Timestamp(new Date().getTime()));
 			callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
 			callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
 			callableStatement.setString("@pi_vc_cardid", request.getValue());
@@ -63,12 +64,12 @@ public class TransactionHistoryService {
 					LOGGER.info("Transaction id: {} TransactionResultSet data: {}", headers.get("transactionid"),
 							OBJECT_MAPPER.writeValueAsString(transactionHistoryResponseList));
 
-					res.setErrorCode(callableStatement.getInt("@po_i_errorcode"));
-					res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+					res.setStatusCode(callableStatement.getInt("@po_i_errorcode"));
+					res.setStatusText(callableStatement.getString("@po_vc_errortext"));
 					res.setTransactionHistory(transactionHistoryResponseList);
 				}else {
-					res.setErrorCode(callableStatement.getInt("@po_i_errorcode"));
-					res.setErrorText(callableStatement.getString("@po_vc_errortext"));
+					res.setStatusCode(callableStatement.getInt("@po_i_errorcode"));
+					res.setStatusText(callableStatement.getString("@po_vc_errortext"));
 
 				}
 

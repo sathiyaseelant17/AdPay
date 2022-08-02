@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WalletStatusUpdateRequest {
 
-	private String cardId;
+	private String walletId;
 	private int newStatus;
 	private String reasonText;
 

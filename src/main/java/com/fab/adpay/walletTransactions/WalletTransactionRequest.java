@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public class WalletTransactionRequest {
 
-    private String cardId;
+    private String walletId;
     private int transactionSource;
     private String sourceMakerId;
     private String sourcePosId;

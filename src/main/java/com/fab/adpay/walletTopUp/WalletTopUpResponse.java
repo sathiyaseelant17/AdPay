@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @ToString
 public class WalletTopUpResponse {
-    private String cardId;
+    private String walletId;
     private String trackExpiryDate;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;
@@ -23,6 +23,6 @@ public class WalletTopUpResponse {
     private String expiryDate;
     private String creditAc;
     private String creditAcPosId;
-    private String errorText;
-    private int errorCode;
+    private String statusText;
+    private int statusCode;
 }

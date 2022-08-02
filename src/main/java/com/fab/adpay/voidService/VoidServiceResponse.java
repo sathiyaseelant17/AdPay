@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 public class VoidServiceResponse {
-        private String cardId;
-    private String errorText;
+        private String walletId;
     private BigDecimal avlBalAmount;
     private BigDecimal curBalAmount;
     private String requestRspTime;
-    private int errorCode;
+    private String statusText;
+    private int statusCode;
 }

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Date;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -32,8 +33,8 @@ public class WalletStatusUpdateService {
             callableStatement.registerOutParameter("@po_i_txnid#", Types.INTEGER);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-            callableStatement.setTimestamp("@pi_dt_transactionDateTime",
-                    Timestamp.valueOf(headers.get("transactiondatetime")));
+            callableStatement.setTimestamp("@pi_dt_transactiondate",
+                    new Timestamp(new Date().getTime()));
             callableStatement.setString("@pi_vc_clientIdentifier", headers.get("channelid"));
             callableStatement.setShort("@pi_ti_txnsource", (short) 0);
             callableStatement.setString("@pi_vc_cardno", "");
@@ -41,15 +42,15 @@ public class WalletStatusUpdateService {
             callableStatement.setString("@pi_vc_reasontext", request.getReasonText());
             callableStatement.setShort("@pi_ti_checkexpiryflag", (short) 0);
             callableStatement.setString("@pi_c_expirydate", "");
-            callableStatement.setString("@pi_vc_cardid", request.getCardId());
+            callableStatement.setString("@pi_vc_cardid", request.getWalletId());
             callableStatement.setShort("@pi_ti_reasonkey#", (short) 0);
             callableStatement.setString("@pi_vc_makerid", "");
             callableStatement.setString("@pi_vc_sourcetxnref", "");
             callableStatement.execute();
 
             WalletStatusUpdateResponse response = new WalletStatusUpdateResponse();
-            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            response.setStatusCode(callableStatement.getInt("@po_i_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
 
             logger.debug("TRANSACTION ID: {} UPDATE CARD STATUS RESPONSE:{}", headers.get("transactionid"), response);
 

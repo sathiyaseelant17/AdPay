@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateWalletLimitResponse {
 
-    private String errorText;
-    private int errorCode;
+    private String statusText;
+    private int statusCode;
 }

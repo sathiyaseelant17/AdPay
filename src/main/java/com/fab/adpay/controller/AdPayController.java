@@ -337,5 +337,4 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(kycUploadResponse));
         return kycUploadResponse;
     }
-
 }

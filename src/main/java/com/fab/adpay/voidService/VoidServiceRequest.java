@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class VoidServiceRequest {
 
-    private String cardId;
+    private String walletId;
     private String txnIdentifier;
     private int transactionSource;
     private String orgTxnIdentifier;
