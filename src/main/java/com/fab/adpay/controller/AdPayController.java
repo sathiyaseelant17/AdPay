@@ -271,12 +271,14 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
-        CustomerOnboardResponse response = customerOnboardService.customerOnboarding(headers, request);
+        CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
+
+        customerOnboardService.initiateBPMS(elpresponse,headers,request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
-                OBJECT_MAPPER.writeValueAsString(response));
+                OBJECT_MAPPER.writeValueAsString(elpresponse));
 
-        return response;
+        return elpresponse;
     }
 
     @PostMapping("/fetchOnboardingDetails")

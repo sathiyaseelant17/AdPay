@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Map;
 
 import com.fab.adpay.Datasource;
+import com.fab.adpay.controller.AdPayController;
+import com.fab.adpay.exception.ElpasoException;
 import com.fab.adpay.updateCustomer.UpdateCustomerRequest;
 import com.fab.adpay.updateCustomer.UpdateCustomerResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +21,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 @Service
 public class CustomerOnboardService {
+    @Autowired
+    RestTemplate restTemplate;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     public CustomerOnboardResponse customerOnboarding(Map<String, String> headers, CustomerOnboardRequest request)
             throws SQLException {
         try (Connection connection = Datasource.getConnection();
@@ -93,14 +101,34 @@ public class CustomerOnboardService {
             callableStatement.setString("@pi_vc_screeningResult", "1");
             
             callableStatement.execute();
-
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+            }
             CustomerOnboardResponse response = new CustomerOnboardResponse();
             response.setStatusCode(callableStatement.getString("@po_vc_errcode"));
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setApplicationId(callableStatement.getString("@po_i_ApplicationID"));
             return response;
 
+
         }
+
+
+
+    }
+
+    public CustomerOnboardResponse initiateBPMS(CustomerOnboardResponse elpResponse, Map<String, String> headers, CustomerOnboardRequest request) {
+
+        String URL = "";
+        HttpHeaders header = new HttpHeaders();
+        header.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        header.set("requestID", headers.get("requestId"));
+        header.set("requestTimeStamp", headers.get("requestTimeStamp"));
+        header.set("channelID", headers.get("channelID"));
+        HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
+
+        return restTemplate.exchange(URL, HttpMethod.POST, entity, CustomerOnboardResponse.class).getBody();
     }
 
 }
