@@ -89,7 +89,7 @@ public class CustomerOnboardRequest {
     private String personalTaxJurisdiction;
     private String averageTransactionValue;
     private String industries;
-    private String jurisdiction;
+    private String jurisdictionCountry;
     private String tIN;
     private String reasonNoTIN;
     private String reason;

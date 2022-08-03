@@ -17,5 +17,4 @@ public class AddWalletRequest {
     private String walletLabel;
     private BigDecimal walletLimit;
 
-
 }
