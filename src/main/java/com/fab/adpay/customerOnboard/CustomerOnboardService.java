@@ -9,6 +9,7 @@ import java.util.Map;
 import com.fab.adpay.Datasource;
 import com.fab.adpay.controller.AdPayController;
 import com.fab.adpay.exception.ElpasoException;
+import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsResponse;
 import com.fab.adpay.updateCustomer.UpdateCustomerRequest;
 import com.fab.adpay.updateCustomer.UpdateCustomerResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -127,8 +128,21 @@ public class CustomerOnboardService {
         header.set("requestTimeStamp", headers.get("requestTimeStamp"));
         header.set("channelID", headers.get("channelID"));
         HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
+            LOGGER.info("Transaction Id : {} BPMS Status Code: {}", headers.get("transactionid"), responseEntity.getStatusCode());
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                String bpmsResponse = responseEntity.getBody();
+                LOGGER.info("Transaction Id : {} Response body: {}", headers.get("transactionid"), bpmsResponse);
+            } else {
+                String bpmsResponse = responseEntity.getBody();
+                LOGGER.info("Transaction Id : {} BPMS Status Code: {}", headers.get("transactionid"), bpmsResponse);
+            }
+        }catch(Exception e){
 
-        return restTemplate.exchange(URL, HttpMethod.POST, entity, CustomerOnboardResponse.class).getBody();
+        }
+
+        return  elpResponse;
     }
 
 }
