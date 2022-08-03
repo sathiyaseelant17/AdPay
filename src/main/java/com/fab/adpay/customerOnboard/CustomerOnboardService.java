@@ -119,30 +119,30 @@ public class CustomerOnboardService {
 
     }
 
-    public CustomerOnboardResponse initiateBPMS(CustomerOnboardResponse elpResponse, Map<String, String> headers, CustomerOnboardRequest request) {
+    public BPMSResponse initiateBPMS(CustomerOnboardResponse elpResponse, Map<String, String> headers, CustomerOnboardRequest request) {
 
-        String URL = "";
+        String URL = "INITIATE_BPMS";
         HttpHeaders header = new HttpHeaders();
-        header.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        header.set("requestID", headers.get("requestId"));
-        header.set("requestTimeStamp", headers.get("requestTimeStamp"));
-        header.set("channelID", headers.get("channelID"));
+        header.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
+        BPMSResponse response=new BPMSResponse();
         try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
             LOGGER.info("Transaction Id : {} BPMS Status Code: {}", headers.get("transactionid"), responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String bpmsResponse = responseEntity.getBody();
+                response = OBJECT_MAPPER.readValue(bpmsResponse,BPMSResponse.class);
                 LOGGER.info("Transaction Id : {} Response body: {}", headers.get("transactionid"), bpmsResponse);
             } else {
-                String bpmsResponse = responseEntity.getBody();
-                LOGGER.info("Transaction Id : {} BPMS Status Code: {}", headers.get("transactionid"), bpmsResponse);
+                LOGGER.info("BPMS Service Response status fails",responseEntity.getStatusCode());
             }
         }catch(Exception e){
 
+            LOGGER.info("Transaction Id : {} BPMS catch block executed", headers.get("transactionid"), e.getMessage());
+
         }
 
-        return  elpResponse;
+        return response;
     }
 
 }

@@ -3,6 +3,7 @@ package com.fab.adpay.controller;
 import com.fab.adpay.addWallet.AddWalletRequest;
 import com.fab.adpay.addWallet.AddWalletResponse;
 import com.fab.adpay.addWallet.AddWalletService;
+import com.fab.adpay.customerOnboard.BPMSResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardRequest;
 import com.fab.adpay.customerOnboard.CustomerOnboardResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardService;
@@ -272,11 +273,11 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(request));
 
         CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
-
-        customerOnboardService.initiateBPMS(elpresponse,headers,request);
-
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(elpresponse));
+        BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse,headers,request);
+        LOGGER.info("BPMS Response" , bpmsResponse);
+
 
         return elpresponse;
     }
