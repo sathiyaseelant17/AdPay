@@ -265,21 +265,30 @@ public class AdPayController {
     }
 
     @PostMapping("/customerOnboarding")
-    CustomerOnboardResponse customerOnboard(@RequestHeader Map<String, String> headers,
+    Object customerOnboard(@RequestHeader Map<String, String> headers,
                                             @Valid @RequestBody CustomerOnboardRequest request)
             throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
+        if(request.getActionName().equals("CREATE")&&request.getActionName()!=null){
+            CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
+            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                    OBJECT_MAPPER.writeValueAsString(elpresponse));
+            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse.getApplicationId(),headers,request);
+            LOGGER.info("BPMS Response" , bpmsResponse);
+            return elpresponse;
+        }else if(request.getActionName().equals("UPDATE_DETAILS")&&request.getWalletId()!=null){
+            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(request.getWalletId(),headers,request);
+            LOGGER.info("BPMS Response" , bpmsResponse);
+            return bpmsResponse;
+        }else{
+            throw new Exception("actionName will be either Create/update"+request.getActionName()+"walletId:"+request.getWalletId());
+        }
 
-        CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
-        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
-                OBJECT_MAPPER.writeValueAsString(elpresponse));
-        BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse,headers,request);
-        LOGGER.info("BPMS Response" , bpmsResponse);
 
 
-        return elpresponse;
+
     }
 
     @PostMapping("/fetchOnboardingDetails")

@@ -98,6 +98,6 @@ public class CustomerOnboardRequest {
     private String otherResidency;
     private String residenceFromDate;
     private String residenceToDate;
-    private String cardID;
+    private String walletId;
 
 }
