@@ -121,7 +121,7 @@ public class CustomerOnboardService {
 
     public BPMSResponse initiateBPMS(CustomerOnboardResponse elpResponse, Map<String, String> headers, CustomerOnboardRequest request) {
 
-        String URL = "INITIATE_BPMS";
+        String URL = System.getenv("INITIATE_BPMS");
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
         
