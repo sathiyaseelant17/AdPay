@@ -61,4 +61,5 @@ public class CustomerDetails {
     private String T24Industry;
     private String HoldMailService;
     private String CashTransactionMode;
+    private String cardID;
 }

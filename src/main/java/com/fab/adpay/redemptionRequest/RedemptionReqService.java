@@ -1,6 +1,7 @@
 package com.fab.adpay.redemptionRequest;
 
 import com.fab.adpay.Datasource;
+import com.fab.adpay.exception.ElpasoException;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryRequest;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
@@ -71,7 +72,10 @@ public class RedemptionReqService {
             callableStatement.setString("@pi_vc_beneficiarybankbic", request.getBeneficiaryBankBic());
 
             callableStatement.execute();
-
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+            }
             RedemptionReqResponse response = new RedemptionReqResponse();
             response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));

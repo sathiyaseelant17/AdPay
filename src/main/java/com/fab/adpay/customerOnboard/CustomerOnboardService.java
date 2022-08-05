@@ -2,12 +2,12 @@
 package com.fab.adpay.customerOnboard;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.*;
 import java.util.Date;
-import java.util.Map;
 
 import com.fab.adpay.Datasource;
 import com.fab.adpay.controller.AdPayController;
+import com.fab.adpay.customerOnboard.model.*;
 import com.fab.adpay.exception.ElpasoException;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsResponse;
 import com.fab.adpay.updateCustomer.UpdateCustomerRequest;
@@ -124,21 +124,133 @@ public class CustomerOnboardService {
         String URL = "INITIATE_BPMS";
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<CustomerOnboardRequest> entity = new HttpEntity<CustomerOnboardRequest>(request, header);
+        
+        
+        BPMSRequest payload =new BPMSRequest();
+
+        CustomerDetails customerDetails=new CustomerDetails();
+        customerDetails.setAddressLine1(request.getAddressLine1());
+        customerDetails.setAddressLine2(request.getAddressLine2());
+        customerDetails.setAddressLine3(request.getAddressLine3());
+        customerDetails.setAddressLine4(request.getAddressLine4());
+        customerDetails.setCashTransactionMode(request.getCashTransactionMode());
+        customerDetails.setCity(request.getCity());
+        customerDetails.setCompanyEmbName(request.getCompanyEmbName());
+        customerDetails.setCompanyName(request.getCompanyName());
+        customerDetails.setCompanyRegNo(request.getCompanyRegNo());
+        customerDetails.setCountryCode(request.getCountryOfResidence());
+        customerDetails.setCountryOfBirth(request.getCountryOfBirth());
+        customerDetails.setCustomerID(request.getCustomerID());
+        customerDetails.setDateOfBirth(request.getDateOfBirth());
+        customerDetails.setDateOfEstablishment(request.getDateOfEstablishment());
+        customerDetails.setEidExpiryDate(request.getEidExpiryDate());
+        customerDetails.setEidIssueCountry(request.getEidIssueCountry());
+        customerDetails.setEidIssueDate(request.getEidIssueDate());
+        customerDetails.setEidIssuePlace(Integer.parseInt(request.getEidIssuePlace()));
+        customerDetails.setEmailID(request.getEmailID());
+        customerDetails.setEmbossedName(request.getEmbossedName());
+        customerDetails.setEmirate(request.getEmirate());
+        customerDetails.setEmirateDesc(request.getEmirateDesc());
+        customerDetails.setEmiratesID(request.getEmiratesID());
+        customerDetails.setFirstName(request.getFirstName());
+        customerDetails.setGender(request.getGender());
+        customerDetails.setHoldMailService(request.getHoldMailService());
+        customerDetails.setIdType(request.getIdType());
+        customerDetails.setLastName(request.getLastName());
+        customerDetails.setMiddleName(request.getMiddleName());
+        customerDetails.setMobileNumber(request.getMobileNumber());
+        customerDetails.setNationality(request.getNationality());
+        customerDetails.setOccupation(request.getOccupation());
+        customerDetails.setPEPStatus(request.getPepStatus());
+        customerDetails.setPlaceOfBirth(request.getPlaceOfBirth());
+        customerDetails.setPostalCode(request.getPostalCode());
+        customerDetails.setPreferredBranchCode(request.getPreferredBranchCode());
+        customerDetails.setPreferredBranchName(request.getPreferredBranchName());
+        customerDetails.setPreferredLanguage(request.getPreferredLanguage());
+        customerDetails.setRiskRating(request.getRiskRating());
+        customerDetails.setRiskRatingAMLSegment(request.getT24AMLSegment());
+        customerDetails.setT24AccountOfficer(request.getT24AccountOfficer());
+        customerDetails.setT24Company(request.getT24Company());
+        customerDetails.setT24CompanyCode(request.getT24CompanyCode());
+        customerDetails.setT24Industry(request.getT24Industry());
+        customerDetails.setT24Sector(request.getT24Sector());
+        customerDetails.setT24Target(request.getT24Target());
+        customerDetails.setTelephoneNo(request.getTelephoneNo());
+        customerDetails.setTitle(request.getTitle());
+        customerDetails.setCardID(elpResponse.getApplicationId());
+
+        FatcaCRSDetails fatcaCRSDetails=new FatcaCRSDetails();
+
+        fatcaCRSDetails.setAlternateNationality(request.getAlternateNationality());
+        fatcaCRSDetails.setAvgTransactionValue(request.getAverageTransactionValue());
+        fatcaCRSDetails.setCRSDeclaration(request.getCrsDeclaration());
+        fatcaCRSDetails.setDeclaration(request.getDeclaration());
+        fatcaCRSDetails.setDualNationality(request.getDualNationality());
+        fatcaCRSDetails.setEmployerName(request.getEmployerName());
+        fatcaCRSDetails.setEmploymentStatus(request.getEmploymentStatus());
+        fatcaCRSDetails.setGreenCardID(request.getGreenCardID());
+        fatcaCRSDetails.setIndustries(request.getIndustries());
+        List<Jurisdiction> jurisdictionList=new ArrayList<>();
+        Jurisdiction jurisdiction=new Jurisdiction();
+        jurisdiction.setOtherResidency(request.getOtherResidency());
+        jurisdiction.setResidenceFromDate(request.getResidenceFromDate());
+        jurisdiction.setResidenceToDate(request.getResidenceToDate());
+        jurisdictionList.add(jurisdiction);
+        fatcaCRSDetails.setJurisdiction(jurisdictionList);
+        fatcaCRSDetails.setMonthlyIncome(request.getMonthlyIncome());
+        fatcaCRSDetails.setNonUAENonUSTaxResident(request.getNonUAENonUSTaxResident());
+        fatcaCRSDetails.setPassportNumber(request.getPassportNumber());
+        fatcaCRSDetails.setPersonalTaxJurisdiction(request.getPersonalTaxJurisdiction());
+        fatcaCRSDetails.setReasonForNoDeclaration(request.getReasonForNoDeclaration());
+        fatcaCRSDetails.setResidentInOtherJurisdiction(request.getResidentInOtherJurisdiction());
+        List<TaxResidency> taxResidencyList=new ArrayList<>();
+        TaxResidency taxResidency=new TaxResidency();
+        taxResidency.setTINNumber(request.getTIN());
+        taxResidency.setReason(request.getReason());
+        taxResidency.setReasonForNoTIN(request.getReasonNoTIN());
+        taxResidency.setTaxCountry(request.getJurisdictionCountry());
+        taxResidencyList.add(taxResidency);
+        fatcaCRSDetails.setTaxResidency(taxResidencyList);
+        fatcaCRSDetails.setTINNumber(request.getTinNumber());
+        fatcaCRSDetails.setTrdLicensePlaceOfIssue(request.getTrdLicensePlaceOfIssue());
+        fatcaCRSDetails.setUAEResidencyByRBIScheme(request.getUaeResidencyByRBIScheme());
+        fatcaCRSDetails.setUSPerson(request.getUsPerson());
+
+        RequestData requestData=new RequestData();
+        requestData.setActionName(request.getActionName());
+        requestData.setApplicationRefNo(request.getApplicationRefNo());
+        requestData.setApplicationRemarks(request.getApplicationRemarks());
+        requestData.setApplicationStatus(request.getApplicationStatus());
+        List<String> DocumentDetailsList=new ArrayList<>();
+        DocumentDetailsList.add(request.getDocumentDetails());
+        requestData.setDocumentDetails(DocumentDetailsList);
+        requestData.setProduct(request.getProduct());
+        requestData.setTandCAgreed(request.getTandCAgreed());
+        requestData.setUAEPassResult(request.getUaePassResult());
+        requestData.setWebsitePageIdentifier(request.getWebsitePageIdentifier());
+        requestData.setCustomerDetails(customerDetails);
+        requestData.setFatcaCRSDetails(fatcaCRSDetails);
+
+        payload.setChannelID(headers.get("channelid"));
+        payload.setRequestID(headers.get("transactionid"));
+        payload.setRequestTimeStamp(new Timestamp(new Date().getTime()).toString());
+        payload.setRequestData(requestData);
+        
+        System.out.println("payload"+ payload);
+        HttpEntity<BPMSRequest> entity = new HttpEntity<BPMSRequest>(payload, header);
         BPMSResponse response=new BPMSResponse();
         try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
-            LOGGER.info("Transaction Id : {} BPMS Status Code: {}", headers.get("transactionid"), responseEntity.getStatusCode());
+            LOGGER.info("Transaction Id : {} Initiate BPMS Status Code: {}", headers.get("transactionid"), responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String bpmsResponse = responseEntity.getBody();
                 response = OBJECT_MAPPER.readValue(bpmsResponse,BPMSResponse.class);
                 LOGGER.info("Transaction Id : {} Response body: {}", headers.get("transactionid"), bpmsResponse);
             } else {
-                LOGGER.info("BPMS Service Response status fails",responseEntity.getStatusCode());
+                LOGGER.info("Initiate BPMS Service Response status fails",responseEntity.getStatusCode());
             }
         }catch(Exception e){
-
-            LOGGER.info("Transaction Id : {} BPMS catch block executed", headers.get("transactionid"), e.getMessage());
+            LOGGER.info("Transaction Id : {} Initiate BPMS catch block executed", headers.get("transactionid"), e);
 
         }
 

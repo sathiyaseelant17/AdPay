@@ -39,6 +39,7 @@ com/fab/adpay/otpgeneration/GenerateOtpServiceResponse.class
 com/fab/adpay/fetchCustomerOnbordingDetails/model/FatcaCRSDetails.class
 com/fab/adpay/AdpayApplication.class
 com/fab/adpay/redemptionCallback/RedemptionCallbackRequest.class
+com/fab/adpay/customerOnboard/BPMSRequest.class
 com/fab/adpay/preApproval/PreApprovalRequest.class
 com/fab/adpay/voidService/VoidServiceResponse.class
 com/fab/adpay/redemptionRequest/RedemptionReqRequest.class
@@ -68,6 +69,7 @@ com/fab/adpay/walletLimit/UpdateWalletLimitRequest.class
 com/fab/adpay/otpgeneration/ApplicationArea.class
 com/fab/adpay/fetchCustomerOnbordingDetails/ApplicationDetails.class
 com/fab/adpay/customerOnboard/CustomerOnboardResponse.class
+com/fab/adpay/customerOnboard/BPMSResponse.class
 com/fab/adpay/walletTransactions/WalletTransactionResponse.class
 com/fab/adpay/walletInquiry/WalletInquiryRequest.class
 com/fab/adpay/otpvalidation/OtpValidationRequest.class

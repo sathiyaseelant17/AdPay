@@ -1,6 +1,7 @@
 package com.fab.adpay.redemptionInquiry;
 
 import com.fab.adpay.Datasource;
+import com.fab.adpay.exception.ElpasoException;
 import com.fab.adpay.walletLimit.UpdateWalletLimitRequest;
 import com.fab.adpay.walletLimit.UpdateWalletLimitResponse;
 import com.fab.adpay.walletLimit.UpdateWalletLimitService;
@@ -42,7 +43,10 @@ public class RedemptionInquiryService {
             callableStatement.setString("@pi_vc_RedeemAckRef", request.getRedeemAcknowledgementRef());
             callableStatement.setInt("@pi_vc_RedeemStatus", request.getRedeemStatus());
             callableStatement.execute();
-
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+            }
             RedemptionInquiryResponse response = new RedemptionInquiryResponse();
             response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));

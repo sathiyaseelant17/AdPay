@@ -10,9 +10,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DuplicateCardError {
-	private String cardId;
+	private String walledId;
 	private String cardNumber;
-	private String errorCode;
-	private String errorText;
+	private String statusCode;
+	private String statusText;
 
 }

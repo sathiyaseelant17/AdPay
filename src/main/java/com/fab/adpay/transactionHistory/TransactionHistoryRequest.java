@@ -11,7 +11,7 @@ import lombok.ToString;
 public class TransactionHistoryRequest {
 
 	private int requestType;
-	private String value;
+	private String walletId;
 	private String startDate;
 	private String endDate;
 	private int numberOfTxns;

@@ -52,9 +52,6 @@ public class WalletToWalletTransactionService {
             callableStatement.execute();
             
             if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
-            	 System.out.println(callableStatement.getString("@po_vc_errortext"));
-            	 System.out.println(callableStatement.getInt("@po_vc_errcode"));
-            	 System.out.println(headers.get("transactionid"));
 
                 throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_vc_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));

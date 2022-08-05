@@ -1,3 +1,4 @@
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/BPMSRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/addWallet/AddWalletRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpResponse.java
@@ -72,6 +73,7 @@
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/model/CustomerDetails.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/model/ResponseStatus.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpvalidation/ApplicationArea.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/BPMSResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/controller/AdPayController.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/ResponseDataArea.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpvalidation/ErrorDetail.java

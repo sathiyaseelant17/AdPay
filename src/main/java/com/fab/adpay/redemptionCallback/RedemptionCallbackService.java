@@ -1,6 +1,7 @@
 package com.fab.adpay.redemptionCallback;
 
 import com.fab.adpay.Datasource;
+import com.fab.adpay.exception.ElpasoException;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -33,7 +34,10 @@ public class RedemptionCallbackService {
             callableStatement.setString("@pi_vc_RedeemDeclCode", request.getRedeemDeclCode());
             callableStatement.setString("@pi_vc_RedeemDeclDesc", request.getRedeemDeclDesc());
             callableStatement.execute();
-
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+            }
             RedemptionCallbackResponse response = new RedemptionCallbackResponse();
             response.setErrorCode(callableStatement.getInt("@po_si_errcode"));
             response.setErrorText(callableStatement.getString("@po_vc_errortext"));

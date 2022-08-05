@@ -27,11 +27,11 @@ public class TransactionHistoryService {
 			callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
 			callableStatement.registerOutParameter("@po_i_errorcode", Types.INTEGER);
 			callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
-			callableStatement.setTimestamp("@pi_dt_transactiondate",
+			callableStatement.setTimestamp("@pi_dt_transactionDateTime",
 					new Timestamp(new Date().getTime()));
 			callableStatement.setString("@pi_vc_clientIdentifer", headers.get("channelid"));
 			callableStatement.setShort("@pi_ti_requesttype", (short) request.getRequestType());
-			callableStatement.setString("@pi_vc_cardid", request.getValue());
+			callableStatement.setString("@pi_vc_cardid", request.getWalletId());
 			callableStatement.setString("@pi_vc_startdate", request.getStartDate());
 			callableStatement.setString("@pi_vc_enddate", request.getEndDate());
 			callableStatement.setInt("@pi_i_numberOfTxns", request.getNumberOfTxns());

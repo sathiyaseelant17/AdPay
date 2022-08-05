@@ -19,8 +19,8 @@ public class CustomerOnboardRequest {
     private String applicationStatus;
     private String applicationRemarks;
     private String product;
-    private String UAEPassResult;
-    private String TandCAgreed;
+    private String uaePassResult;
+    private String tandCAgreed;
     private String websitePageIdentifier;
     private String documentDetails;
     private String actionName;
@@ -61,15 +61,17 @@ public class CustomerOnboardRequest {
     private String companyRegNo;
     private String dateOfEstablishment;
     private String telephoneNo;
-    private float RiskRating;
-    private String PEPStatus;
-    private String T24Company;
-    private String T24CompanyCode;
-    private String T24Sector;
-    private String T24Target;
-    private String T24AccountOfficer;
-    private String T24Industry;
-    private String T24AMLSegment;
+    private float riskRating;
+    private String pepStatus;
+    private String t24Company;
+    private String t24CompanyCode;
+    private String t24Sector;
+    private String t24Target;
+    private String t24AccountOfficer;
+    private String t24Industry;
+    private String t24AMLSegment;
+    private String holdMailService;
+    private String cashTransactionMode;
     private String employerName;
     private Float monthlyIncome;
     private String trdLicensePlaceOfIssue;
@@ -79,16 +81,16 @@ public class CustomerOnboardRequest {
     private String employmentStatus;
     private String declaration;
     private String reasonForNoDeclaration;
-    private String TINNumber;
+    private String tinNumber;
     private String greenCardID;
-    private String USPerson;
-    private String CRSDeclaration;
+    private String usPerson;
+    private String crsDeclaration;
     private String nonUAENonUSTaxResident;
     private String residentInOtherJurisdiction;
-    private String UAEResidencyByRBIScheme;
-    private String personalTaxJurisdiction;
+    private String uaeResidencyByRBIScheme;
+    private List<String> personalTaxJurisdiction;
     private String averageTransactionValue;
-    private String industries;
+    private List<String> industries;
     private String jurisdictionCountry;
     private String tIN;
     private String reasonNoTIN;
@@ -96,13 +98,6 @@ public class CustomerOnboardRequest {
     private String otherResidency;
     private String residenceFromDate;
     private String residenceToDate;
-
-
-
-
-
-
-
-
+    private String cardID;
 
 }

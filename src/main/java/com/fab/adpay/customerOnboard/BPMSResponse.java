@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BPMSResponse {
 
-    private String requestId;
-    private String requestTimeStamp;
-    private String channelId;
+    private String requestID;
+    private String responseTimeStamp;
+    private String channelID;
     private ResponseStatus responseStatus;
     private String websitePageIdentifier;
     private ResponseData responseData;

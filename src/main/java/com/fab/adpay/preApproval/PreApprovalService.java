@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Date;
 import java.util.Map;
+
+import com.fab.adpay.exception.ElpasoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,10 @@ public class PreApprovalService {
             callableStatement.setInt("@pi_ti_requesttype", request.getRequestType());
 
             callableStatement.execute();
-
+            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                        callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+            }
             PreApprovalResponse response = new PreApprovalResponse();
             response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));

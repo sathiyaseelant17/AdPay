@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ElpasoException extends RuntimeException {
-	private Integer errorCode;
-	private String errorDesc;
+	private Integer statusCode;
+	private String statusText;
 	private String transactionId;
 }

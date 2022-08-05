@@ -32,8 +32,8 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleElpasoException(ElpasoException exception) {
         LOGGER.error(exception.getTransactionId(), exception.getMessage(), exception);
         ElpasoError elpasoError = new ElpasoError();
-        elpasoError.setErrorCode(String.valueOf(exception.getErrorCode()));
-        elpasoError.setErrorText(exception.getErrorDesc());
+        elpasoError.setStatusCode(String.valueOf(exception.getStatusCode()));
+        elpasoError.setStatusText(exception.getStatusText());
         return new ResponseEntity<Object>(elpasoError, HttpStatus.OK);
     }
 

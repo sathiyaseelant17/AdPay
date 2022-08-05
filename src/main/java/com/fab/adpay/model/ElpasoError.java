@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class ElpasoError {
 
-    private String errorCode;
-    private String errorText;
+    private String statusCode;
+    private String statusText;
 }
