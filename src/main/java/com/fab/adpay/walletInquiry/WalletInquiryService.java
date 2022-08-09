@@ -28,7 +28,7 @@ public class WalletInquiryService {
     public WalletInquiryResponse walletInquiry(Map<String, String> headers, WalletInquiryRequest request)
             throws SQLException {
         try (Connection connection = Datasource.getConnection(); CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_get_walletsbyid(?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+                "{call proc_mml_get_walletsbyid(?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
@@ -40,6 +40,8 @@ public class WalletInquiryService {
                     new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_identitytype", request.getIdentityType());
             callableStatement.setString("@pi_vc_identitynumber", request.getIdentityNumber());
+            callableStatement.setString("@pi_vc_wallet_id", request.getWalletId());
+
 
 //            callableStatement.execute();
             List<WalletInquiryData> walletInquiryDataList = new ArrayList<>();
@@ -67,8 +69,10 @@ public class WalletInquiryService {
                         walletInquiryData.setCreateDate(rs.getString("createdate"));
 //                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
                         walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
-                        walletInquiryData.setWalletTopupLimit(rs.getBigDecimal("wallettopuplimit"));
-                        walletInquiryData.setAvailableBalance(rs.getString("avlbal"));
+                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
+                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
+                        walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
+                        walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
                         walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
                         walletInquiryData.setAdgeId(rs.getString("adge id"));
                         walletInquiryData.setServiceId(rs.getString("service id"));

@@ -14,6 +14,12 @@ import com.fab.adpay.kycUpload.DMSConfiguration;
 import com.fab.adpay.kycUpload.KycUploadRequest;
 import com.fab.adpay.kycUpload.KycUploadResponse;
 import com.fab.adpay.kycUpload.KycUploadService;
+import com.fab.adpay.otpgeneration.OtpGenerationRequest;
+import com.fab.adpay.otpgeneration.OtpGenerationResponse;
+import com.fab.adpay.otpgeneration.OtpGenerationService;
+import com.fab.adpay.otpvalidation.OtpValidationRequest;
+import com.fab.adpay.otpvalidation.OtpValidationResponse;
+import com.fab.adpay.otpvalidation.OtpValidationService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -121,6 +127,11 @@ public class AdPayController {
 
     @Autowired
     FetchDetailsService fetchDetailsService;
+    @Autowired
+    OtpGenerationService otpGenerationService;
+
+    @Autowired
+    OtpValidationService otpValidationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -271,21 +282,24 @@ public class AdPayController {
     }
 
     @PostMapping("/customerOnboarding")
-    CustomerOnboardResponse customerOnboard(@RequestHeader Map<String, String> headers,
+    Object customerOnboard(@RequestHeader Map<String, String> headers,
                                             @Valid @RequestBody CustomerOnboardRequest request)
             throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
-
-        CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
-        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
-                OBJECT_MAPPER.writeValueAsString(elpresponse));
-        BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse,headers,request);
-        LOGGER.info("BPMS Response" , bpmsResponse);
-
-
-        return elpresponse;
+        if(request.getWalletId().equals(null) || request.getWalletId().equals("")){
+            CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
+            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                    OBJECT_MAPPER.writeValueAsString(elpresponse));
+            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse.getApplicationId(),headers,request);
+            LOGGER.info("BPMS Response" , bpmsResponse);
+            return elpresponse;
+        }else {
+            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(request.getWalletId(),headers,request);
+            LOGGER.info("BPMS Response" , bpmsResponse);
+            return bpmsResponse;
+        }
     }
 
     @PostMapping("/fetchOnboardingDetails")
@@ -335,6 +349,8 @@ public class AdPayController {
 
         return response;
     }
+
+
     @PostMapping("/redemptionCallback")
     public RedemptionCallbackResponse redemptionCallback(@RequestHeader Map<String, String> headers, @RequestBody RedemptionCallbackRequest request) throws SQLException, JsonProcessingException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -342,9 +358,9 @@ public class AdPayController {
         RedemptionCallbackResponse response = redemptionCallbackService.fundsTransferStatusUpdate(headers, request);
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
-
         return response;
     }
+
     @PostMapping("/kycUpload")
     KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestBody KycUploadRequest kycUploadRequest)
             throws Exception {
@@ -360,5 +376,24 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(kycUploadResponse));
         return kycUploadResponse;
+    }
+
+    @PostMapping("/validate-otp")
+    OtpValidationResponse validateOtp(@RequestHeader Map<String, String> headers, @RequestBody OtpValidationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpValidationResponse response = otpValidationService.validateOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+    @PostMapping("/generate-otp")
+    OtpGenerationResponse otpGeneration(@RequestHeader Map<String, String> headers, @RequestBody OtpGenerationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpGenerationResponse response = otpGenerationService.createOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
     }
 }

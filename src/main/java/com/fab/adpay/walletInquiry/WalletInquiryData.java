@@ -27,8 +27,9 @@ public class WalletInquiryData {
     private int lastTransactionDate;
     private String lastTopupAmount;
     private String lastTopupDate;
-    private BigDecimal walletTopupLimit;
-    private String availableBalance;
+    private BigDecimal walletLimit;
+    private BigDecimal walletSpendLimitPerTransaction;
+    private BigDecimal availableBalance;
     private BigDecimal currentBalance;
     private String adgeId;
     private String serviceId;

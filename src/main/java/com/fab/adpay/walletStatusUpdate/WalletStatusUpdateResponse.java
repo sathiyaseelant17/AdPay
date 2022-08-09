@@ -8,15 +8,12 @@ package com.fab.adpay.walletStatusUpdate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- *
- * @author Hariharasudhan
- */
+
 @Data
 @NoArgsConstructor
 public class WalletStatusUpdateResponse {
-	private String walletId;
-	private int transactionId;
+
 	private int statusCode;
 	private String statusText;
+	private int transactionId;
 }

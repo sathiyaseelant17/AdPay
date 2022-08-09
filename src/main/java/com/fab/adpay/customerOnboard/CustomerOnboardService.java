@@ -119,7 +119,7 @@ public class CustomerOnboardService {
 
     }
 
-    public BPMSResponse initiateBPMS(CustomerOnboardResponse elpResponse, Map<String, String> headers, CustomerOnboardRequest request) {
+    public BPMSResponse initiateBPMS(String id, Map<String, String> headers, CustomerOnboardRequest request) {
 
         String URL = System.getenv("INITIATE_BPMS");
         HttpHeaders header = new HttpHeaders();
@@ -177,7 +177,7 @@ public class CustomerOnboardService {
         customerDetails.setT24Target(request.getT24Target());
         customerDetails.setTelephoneNo(request.getTelephoneNo());
         customerDetails.setTitle(request.getTitle());
-        customerDetails.setCardID(elpResponse.getApplicationId());
+        customerDetails.setCardID(id);
 
         FatcaCRSDetails fatcaCRSDetails=new FatcaCRSDetails();
 
