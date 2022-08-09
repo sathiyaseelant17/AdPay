@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="203cc57f-7c29-4c32-ae85-0260a04fd43a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/customerOnboard/CustomerOnboardService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/customerOnboard/CustomerOnboardService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/controller/AdPayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/controller/AdPayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/model/ResponseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/model/ResponseData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/redemptionRequest/RedemptionReqService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/redemptionRequest/RedemptionReqService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
