@@ -79,8 +79,8 @@ public class KycUploadService {
 						callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
 			}
 			DMSConfiguration DMSConfiguration = new DMSConfiguration();
-			DMSConfiguration.setRequestId("");
-			DMSConfiguration.setSourceSystemName("");
+			DMSConfiguration.setRequestId(headers.get("transactionid"));
+			DMSConfiguration.setSourceSystemName(headers.get("channelid"));
 			DMSConfiguration.setTargetPathToUpload("");
 			DMSConfiguration.setObjectPath("");
 			DMSConfiguration.setObjectFolder(dmsConfigurationElpResponseList.get(0).getObjectFolder());
