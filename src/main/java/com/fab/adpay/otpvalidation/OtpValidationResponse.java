@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class OtpValidationResponse {
 
 	private Boolean success;
-	private String errorCode;
-	private String errorText;
+	private String statusCode;
+	private String statusText;
 //	private String cardId;
 
 }

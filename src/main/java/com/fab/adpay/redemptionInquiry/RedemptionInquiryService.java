@@ -28,28 +28,28 @@ public class RedemptionInquiryService {
             callableStatement.registerOutParameter("@po_de_avlbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_curbal", Types.DECIMAL);
 
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_transactionTimezone", "GST");
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
-            callableStatement.setString("@pi_vc_cardId", request.getCardId());
+            callableStatement.setString("@pi_vc_cardId", request.getWalletId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTransactionRef());
             callableStatement.setString("@pi_vc_RedeemAckRef", request.getRedeemAcknowledgementRef());
-            callableStatement.setInt("@pi_vc_RedeemStatus", request.getRedeemStatus());
+            callableStatement.setInt("@pi_ti_RedeemStatus", request.getRedeemStatus());
             callableStatement.execute();
-            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
-                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+            if (!(callableStatement.getInt("@po_si_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_si_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             RedemptionInquiryResponse response = new RedemptionInquiryResponse();
-            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            response.setStatusCode(callableStatement.getInt("@po_si_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setAvailableBalance(callableStatement.getBigDecimal("@po_de_avlbal"));
             response.setCurrentBalance(callableStatement.getBigDecimal("@po_de_curbal"));
 

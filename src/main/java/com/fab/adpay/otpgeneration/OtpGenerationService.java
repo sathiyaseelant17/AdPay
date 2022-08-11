@@ -55,7 +55,7 @@ public class OtpGenerationService {
         GenerateOtpServiceRequest generateOtpServiceRequest = buildGenerateOtpServiceRequest(mobileNumber);
         String referenceNumber = fetchReferenceNumberFromExternalOTPGenerationApi(generateOtpServiceRequest);
         otpGenerationResponse.setReferenceNumber(referenceNumber);
-        otpGenerationResponse.setCardId(request.getValue());
+        otpGenerationResponse.setWalletId(request.getValue());
         return otpGenerationResponse;
     }
 
@@ -63,8 +63,9 @@ public class OtpGenerationService {
         String cardId = request.getValue();
         String mobileNumber = "";
         WalletInquiryRequest walletInquiryRequest = new WalletInquiryRequest();
-        walletInquiryRequest.setIdentityType(request.getRequestMode());
-        walletInquiryRequest.setIdentityNumber(request.getValue());
+        walletInquiryRequest.setIdentityType(0);
+        walletInquiryRequest.setIdentityNumber("");
+        walletInquiryRequest.setWalletId(request.getValue());
         WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
         LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
         return walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile();

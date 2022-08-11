@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OtpGenerationResponse {
-	private String cardId;
+	private String walletId;
 	private String referenceNumber;
 
 }
