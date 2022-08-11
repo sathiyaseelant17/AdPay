@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class RedemptionReqRequest {
 
-    private String cardId;
+    private String walletId;
     private int transactionSource;
     private int transactionType;
     private String sourceMakerId;

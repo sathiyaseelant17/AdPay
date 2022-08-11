@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @ToString
 public class RedemptionInquiryResponse {
 
-    private int errorCode;
-    private String errorText;
+    private int statusCode;
+    private String statusText;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;
 

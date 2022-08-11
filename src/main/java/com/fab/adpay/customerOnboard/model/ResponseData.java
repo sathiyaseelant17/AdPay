@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResponseData {
+
     private String applicationRefNo;
     private String applicationCreatedDate;
     private String applicationExpiryDate;
-    private String applicationStatus;
+    private String applicationSource;
     private String applicationRemarks;
+    private String applicationStatus;
 
 }

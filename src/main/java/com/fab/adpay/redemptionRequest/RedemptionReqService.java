@@ -7,11 +7,13 @@ import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Date;
 import java.util.Map;
 
+@Service
 public class RedemptionReqService {
 
     private static final Logger logger = LoggerFactory.getLogger(RedemptionReqService.class);
@@ -19,23 +21,22 @@ public class RedemptionReqService {
     public RedemptionReqResponse redemptionRequest(Map<String, String> headers, RedemptionReqRequest request)
             throws SQLException {
         try (Connection connection = Datasource.getConnection(); CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_FundsTransfer_request(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?,?)}")) {
+                "{call proc_mml_FundsTransfer_request( ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_si_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_de_avlbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_curbal", Types.DECIMAL);
-            callableStatement.registerOutParameter("@pi_vc_cardId", Types.VARCHAR);
             callableStatement.registerOutParameter("@pi_vc_RedeemAckRef", Types.VARCHAR);
 
+            callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
-            callableStatement.setTimestamp("@pi_dt_transactiondate", Timestamp.valueOf(headers.get("transactionDateTime")));
             callableStatement.setString("@pi_vc_transactionTimezone", "GST");
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
-            callableStatement.setString("@pi_vc_cardId", request.getCardId());
+            callableStatement.setString("@pi_vc_cardId", request.getWalletId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
@@ -72,17 +73,16 @@ public class RedemptionReqService {
             callableStatement.setString("@pi_vc_beneficiarybankbic", request.getBeneficiaryBankBic());
 
             callableStatement.execute();
-            if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
-                throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+            if (!(callableStatement.getInt("@po_si_errcode") == 0)) {
+                throw new ElpasoException(callableStatement.getInt("@po_si_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             RedemptionReqResponse response = new RedemptionReqResponse();
-            response.setErrorCode(callableStatement.getInt("@po_i_errcode"));
-            response.setErrorText(callableStatement.getString("@po_vc_errortext"));
+            response.setStatusCode(callableStatement.getInt("@po_si_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setAvailableBalance(callableStatement.getBigDecimal("@po_de_avlbal"));
             response.setCurrentBalance(callableStatement.getBigDecimal("@po_de_curbal"));
-            response.setCardId(callableStatement.getString("@pi_vc_cardId"));
-            response.setCardId(callableStatement.getString("@pi_vc_RedeemAckRef"));
+            response.setRedeemAcknowledgementRef(callableStatement.getString("@pi_vc_RedeemAckRef"));
 
 
             logger.debug("TRANSACTION ID: {} Redemption Inquiry RESPONSE:{}", headers.get("transactionid"), response);

@@ -14,6 +14,12 @@ import com.fab.adpay.kycUpload.DMSConfiguration;
 import com.fab.adpay.kycUpload.KycUploadRequest;
 import com.fab.adpay.kycUpload.KycUploadResponse;
 import com.fab.adpay.kycUpload.KycUploadService;
+import com.fab.adpay.otpgeneration.OtpGenerationRequest;
+import com.fab.adpay.otpgeneration.OtpGenerationResponse;
+import com.fab.adpay.otpgeneration.OtpGenerationService;
+import com.fab.adpay.otpvalidation.OtpValidationRequest;
+import com.fab.adpay.otpvalidation.OtpValidationResponse;
+import com.fab.adpay.otpvalidation.OtpValidationService;
 import com.fab.adpay.preApproval.PreApprovalRequest;
 import com.fab.adpay.preApproval.PreApprovalResponse;
 import com.fab.adpay.preApproval.PreApprovalService;
@@ -23,6 +29,9 @@ import com.fab.adpay.redemptionCallback.RedemptionCallbackService;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryRequest;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryResponse;
 import com.fab.adpay.redemptionInquiry.RedemptionInquiryService;
+import com.fab.adpay.redemptionRequest.RedemptionReqRequest;
+import com.fab.adpay.redemptionRequest.RedemptionReqResponse;
+import com.fab.adpay.redemptionRequest.RedemptionReqService;
 import com.fab.adpay.transactionHistory.TransactionHistoryRequest;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
 import com.fab.adpay.transactionHistory.TransactionHistoryService;
@@ -114,7 +123,15 @@ public class AdPayController {
     RedemptionInquiryService redemptionInquiryService;
 
     @Autowired
+    RedemptionReqService redemptionReqService;
+
+    @Autowired
     FetchDetailsService fetchDetailsService;
+    @Autowired
+    OtpGenerationService otpGenerationService;
+
+    @Autowired
+    OtpValidationService otpValidationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -271,24 +288,18 @@ public class AdPayController {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
-        if(request.getActionName().equals("CREATE")&&request.getActionName()!=null){
+        if(request.getWalletId().equals(null) || request.getWalletId().equals("")){
             CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
             LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                     OBJECT_MAPPER.writeValueAsString(elpresponse));
             BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse.getApplicationId(),headers,request);
             LOGGER.info("BPMS Response" , bpmsResponse);
             return elpresponse;
-        }else if(request.getActionName().equals("UPDATE_DETAILS")&&request.getWalletId()!=null){
+        }else {
             BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(request.getWalletId(),headers,request);
             LOGGER.info("BPMS Response" , bpmsResponse);
             return bpmsResponse;
-        }else{
-            throw new Exception("actionName will be either Create/update"+request.getActionName()+"walletId:"+request.getWalletId());
         }
-
-
-
-
     }
 
     @PostMapping("/fetchOnboardingDetails")
@@ -323,6 +334,23 @@ public class AdPayController {
         return response;
     }
 
+    @PostMapping("/redemptionRequest")
+    RedemptionReqResponse redemptionRequest(@RequestHeader Map<String, String> headers,
+                                            @Valid @RequestBody RedemptionReqRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        RedemptionReqResponse response = redemptionReqService.redemptionRequest(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+
+        return response;
+    }
+
+
     @PostMapping("/redemptionCallback")
     public RedemptionCallbackResponse redemptionCallback(@RequestHeader Map<String, String> headers, @RequestBody RedemptionCallbackRequest request) throws SQLException, JsonProcessingException {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
@@ -330,9 +358,9 @@ public class AdPayController {
         RedemptionCallbackResponse response = redemptionCallbackService.fundsTransferStatusUpdate(headers, request);
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));
-
         return response;
     }
+
     @PostMapping("/kycUpload")
     KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestBody KycUploadRequest kycUploadRequest)
             throws Exception {
@@ -348,5 +376,24 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(kycUploadResponse));
         return kycUploadResponse;
+    }
+
+    @PostMapping("/validate-otp")
+    OtpValidationResponse validateOtp(@RequestHeader Map<String, String> headers, @RequestBody OtpValidationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpValidationResponse response = otpValidationService.validateOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+    @PostMapping("/generate-otp")
+    OtpGenerationResponse otpGeneration(@RequestHeader Map<String, String> headers, @RequestBody OtpGenerationRequest request) throws Exception {
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+        OtpGenerationResponse response = otpGenerationService.createOtp(headers, request);
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
     }
 }

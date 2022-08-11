@@ -61,14 +61,14 @@ public class OtpValidationService {
             if (otpValidationApiResponse.getResponseStatus().getStatus().equals("SUCCESS")
                     && otpValidationApiResponse.getDataArea().isOtpMatched()) {
                 otpValidationResponse.setSuccess(true);
-                otpValidationResponse.setErrorCode("0");
-                otpValidationResponse.setErrorText("");
+                otpValidationResponse.setStatusCode("0");
+                otpValidationResponse.setStatusText("");
                 return otpValidationResponse;
             } else if (otpValidationApiResponse.getResponseStatus().getStatus().equals("ERROR")) {
                 otpValidationResponse.setSuccess(false);
-                otpValidationResponse.setErrorCode(
+                otpValidationResponse.setStatusCode(
                         otpValidationApiResponse.getResponseStatus().getErrorDetails().get(0).getErrorCode());
-                otpValidationResponse.setErrorText(
+                otpValidationResponse.setStatusText(
                         otpValidationApiResponse.getResponseStatus().getErrorDetails().get(0).getErrorDesc());
                 return otpValidationResponse;
             } else {
@@ -80,9 +80,9 @@ public class OtpValidationService {
             otpValidationApiResponse = objectMapper.readValue(responseBody, OtpValidationApiResponse.class);
             if (otpValidationApiResponse.getResponseStatus().getStatus().equals("ERROR")) {
                 otpValidationResponse.setSuccess(false);
-                otpValidationResponse.setErrorCode(
+                otpValidationResponse.setStatusCode(
                         otpValidationApiResponse.getResponseStatus().getErrorDetails().get(0).getErrorCode());
-                otpValidationResponse.setErrorText(
+                otpValidationResponse.setStatusText(
                         otpValidationApiResponse.getResponseStatus().getErrorDetails().get(0).getErrorDesc());
                 return otpValidationResponse;
             } else {
