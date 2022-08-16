@@ -56,7 +56,7 @@ public class WalletTransactionService {
             callableStatement.setInt("@pi_ti_checkexpiryflag", request.getCheckExpiryFlag());
             callableStatement.setString("@pi_vc_retrievalrefno", request.getRetrievalRefNo());
             callableStatement.setString("@pi_vc_passcode", request.getPassCode());
-            callableStatement.setString("@pi_dt_txndatetime", headers.get("transactionDateTime"));
+            callableStatement.setString("@pi_dt_txndatetime", new Timestamp(new Date().getTime()).toString());
             callableStatement.setString("@pi_dt_freezeexpirydate", request.getFreezeExpiryDate());
             callableStatement.setInt("@pi_ti_begintranflag", request.getBegintranflag());
             callableStatement.setString("@pi_vc_desc2", request.getDesc2());

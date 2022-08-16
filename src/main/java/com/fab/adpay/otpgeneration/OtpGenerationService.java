@@ -68,7 +68,14 @@ public class OtpGenerationService {
         walletInquiryRequest.setWalletId(request.getValue());
         WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
         LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
-        return walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile();
+        System.out.println(walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile());
+
+        String convertedMobileNumber = walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile().replaceAll("[-]", "");
+        System.out.println(convertedMobileNumber);
+
+
+
+        return convertedMobileNumber;
     }
 
     public String fetchReferenceNumberFromExternalOTPGenerationApi(GenerateOtpServiceRequest generateOtpServiceRequest)
