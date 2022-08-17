@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DMSResponse {
 
-    private int errorCode;
-    private String errorText;
+    private int statusCode;
+    private String statusText;
     private List<DMSConfigurationElpResponse> dmsConfigurationElpResponsesList;
 }

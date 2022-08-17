@@ -19,7 +19,7 @@ public class VoidService {
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
-            callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.INTEGER);
+            callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.VARCHAR);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@pi_vc_transactionTimezone", "GST");

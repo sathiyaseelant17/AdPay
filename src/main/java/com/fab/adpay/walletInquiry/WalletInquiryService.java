@@ -9,10 +9,8 @@ import com.fab.adpay.Datasource;
 import com.fab.adpay.exception.ElpasoException;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import com.fab.adpay.transactionHistory.TransactionHistory;
 import com.fab.adpay.transactionHistory.TransactionHistoryResponse;
@@ -46,56 +44,71 @@ public class WalletInquiryService {
 //            callableStatement.execute();
             List<WalletInquiryData> walletInquiryDataList = new ArrayList<>();
             WalletInquiryResponse response = new WalletInquiryResponse();
-
-               try( ResultSet rs = callableStatement.executeQuery()){
-            	   if(rs!=null) {
-            		   System.out.println("if condition");
-            		while (rs.next()) {
-            			 System.out.println("while confdition");
-                    WalletInquiryData walletInquiryData = new WalletInquiryData();
-                    walletInquiryData.setWalletId(rs.getString("walletid"));
-                    walletInquiryData.setWalletLabel(rs.getString("wallet label"));
-                    walletInquiryData.setDefaultWallet(rs.getString("default wallet"));
-                    walletInquiryData.setWalletType(rs.getString("wallet type"));
-                    walletInquiryData.setFirstNameEnglish(rs.getString("firstname_english"));
-                    walletInquiryData.setMiddleNameEnglish(rs.getString("middlename_english"));
-                    walletInquiryData.setLastNameEnglish(rs.getString("lastname_english"));
-                    walletInquiryData.setFirstNameArabic(rs.getString("firstname_arabic"));
-                    walletInquiryData.setMiddleNameArabic(rs.getString("middlename_arabic"));
-                    walletInquiryData.setLastNameEnglish(rs.getString("lastname_arabic"));
-                    walletInquiryData.setMobile(rs.getString("mobile"));
-                    walletInquiryData.setEmail(rs.getString("emailid"));
-                        walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
-                        walletInquiryData.setCreateDate(rs.getString("createdate"));
+            PreApproved preApprovePojo=new PreApproved();
+            // JSONObject walletIndex=new JSONObject();
+            Map<String,Integer> walletMap=new HashMap<String,Integer>();
+            int walletIndex=0;
+            try( ResultSet rs = callableStatement.executeQuery()){
+                if(rs!=null) {
+//                     System.out.println("if condition");
+                    while (rs.next()) {
+//                       System.out.println("while confdition");
+                        WalletInquiryData walletInquiryData = new WalletInquiryData();
+                        preApprovePojo=new PreApproved();
+                        walletInquiryData.setWalletId(rs.getString("walletid"));
+                        if(walletMap.containsKey(walletInquiryData.getWalletId())) {
+                            preApprovePojo.setAdgeId(rs.getString("adge id"));
+                            preApprovePojo.setServiceId(rs.getString("service id"));
+                            walletInquiryData.getPreApproved().add(preApprovePojo);
+                            walletInquiryDataList.get(walletMap.get(walletInquiryData.getWalletId())).getPreApproved().add(preApprovePojo);
+                        }else {
+                            walletInquiryData.setWalletLabel(rs.getString("wallet label"));
+                            walletInquiryData.setDefaultWallet(rs.getString("default wallet"));
+                            walletInquiryData.setWalletType(rs.getString("wallet type"));
+                            walletInquiryData.setFirstNameEnglish(rs.getString("firstname_english"));
+                            walletInquiryData.setMiddleNameEnglish(rs.getString("middlename_english"));
+                            walletInquiryData.setLastNameEnglish(rs.getString("lastname_english"));
+                            walletInquiryData.setFirstNameArabic(rs.getString("firstname_arabic"));
+                            walletInquiryData.setMiddleNameArabic(rs.getString("middlename_arabic"));
+                            walletInquiryData.setLastNameEnglish(rs.getString("lastname_arabic"));
+                            walletInquiryData.setMobile(rs.getString("mobile"));
+                            walletInquiryData.setEmail(rs.getString("emailid"));
+                            walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
+                            walletInquiryData.setCreateDate(rs.getString("createdate"));
 //                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
-                        walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
-                        walletInquiryData.setLastTopupDate(rs.getString("lasttopupdate"));
-                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
-                        walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
-                        walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
-                        walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
-                        walletInquiryData.setAdgeId(rs.getString("adge id"));
-                        walletInquiryData.setServiceId(rs.getString("service id"));
-                        walletInquiryData.setKycFlag(rs.getString("KYCFlag"));
-
-                        walletInquiryDataList.add(walletInquiryData);
+                            walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
+                            walletInquiryData.setLastTopupDate(rs.getString("lasttopupdate"));
+                            walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
+                            walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
+                            walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
+                            walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
+                            walletInquiryData.setKycFlag(rs.getString("KYCFlag"));
+//                        walletInquiryData.setAdge(rs.getString("adge id"));
+//                        walletInquiryData.setServiceId(rs.getString("service id"));
+                            // System.out.println(rs.getString("adge id"));
+                            preApprovePojo.setAdgeId(rs.getString("adge id"));
+                            preApprovePojo.setServiceId(rs.getString("service id"));
+                            walletInquiryData.getPreApproved().add(preApprovePojo);
+                            walletInquiryDataList.add(walletInquiryData);
+                            walletMap.put(walletInquiryData.getWalletId(),walletIndex);
+                            walletIndex++;
+                        }
+                    }
+                    response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+                    response.setStatusText(callableStatement.getString("@po_vc_errortext"));
+                    response.setWalletInquiryDataList(walletInquiryDataList);
+                }else {
+                    response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+                    response.setStatusText(callableStatement.getString("@po_vc_errortext"));
+                    response.setWalletInquiryDataList(null);
                 }
-                response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
-                response.setStatusText(callableStatement.getString("@po_vc_errortext"));
-                response.setWalletInquiryDataList(walletInquiryDataList);
-             }else {
-           		   response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
-                   response.setStatusText(callableStatement.getString("@po_vc_errortext"));
-                   response.setWalletInquiryDataList(null);
-            	   }
-               }catch(Exception e) {
-            	   if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
-            		      throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
-            		            callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
-            		   }
-            		}
-               System.out.println(walletInquiryDataList);
-            		   
+            }catch(Exception e) {
+                if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
+                    throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
+                            callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
+                }
+            }
+            System.out.println(walletInquiryDataList);
             return response;
         }
     }

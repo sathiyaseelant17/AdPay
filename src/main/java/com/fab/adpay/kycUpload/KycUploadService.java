@@ -63,8 +63,8 @@ public class KycUploadService {
 						dmsConfigurationElpResponse.setObjectFolder(rs.getString("objectFolder"));
 						dmsConfigurationElpResponseList.add(dmsConfigurationElpResponse);
 					}
-					dmsResponseWithList.setErrorCode(callableStatement.getInt("@po_vc_errcode"));
-					dmsResponseWithList.setErrorText(callableStatement.getString("@po_vc_errortext"));
+					dmsResponseWithList.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+					dmsResponseWithList.setStatusText(callableStatement.getString("@po_vc_errortext"));
 					dmsResponseWithList.setDmsConfigurationElpResponsesList(dmsConfigurationElpResponseList);
 				}else {
 					LOGGER.info("Transaction id: {} ResultSet Empty: {}", headers.get("transactionid"),
@@ -88,7 +88,7 @@ public class KycUploadService {
 			directoryDetails.setFolderName("");
 			directoryDetails.setAclName(dmsConfigurationElpResponseList.get(0).getDirDtlAttAclName());
 			directoryDetails.setAclDomain(dmsConfigurationElpResponseList.get(0).getDirDtlAttAclDomain());
-			DMSConfiguration.setDirDetails(directoryDetails);
+			DMSConfiguration.setDirectoryDetails(directoryDetails);
 			DMSConfiguration.setDocumentType(dmsConfigurationElpResponseList.get(0).getDocumentType());
 			DocumentDetails documentDetails = new DocumentDetails();
 			documentDetails.setEmiratesId("");
@@ -100,11 +100,11 @@ public class KycUploadService {
 			documentDetails.setDocumentType(dmsConfigurationElpResponseList.get(0).getDocumentType());
 			documentDetails.setObjectName(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclObjName());
 			documentDetails.setAclCardId(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclCardId());
-			DMSConfiguration.setDocDetails(documentDetails);
+			DMSConfiguration.setDocumentDetails(documentDetails);
 			DMSConfiguration.setFileName(dmsConfigurationElpResponseList.get(0).getFileName());
 			DMSConfiguration.setFileType("pdf");
-			DMSConfiguration.setErrorCode(String.valueOf(dmsResponseWithList.getErrorCode()));
-			DMSConfiguration.setErrorText(dmsResponseWithList.getErrorText());
+			DMSConfiguration.setStatusCode(String.valueOf(dmsResponseWithList.getStatusCode()));
+			DMSConfiguration.setStatusText(dmsResponseWithList.getStatusText());
 			return DMSConfiguration;
 		}
 	}
@@ -114,13 +114,13 @@ public class KycUploadService {
 		response.setDocumentId("");
 		if (!node.get("Body").get("UploadDocumentResponse").get("status").textValue().equalsIgnoreCase("FAILURE")) {
 			response.setDocumentId(node.get("Body").get("UploadDocumentResponse").get("data").get("documentID").textValue());
-			response.setErrorCode("0");
-			response.setErrorText(null);
+			response.setStatusCode("0");
+			response.setStatusText(null);
 		} else {
 			response.setDocumentId("");
-			response.setErrorCode(
+			response.setStatusCode(
 					node.get("Body").get("UploadDocumentResponse").get("error").get("code").textValue());
-			response.setErrorText(
+			response.setStatusText(
 					node.get("Body").get("UploadDocumentResponse").get("error").get("description").textValue());
 		}
 		LOGGER.info("Transaction id: {} SetDocumentResponse: {}", headers.get("transactionid"),response);
@@ -150,32 +150,32 @@ public class KycUploadService {
 				+ dmsConfiguration.getTargetPathToUpload() + "</targetPath>\n" + "\t<directoryDetails>\n"
 				+ "\t<directoryAttributes>\n" + "\t<objectPath>" + dmsConfiguration.getObjectPath() + "</objectPath>\n"
 				+ "\t<objectType>" + dmsConfiguration.getObjectFolder() + "</objectType>\n" + "\t<objectAttributes>\n"
-				+ "\t<name>object_name</name>\n" + "\t<value>" + dmsConfiguration.getDocDetails().getAclCardId()
+				+ "\t<name>object_name</name>\n" + "\t<value>" + dmsConfiguration.getDocumentDetails().getAclCardId()
 				+ "</value>\n" + "\t</objectAttributes>\n" + "\t<objectAttributes>\n" + "\t<name>acl_name</name>\n"
-				+ "\t<value>" + dmsConfiguration.getDirDetails().getAclName() + "</value>\n" + "\t</objectAttributes>\n"
+				+ "\t<value>" + dmsConfiguration.getDirectoryDetails().getAclName() + "</value>\n" + "\t</objectAttributes>\n"
 				+ "\t<objectAttributes>\n" + "\t<name>acl_domain</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDirDetails().getAclDomain() + "</value>\n" + "\t</objectAttributes>\n"
+				+ dmsConfiguration.getDirectoryDetails().getAclDomain() + "</value>\n" + "\t</objectAttributes>\n"
 				+ "\t</directoryAttributes>\n" + "\t</directoryDetails>\n" + "\t<documentDetails>\n"
 				+ "\t<documentType>" + dmsConfiguration.getDocumentType() + "</documentType>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>object_name</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getObjectName() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getObjectName() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>emirates_id</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getEmiratesId() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getEmiratesId() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>product</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getProduct() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getProduct() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>reference_number</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getReferenceNumber() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getReferenceNumber() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>type_of_document</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocumentType() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_id</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getElpasaCif() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getElpasaCif() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>card_id</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getAclCardId() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getAclCardId() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_name</name>\n" + "\t<value></value>\n"
 				+ "\t</documentAttributes>\n" + "\t<documentAttributes>\n" + "\t<name>acl_name</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getAclName() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getAclName() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>acl_domain</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getAclDomain() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentDetails().getAclDomain() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>source_system</name>\n" + "\t<value>"
 				+ dmsConfiguration.getSourceSystemName() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<attachment>\n" + "\t<fileName>" + dmsConfiguration.getFileName() + "</fileName>\n"

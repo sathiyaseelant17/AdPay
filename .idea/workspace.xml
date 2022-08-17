@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b743c3f-3952-484d-942f-47cce3250cae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/ErrorRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/ErrorRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,16 +71,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="AdpayApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
@@ -90,13 +93,12 @@
       </method>
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="203cc57f-7c29-4c32-ae85-0260a04fd43a" name="Changes" comment="" />
       <created>1659090020378</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

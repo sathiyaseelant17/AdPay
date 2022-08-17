@@ -1,27 +1,16 @@
 package com.fab.adpay.kycUpload;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ErrorRes {
-	private Integer errorCode;
-	private String errorMsg;
-
-	public Integer getErrorCode() {
-		return errorCode;
-	}
-
-	public String getErrorMsg() {
-		return errorMsg;
-	}
-
-	public void setErrorCode(Integer errorCode) {
-		this.errorCode = errorCode;
-	}
-
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
-	}
-
-	@Override
-	public String toString() {
-		return "{" + "errorCode=" + errorCode + ", errorDesc='" + errorMsg + '\'' + '}';
-	}
+	private Integer statusCode;
+	private String statusMsg;
 }
