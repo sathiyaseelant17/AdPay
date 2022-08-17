@@ -81,8 +81,8 @@ public class KycUploadService {
 			DMSConfiguration DMSConfiguration = new DMSConfiguration();
 			DMSConfiguration.setRequestId(headers.get("transactionid"));
 			DMSConfiguration.setSourceSystemName(headers.get("channelid"));
-			DMSConfiguration.setTargetPathToUpload("");
-			DMSConfiguration.setObjectPath("");
+			DMSConfiguration.setTargetPathToUpload("/Consumer banking/ADPay Wallet Temp");
+			DMSConfiguration.setObjectPath("ADPay Wallet Temp");
 			DMSConfiguration.setObjectFolder(dmsConfigurationElpResponseList.get(0).getObjectFolder());
 			DirectoryDetails directoryDetails = new DirectoryDetails();
 			directoryDetails.setFolderName("");
@@ -93,10 +93,11 @@ public class KycUploadService {
 			DocumentDetails documentDetails = new DocumentDetails();
 			documentDetails.setEmiratesId("");
 			documentDetails.setElpasaCif("");
-			documentDetails.setKeywords("");
+			documentDetails.setProduct("Prepaid Wallet");
+			documentDetails.setReferenceNumber(headers.get("transactionid"));
 			documentDetails.setAclName(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclName());
 			documentDetails.setAclDomain(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclDomain());
-			documentDetails.setDocumentType(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclDocType());
+			documentDetails.setDocumentType(dmsConfigurationElpResponseList.get(0).getDocumentType());
 			documentDetails.setObjectName(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclObjName());
 			documentDetails.setAclCardId(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclCardId());
 			DMSConfiguration.setDocDetails(documentDetails);
@@ -160,10 +161,12 @@ public class KycUploadService {
 				+ dmsConfiguration.getDocDetails().getObjectName() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>emirates_id</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocDetails().getEmiratesId() + "</value>\n" + "\t</documentAttributes>\n"
-				+ "\t<documentAttributes>\n" + "\t<name>keywords</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getKeywords() + "</value>\n" + "\t</documentAttributes>\n"
+				+ "\t<documentAttributes>\n" + "\t<name>product</name>\n" + "\t<value>"
+				+ dmsConfiguration.getDocDetails().getProduct() + "</value>\n" + "\t</documentAttributes>\n"
+				+ "\t<documentAttributes>\n" + "\t<name>reference_number</name>\n" + "\t<value>"
+				+ dmsConfiguration.getDocDetails().getReferenceNumber() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>type_of_document</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocDetails().getDocumentType() + "</value>\n" + "\t</documentAttributes>\n"
+				+ dmsConfiguration.getDocumentType() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_id</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocDetails().getElpasaCif() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>card_id</name>\n" + "\t<value>"
