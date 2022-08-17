@@ -12,5 +12,4 @@ public class KycUploadRequest {
 	private String content;
 	private String documentType;
 
-
 }

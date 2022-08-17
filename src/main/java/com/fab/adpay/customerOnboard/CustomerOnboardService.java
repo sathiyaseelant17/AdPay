@@ -94,7 +94,7 @@ public class CustomerOnboardService {
             callableStatement.setString("@pi_vc_preflanguage", request.getPreferredLanguage());
             callableStatement.setInt("@pi_ti_deliverymode", 2);
             callableStatement.setString("@pi_vc_deliveryposid", "A01");
-            callableStatement.setString("@pi_vc_occupcode", request.getOccupation());
+            callableStatement.setString("@pi_vc_occupcode", "101");
             callableStatement.setString("@Pi_dmsReqID", request.getDocumentDetails());
             callableStatement.setString("@pi_vc_docsCollection", "");
             callableStatement.setString ("@pi_vc_deliveryvendorid", "");
@@ -160,7 +160,7 @@ public class CustomerOnboardService {
         customerDetails.setMiddleName(request.getMiddleName());
         customerDetails.setMobileNumber(request.getMobileNumber());
         customerDetails.setNationality(request.getNationality());
-        customerDetails.setOccupation(request.getOccupation());
+        customerDetails.setOccupation("101");
         customerDetails.setPEPStatus(request.getPepStatus());
         customerDetails.setPlaceOfBirth(request.getPlaceOfBirth());
         customerDetails.setPostalCode(request.getPostalCode());
