@@ -27,7 +27,7 @@ public class UpdateWalletLimitService {
     public UpdateWalletLimitResponse udpateWalletLimit(Map<String, String> headers, UpdateWalletLimitRequest request)
             throws SQLException {
         try ( Connection connection = Datasource.getConnection();  CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_u_limitandlabel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
+                "{call proc_mml_u_limitandlabel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
@@ -41,8 +41,8 @@ public class UpdateWalletLimitService {
             callableStatement.setString("@pi_vc_wallet_id", request.getWalletId());
             callableStatement.setString("@pi_vc_default_wallet", request.getDefaultWallet());
             callableStatement.setString("@pi_vc_wallet_label", request.getWalletLabel());
-            callableStatement.setInt("@pi_de_wallet_limit", request.getWalletLimit());
-
+            callableStatement.setBigDecimal("@pi_de_wallet_limit", request.getWalletLimit());
+            callableStatement.setBigDecimal("@pi_de_wallet_SpendLimitPerTxn", request.getWalletSpendLimitPerTransaction());
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
                 throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),

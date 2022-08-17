@@ -33,5 +33,6 @@ public class WalletInquiryData {
     private BigDecimal currentBalance;
     private String adgeId;
     private String serviceId;
+    private String kycFlag;
 
 }

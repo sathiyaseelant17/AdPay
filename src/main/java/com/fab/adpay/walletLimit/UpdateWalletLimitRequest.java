@@ -8,6 +8,8 @@ package com.fab.adpay.walletLimit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 public class UpdateWalletLimitRequest {
@@ -15,5 +17,7 @@ public class UpdateWalletLimitRequest {
     private String walletId;
     private String defaultWallet;
     private String walletLabel;
-    private int walletLimit;
+    private BigDecimal walletLimit;
+    private BigDecimal walletSpendLimitPerTransaction;
+
 }

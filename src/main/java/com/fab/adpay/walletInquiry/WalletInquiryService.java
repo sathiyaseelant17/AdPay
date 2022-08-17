@@ -67,15 +67,16 @@ public class WalletInquiryService {
                     walletInquiryData.setEmail(rs.getString("emailid"));
                         walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
                         walletInquiryData.setCreateDate(rs.getString("createdate"));
-//                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
+                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
                         walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
                         walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
-                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
+//                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
                         walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
                         walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
                         walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
                         walletInquiryData.setAdgeId(rs.getString("adge id"));
                         walletInquiryData.setServiceId(rs.getString("service id"));
+                        walletInquiryData.setKycFlag(rs.getString("KYCFlag"));
 
                         walletInquiryDataList.add(walletInquiryData);
                 }
