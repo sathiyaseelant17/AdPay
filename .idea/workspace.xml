@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b743c3f-3952-484d-942f-47cce3250cae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DocumentDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DocumentDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletLimit/UpdateWalletLimitRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletLimit/UpdateWalletLimitRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletLimit/UpdateWalletLimitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletLimit/UpdateWalletLimitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionService.java" afterDir="false" />
-    </list>
+    <list default="true" id="2b743c3f-3952-484d-942f-47cce3250cae" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
