@@ -362,10 +362,22 @@ public class AdPayController {
     }
 
     @PostMapping("/kycUpload")
-    KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestBody KycUploadRequest kycUploadRequest)
+    KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestParam("content") MultipartFile file,
+                                @RequestParam("cardId") String cardId, @RequestParam("documentType") String documentType)
             throws Exception {
-        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
-                OBJECT_MAPPER.writeValueAsString(kycUploadRequest));
+
+        if (!("application/pdf".equals(file.getContentType()))) {
+            throw new Exception("file must be pdf format only");
+        }
+        byte[] inputFile = file.getBytes();
+        byte[] encodedBytes = Base64.getEncoder().encode(inputFile);
+        String encodedString = new String(encodedBytes);
+        LOGGER.info("Transaction id: {} Request CardId: {} Request File: {} DocumentType: {}", headers.get("transactionid"),
+                cardId, encodedString, documentType);
+        KycUploadRequest kycUploadRequest = new KycUploadRequest();
+        kycUploadRequest.setCardId(cardId);
+        kycUploadRequest.setContent(encodedString);
+        kycUploadRequest.setDocumentType(documentType);
         DMSConfiguration dmsConfiguration = KycUploadService.getDMSConfiguration(headers, kycUploadRequest);
         LOGGER.debug("Elpaso response:\n{}", OBJECT_MAPPER.writeValueAsString(dmsConfiguration));
         String dmsResponse = KycUploadService.uploadDocument(dmsConfiguration, kycUploadRequest, headers);
