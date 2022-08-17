@@ -67,10 +67,10 @@ public class WalletInquiryService {
                     walletInquiryData.setEmail(rs.getString("emailid"));
                         walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
                         walletInquiryData.setCreateDate(rs.getString("createdate"));
-                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
+//                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
                         walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
+                        walletInquiryData.setLastTopupDate(rs.getString("lasttopupdate"));
                         walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
-//                        walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
                         walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
                         walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
                         walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
