@@ -102,7 +102,7 @@ public class KycUploadService {
 			documentDetails.setAclCardId(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclCardId());
 			DMSConfiguration.setDocDetails(documentDetails);
 			DMSConfiguration.setFileName(dmsConfigurationElpResponseList.get(0).getFileName());
-			DMSConfiguration.setFileType("");
+			DMSConfiguration.setFileType("pdf");
 			DMSConfiguration.setErrorCode(String.valueOf(dmsResponseWithList.getErrorCode()));
 			DMSConfiguration.setErrorText(dmsResponseWithList.getErrorText());
 			return DMSConfiguration;
