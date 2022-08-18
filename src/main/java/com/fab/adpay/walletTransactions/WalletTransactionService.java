@@ -26,7 +26,7 @@ public class WalletTransactionService {
             callableStatement.registerOutParameter("@po_nm_curbalamount", Types.NUMERIC);
             callableStatement.registerOutParameter("@po_vc_RequestRspTime", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_c_trackexpirydate", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@pi_vc_transactionTimezone", "GST");

@@ -80,7 +80,7 @@ public class KycUploadService {
 			}
 			DMSConfiguration DMSConfiguration = new DMSConfiguration();
 			DMSConfiguration.setRequestId(headers.get("transactionid"));
-			DMSConfiguration.setSourceSystemName(headers.get("channelid"));
+			DMSConfiguration.setSourceSystemName("ADPay Wallet");
 			DMSConfiguration.setTargetPathToUpload("/Consumer banking/ADPay Wallet Temp");
 			DMSConfiguration.setObjectPath("ADPay Wallet Temp");
 			DMSConfiguration.setObjectFolder(dmsConfigurationElpResponseList.get(0).getObjectFolder());

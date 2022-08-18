@@ -34,7 +34,7 @@ public class CustomerOnboardService {
              CallableStatement callableStatement = connection.prepareCall(
                      "{call Proc_mml_i_chnlcardboardreq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,? )}");) {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
-            callableStatement.registerOutParameter("@po_vc_errcode", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_i_ApplicationID", Types.VARCHAR);
 
             callableStatement.setString("@pi_vc_transactionidentifier", headers.get("transactionId"));
@@ -107,7 +107,7 @@ public class CustomerOnboardService {
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
             CustomerOnboardResponse response = new CustomerOnboardResponse();
-            response.setStatusCode(callableStatement.getString("@po_vc_errcode"));
+            response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setApplicationId(callableStatement.getString("@po_i_ApplicationID"));
             return response;

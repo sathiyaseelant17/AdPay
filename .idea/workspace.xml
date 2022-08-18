@@ -5,16 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b743c3f-3952-484d-942f-47cce3250cae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DMSResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/ErrorRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/ErrorRes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/voidService/VoidService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/voidService/VoidService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/walletInquiry/WalletInquiryData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/walletInquiry/WalletInquiryData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/walletInquiry/WalletInquiryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/walletInquiry/WalletInquiryService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +45,8 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/customerOnboard/model/CustomerDetails.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/exception/ElpasoException.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/exceptionHandler/CommonExceptionHandler.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/DocumentDetails.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/ErrorRes.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadRequest.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadResponse.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" root0="FORCE_HIGHLIGHTING" />
@@ -60,6 +66,10 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/transactionHistory/TransactionHistoryService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/voidService/VoidServiceRequest.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/PreApproved.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryRequest.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletStatusUpdate/WalletStatusUpdateService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpService.java" root0="FORCE_HIGHLIGHTING" />
   </component>
