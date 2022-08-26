@@ -32,10 +32,11 @@ public class CustomerOnboardService {
             throws SQLException {
         try (Connection connection = Datasource.getConnection();
              CallableStatement callableStatement = connection.prepareCall(
-                     "{call Proc_mml_i_chnlcardboardreq(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,? )}");) {
+                     "{call Proc_mml_i_chnlcardboardreq(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,? )}");) {
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_i_ApplicationID", Types.VARCHAR);
+            callableStatement.registerOutParameter("@po_vc_kycupdate", Types.VARCHAR);
 
             callableStatement.setString("@pi_vc_transactionidentifier", headers.get("transactionId"));
             callableStatement.setString("@pi_vc_transactiontimezone", "GST");
@@ -110,6 +111,8 @@ public class CustomerOnboardService {
             response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setApplicationId(callableStatement.getString("@po_i_ApplicationID"));
+            response.setKycFlag(callableStatement.getString("@po_vc_kycupdate"));
+
             return response;
 
 
@@ -190,27 +193,47 @@ public class CustomerOnboardService {
         fatcaCRSDetails.setEmploymentStatus(request.getEmploymentStatus());
         fatcaCRSDetails.setGreenCardID(request.getGreenCardID());
         fatcaCRSDetails.setIndustries(request.getIndustries());
-        List<Jurisdiction> jurisdictionList=new ArrayList<>();
-        Jurisdiction jurisdiction=new Jurisdiction();
-        jurisdiction.setOtherResidency(request.getOtherResidency());
-        jurisdiction.setResidenceFromDate(request.getResidenceFromDate());
-        jurisdiction.setResidenceToDate(request.getResidenceToDate());
-        jurisdictionList.add(jurisdiction);
-        fatcaCRSDetails.setJurisdiction(jurisdictionList);
+        if((request.getOtherResidency() == null || request.getOtherResidency() == "")
+                && (request.getResidenceFromDate() == null || request.getResidenceFromDate() == "")
+                && (request.getResidenceToDate() == null || request.getResidenceToDate() == "")
+        ){
+            fatcaCRSDetails.setJurisdiction(Collections.EMPTY_LIST);
+
+        }else {
+            List<Jurisdiction> jurisdictionList = new ArrayList<>();
+            Jurisdiction jurisdiction = new Jurisdiction();
+            jurisdiction.setOtherResidency(request.getOtherResidency());
+            jurisdiction.setResidenceFromDate(request.getResidenceFromDate());
+            jurisdiction.setResidenceToDate(request.getResidenceToDate());
+            jurisdictionList.add(jurisdiction);
+            fatcaCRSDetails.setJurisdiction(jurisdictionList);
+        }
         fatcaCRSDetails.setMonthlyIncome(request.getMonthlyIncome());
         fatcaCRSDetails.setNonUAENonUSTaxResident(request.getNonUAENonUSTaxResident());
         fatcaCRSDetails.setPassportNumber(request.getPassportNumber());
         fatcaCRSDetails.setPersonalTaxJurisdiction(request.getPersonalTaxJurisdiction());
         fatcaCRSDetails.setReasonForNoDeclaration(request.getReasonForNoDeclaration());
         fatcaCRSDetails.setResidentInOtherJurisdiction(request.getResidentInOtherJurisdiction());
-        List<TaxResidency> taxResidencyList=new ArrayList<>();
-        TaxResidency taxResidency=new TaxResidency();
-        taxResidency.setTINNumber(request.getTIN());
-        taxResidency.setReason(request.getReason());
-        taxResidency.setReasonForNoTIN(request.getReasonNoTIN());
-        taxResidency.setTaxCountry(request.getJurisdictionCountry());
-        taxResidencyList.add(taxResidency);
-        fatcaCRSDetails.setTaxResidency(taxResidencyList);
+
+        if((request.getTIN() == null || request.getTIN() == "")
+                && (request.getReason() == null || request.getReason() == "")
+                && (request.getReasonNoTIN() == null || request.getReasonNoTIN() == "")
+                && (request.getJurisdictionCountry() == null || request.getJurisdictionCountry() == "")
+
+        ){
+            fatcaCRSDetails.setTaxResidency(Collections.EMPTY_LIST);
+
+        }else {
+            List<TaxResidency> taxResidencyList = new ArrayList<>();
+            TaxResidency taxResidency = new TaxResidency();
+            taxResidency.setTINNumber(request.getTIN());
+            taxResidency.setReason(request.getReason());
+            taxResidency.setReasonForNoTIN(request.getReasonNoTIN());
+            taxResidency.setTaxCountry(request.getJurisdictionCountry());
+            taxResidencyList.add(taxResidency);
+            fatcaCRSDetails.setTaxResidency(taxResidencyList);
+        }
+
         fatcaCRSDetails.setTINNumber(request.getTinNumber());
         fatcaCRSDetails.setTrdLicensePlaceOfIssue(request.getTrdLicensePlaceOfIssue());
         fatcaCRSDetails.setUAEResidencyByRBIScheme(request.getUaeResidencyByRBIScheme());

@@ -6,12 +6,15 @@ import com.fab.adpay.walletInquiry.WalletInquiryResponse;
 import com.fab.adpay.walletInquiry.WalletInquiryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -29,20 +32,43 @@ public class OtpGenerationService {
 
     public GenerateOtpServiceRequest buildGenerateOtpServiceRequest(String mobileNumber) {
         ApplicationArea applicationArea = new ApplicationArea();
+        applicationArea.setCorrelationId(UUID.randomUUID().toString());
+        applicationArea.setInterfaceID(null);
         applicationArea.setCountryOfOrigin("AE");
         applicationArea.setSenderId("STL");
+        applicationArea.setSenderUserId(null);
+        applicationArea.setSenderBranchId(null);
+        applicationArea.setSenderAuthorizationId(null);
+        applicationArea.setSenderReferenceId(null);
         applicationArea.setTransactionId(UUID.randomUUID().toString());
-        String currentTimestamp = new Timestamp(new Date().getTime()).toString();
-        applicationArea.setTransactionDateTime(currentTimestamp);
+
+        DateTime now = new DateTime();
+        DateTime currentTimestamp =  now.toDateTime(DateTimeZone.UTC);
+
+        applicationArea.setTransactionDateTime(currentTimestamp.toString());
+        applicationArea.setTransactionTimeZone(null);
+        applicationArea.setSenderAuthorizationComments(null);
         applicationArea.setLanguage("EN");
+//        applicationArea.setCreationDateTime(UUID.randomUUID().toString());
+//        applicationArea.setRequiredExecutionDate(UUID.randomUUID().toString());
+
         RequestDataArea requestDataArea = new RequestDataArea();
+
         requestDataArea.setMobileNumber(mobileNumber);
-        requestDataArea.setTransactionCode("TXN_CARD_DET");
+        requestDataArea.setEmailID(null);
+        requestDataArea.setTransactionCode("ADP_TXN_OTP");
         requestDataArea.setDigitsInOTP(6);
         requestDataArea.setSplitOTP("N");
         requestDataArea.setExpiryTime(180);
         requestDataArea.setAlertType("SMS");
         requestDataArea.setMaxFailedAttempt(3);
+        requestDataArea.setSendAsAttachement(null);
+        requestDataArea.setTemplateName(null);
+
+        requestDataArea.setIdentityDetails(Collections.EMPTY_LIST);
+        requestDataArea.setTemplateAttributes(Collections.EMPTY_LIST);
+
+
         GenerateOtpServiceRequest generateOtpServiceRequest = new GenerateOtpServiceRequest();
         generateOtpServiceRequest.setApplicationArea(applicationArea);
         generateOtpServiceRequest.setDataArea(requestDataArea);

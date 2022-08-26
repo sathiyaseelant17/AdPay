@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -26,7 +27,7 @@ public class WalletInquiryData {
     private String email;
     private String walletStatus;
     private String createDate;
-    private int lastTransactionDate;
+    private String lastTransactionDate;
     private String lastTopupAmount;
     private String lastTopupDate;
     private BigDecimal walletLimit;

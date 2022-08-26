@@ -28,6 +28,8 @@ public class RedemptionReqService {
             callableStatement.registerOutParameter("@po_de_avlbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_curbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@pi_vc_RedeemAckRef", Types.VARCHAR);
+            callableStatement.registerOutParameter("@pi_vc_cardId", Types.VARCHAR);
+
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
@@ -77,12 +79,14 @@ public class RedemptionReqService {
                 throw new ElpasoException(callableStatement.getInt("@po_si_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
+
             RedemptionReqResponse response = new RedemptionReqResponse();
-            response.setStatusCode(callableStatement.getInt("@po_si_errcode"));
-            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
+            response.setWalletId(callableStatement.getString("@pi_vc_cardId"));
             response.setAvailableBalance(callableStatement.getBigDecimal("@po_de_avlbal"));
             response.setCurrentBalance(callableStatement.getBigDecimal("@po_de_curbal"));
             response.setRedeemAcknowledgementRef(callableStatement.getString("@pi_vc_RedeemAckRef"));
+            response.setStatusCode(callableStatement.getInt("@po_si_errcode"));
+            response.setStatusText(callableStatement.getString("@po_vc_errortext"));
 
 
             logger.debug("TRANSACTION ID: {} Redemption Inquiry RESPONSE:{}", headers.get("transactionid"), response);

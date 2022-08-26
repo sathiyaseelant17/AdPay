@@ -62,6 +62,8 @@ public class KycUploadService {
 						dmsConfigurationElpResponse.setFileName(rs.getString("fileName"));
 						dmsConfigurationElpResponse.setObjectFolder(rs.getString("objectFolder"));
 						dmsConfigurationElpResponseList.add(dmsConfigurationElpResponse);
+						LOGGER.info("Elpaso Response", dmsConfigurationElpResponse);
+
 					}
 					dmsResponseWithList.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
 					dmsResponseWithList.setStatusText(callableStatement.getString("@po_vc_errortext"));
@@ -80,12 +82,12 @@ public class KycUploadService {
 			}
 			DMSConfiguration DMSConfiguration = new DMSConfiguration();
 			DMSConfiguration.setRequestId(headers.get("transactionid"));
-			DMSConfiguration.setSourceSystemName("ADPay Wallet");
+			DMSConfiguration.setSourceSystemName("adpay");
 			DMSConfiguration.setTargetPathToUpload("/Consumer banking/ADPay Wallet Temp");
 			DMSConfiguration.setObjectPath("ADPay Wallet Temp");
 			DMSConfiguration.setObjectFolder(dmsConfigurationElpResponseList.get(0).getObjectFolder());
 			DirectoryDetails directoryDetails = new DirectoryDetails();
-			directoryDetails.setFolderName("");
+			directoryDetails.setFolderName("ADPay Wallet Temp");
 			directoryDetails.setAclName(dmsConfigurationElpResponseList.get(0).getDirDtlAttAclName());
 			directoryDetails.setAclDomain(dmsConfigurationElpResponseList.get(0).getDirDtlAttAclDomain());
 			DMSConfiguration.setDirectoryDetails(directoryDetails);
@@ -150,7 +152,7 @@ public class KycUploadService {
 				+ dmsConfiguration.getTargetPathToUpload() + "</targetPath>\n" + "\t<directoryDetails>\n"
 				+ "\t<directoryAttributes>\n" + "\t<objectPath>" + dmsConfiguration.getObjectPath() + "</objectPath>\n"
 				+ "\t<objectType>" + dmsConfiguration.getObjectFolder() + "</objectType>\n" + "\t<objectAttributes>\n"
-				+ "\t<name>object_name</name>\n" + "\t<value>" + dmsConfiguration.getDocumentDetails().getAclCardId()
+				+ "\t<name>object_name</name>\n" + "\t<value>" + dmsConfiguration.getDirectoryDetails().getFolderName()
 				+ "</value>\n" + "\t</objectAttributes>\n" + "\t<objectAttributes>\n" + "\t<name>acl_name</name>\n"
 				+ "\t<value>" + dmsConfiguration.getDirectoryDetails().getAclName() + "</value>\n" + "\t</objectAttributes>\n"
 				+ "\t<objectAttributes>\n" + "\t<name>acl_domain</name>\n" + "\t<value>"
@@ -169,7 +171,7 @@ public class KycUploadService {
 				+ dmsConfiguration.getDocumentType() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_id</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocumentDetails().getElpasaCif() + "</value>\n" + "\t</documentAttributes>\n"
-				+ "\t<documentAttributes>\n" + "\t<name>card_id</name>\n" + "\t<value>"
+				+ "\t<documentAttributes>\n" + "\t<name>wallet_id</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocumentDetails().getAclCardId() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_name</name>\n" + "\t<value></value>\n"
 				+ "\t</documentAttributes>\n" + "\t<documentAttributes>\n" + "\t<name>acl_name</name>\n" + "\t<value>"

@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 public class RedemptionReqResponse {
 
     private int statusCode;
+    private String walletId;
     private String statusText;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;
     private String redeemAcknowledgementRef;
-
 
 }

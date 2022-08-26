@@ -12,7 +12,7 @@ public class AddWalletService {
 
     public AddWalletResponse addWalletService(Map<String, String> headers, AddWalletRequest req) throws SQLException {
         try (Connection connection = Datasource.getConnection(); CallableStatement callableStatement = connection.prepareCall(
-                "{call proc_mml_i_addwallets(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}")) {
+                "{call proc_mml_i_addwallets(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)}")) {
 
             callableStatement.registerOutParameter("@po_vc_errortext", Types.VARCHAR);
             callableStatement.registerOutParameter("@po_vc_errcode", Types.INTEGER);
@@ -24,9 +24,11 @@ public class AddWalletService {
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
-            callableStatement.setString("@pi_vc_wallet_id", req.getWalletId());
+            callableStatement.setString("@pi_vc_wallet_id", req.getDefaultWalletId());
             callableStatement.setString("@pi_vc_wallet_label",req.getWalletLabel());
             callableStatement.setBigDecimal("@pi_de_wallet_limit", req.getWalletLimit());
+            callableStatement.setBigDecimal("@pi_de_wallet_SpendLimitPerTxn", req.getWalletSpendLimitPerTransaction());
+
 
             callableStatement.execute();
 

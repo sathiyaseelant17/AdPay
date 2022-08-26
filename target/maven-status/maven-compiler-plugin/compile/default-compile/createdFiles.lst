@@ -47,6 +47,7 @@ com/fab/adpay/redemptionRequest/RedemptionReqRequest.class
 com/fab/adpay/transactionHistory/TransactionHistoryService.class
 com/fab/adpay/redemptionInquiry/RedemptionInquiryService.class
 com/fab/adpay/fetchCustomerOnbordingDetails/model/CustomerDetails.class
+com/fab/adpay/otpgeneration/CustomerOTPDetails.class
 com/fab/adpay/walletInquiry/WalletInquiryService.class
 com/fab/adpay/redemptionRequest/RedemptionReqResponse.class
 com/fab/adpay/fetchCustomerOnbordingDetails/FetchDetailsResponse.class

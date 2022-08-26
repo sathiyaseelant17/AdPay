@@ -1,5 +1,7 @@
 package com.fab.adpay;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.boot.SpringApplication;
 import javax.net.ssl.*;
 import java.security.KeyManagementException;
@@ -19,8 +21,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class AdpayApplication {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException {
-		
-		
+
+
 		/* Start of Fix */
 		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
 		   public void checkClientTrusted(X509Certificate[] certs, String authType) {

@@ -3,6 +3,8 @@ package com.fab.adpay.otpvalidation;
 import com.fab.adpay.utils.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,24 @@ public class OtpValidationService {
 
     public OtpValidationApiPayload buildOtpValidationApiPayload(OtpValidationRequest request) {
         ApplicationArea applicationArea = new ApplicationArea();
+        applicationArea.setCorrelationId(UUID.randomUUID().toString());
+        applicationArea.setInterfaceID(null);
         applicationArea.setCountryOfOrigin("AE");
-        applicationArea.setSenderId("SMSSERVICE");
+        applicationArea.setSenderId("STL");
+        applicationArea.setSenderUserId(null);
+        applicationArea.setSenderBranchId(null);
+        applicationArea.setSenderAuthorizationId(null);
+        applicationArea.setSenderReferenceId(null);
         applicationArea.setTransactionId(UUID.randomUUID().toString());
-        String currentTimestamp = new Timestamp(new Date().getTime()).toString();
-        applicationArea.setTransactionDateTime(currentTimestamp);
+        DateTime now = new DateTime();
+        DateTime currentTimestamp =  now.toDateTime(DateTimeZone.UTC);
+
+        applicationArea.setTransactionDateTime(currentTimestamp.toString());
+        applicationArea.setTransactionTimeZone(null);
+        applicationArea.setSenderAuthorizationComments(null);
         applicationArea.setLanguage("EN");
+//        applicationArea.setCreationDateTime(UUID.randomUUID().toString());
+//        applicationArea.setRequiredExecutionDate(UUID.randomUUID().toString());
         OtpValidationApiPayload otpValidationApiPayload = new OtpValidationApiPayload();
         otpValidationApiPayload.setApplicationArea(applicationArea);
         otpValidationApiPayload.setDataArea(request);

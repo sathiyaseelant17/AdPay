@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PreApprovalResponse {
-	private String walletId;
+
     private String statusText;
     private int statusCode;
 }

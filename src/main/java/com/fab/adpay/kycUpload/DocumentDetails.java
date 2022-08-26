@@ -18,4 +18,5 @@ public class DocumentDetails {
 	private String objectName;
 	private String product;
 
+
 }

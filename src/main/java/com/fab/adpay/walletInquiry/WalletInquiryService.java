@@ -70,12 +70,12 @@ public class WalletInquiryService {
                             walletInquiryData.setLastNameEnglish(rs.getString("lastname_english"));
                             walletInquiryData.setFirstNameArabic(rs.getString("firstname_arabic"));
                             walletInquiryData.setMiddleNameArabic(rs.getString("middlename_arabic"));
-                            walletInquiryData.setLastNameEnglish(rs.getString("lastname_arabic"));
+                            walletInquiryData.setLastNameArabic(rs.getString("lastname_arabic"));
                             walletInquiryData.setMobile(rs.getString("mobile"));
                             walletInquiryData.setEmail(rs.getString("emailid"));
                             walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
                             walletInquiryData.setCreateDate(rs.getString("createdate"));
-//                    walletInquiryData.setLastTransactionDate(rs.getInt("lasttxndate"));
+                            walletInquiryData.setLastTransactionDate(rs.getString("lasttxndate"));
                             walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
                             walletInquiryData.setLastTopupDate(rs.getString("lasttopupdate"));
                             walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));

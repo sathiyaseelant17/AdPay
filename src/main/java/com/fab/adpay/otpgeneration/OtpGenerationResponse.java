@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class OtpGenerationResponse {
 	private String walletId;
 	private String referenceNumber;
-
 }

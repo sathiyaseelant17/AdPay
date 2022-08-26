@@ -62,6 +62,7 @@
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/fetchCustomerOnbordingDetails/model/CustomerDetails.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/CustomerOnboardResponse.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/CustomerOTPDetails.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/preApproval/PreApprovalRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/redemptionCallback/RedemptionCallbackRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/ApplicationArea.java

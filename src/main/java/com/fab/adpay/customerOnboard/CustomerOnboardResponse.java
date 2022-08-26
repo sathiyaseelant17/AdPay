@@ -23,4 +23,5 @@ public class CustomerOnboardResponse {
     private int statusCode;
     private String statusText;
     private String applicationId;
+    private String kycFlag;
 }

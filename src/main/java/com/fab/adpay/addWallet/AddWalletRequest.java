@@ -13,8 +13,10 @@ import java.math.BigDecimal;
 @ToString
 public class AddWalletRequest {
 
-    private String walletId;
+    private String defaultWalletId;
     private String walletLabel;
     private BigDecimal walletLimit;
+    private BigDecimal walletSpendLimitPerTransaction;
+
 
 }
