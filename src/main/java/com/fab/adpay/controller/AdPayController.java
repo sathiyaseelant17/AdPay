@@ -363,7 +363,7 @@ public class AdPayController {
 
     @PostMapping("/kycUpload")
     KycUploadResponse kycUpload(@RequestHeader Map<String, String> headers, @RequestParam("content") MultipartFile file,
-                                @RequestParam("cardId") String cardId, @RequestParam("documentType") String documentType)
+                                @RequestParam("walletId") String cardId, @RequestParam("documentType") String documentType)
             throws Exception {
 
         if (!("application/pdf".equals(file.getContentType()))) {
@@ -375,10 +375,11 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Request CardId: {} Request File: {} DocumentType: {}", headers.get("transactionid"),
                 cardId, encodedString, documentType);
         KycUploadRequest kycUploadRequest = new KycUploadRequest();
-        kycUploadRequest.setCardId(cardId);
+        kycUploadRequest.setWalletId(cardId);
         kycUploadRequest.setContent(encodedString);
         kycUploadRequest.setDocumentType(documentType);
-        DMSConfiguration dmsConfiguration = KycUploadService.getDMSConfiguration(headers, kycUploadRequest);
+
+        DMSConfiguration dmsConfiguration = KycUploadService.getDMSConfiguration(headers, kycUploadRequest , file.getOriginalFilename());
         LOGGER.debug("Elpaso response:\n{}", OBJECT_MAPPER.writeValueAsString(dmsConfiguration));
         String dmsResponse = KycUploadService.uploadDocument(dmsConfiguration, kycUploadRequest, headers);
         LOGGER.debug("DMS response:\n{}", dmsResponse);

@@ -27,7 +27,7 @@ import java.util.Date;
 public class KycUploadService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(KycUploadService.class);
 
-	public static DMSConfiguration getDMSConfiguration(Map<String, String> headers, KycUploadRequest kycUploadRequest)
+	public static DMSConfiguration getDMSConfiguration(Map<String, String> headers, KycUploadRequest kycUploadRequest, String fileName)
 			throws SQLException {
 		LOGGER.info("Calling procedure proc_getDMS_configuration");
 		try (Connection connection = Datasource.getConnection();
@@ -63,12 +63,11 @@ public class KycUploadService {
 						dmsConfigurationElpResponse.setObjectFolder(rs.getString("objectFolder"));
 						dmsConfigurationElpResponseList.add(dmsConfigurationElpResponse);
 						LOGGER.info("Elpaso Response", dmsConfigurationElpResponse);
-
 					}
 					dmsResponseWithList.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
 					dmsResponseWithList.setStatusText(callableStatement.getString("@po_vc_errortext"));
 					dmsResponseWithList.setDmsConfigurationElpResponsesList(dmsConfigurationElpResponseList);
-				}else {
+				} else {
 					LOGGER.info("Transaction id: {} ResultSet Empty: {}", headers.get("transactionid"),
 							"resultSet value null/empty");
 					throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
@@ -100,10 +99,10 @@ public class KycUploadService {
 			documentDetails.setAclName(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclName());
 			documentDetails.setAclDomain(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclDomain());
 			documentDetails.setDocumentType(dmsConfigurationElpResponseList.get(0).getDocumentType());
-			documentDetails.setObjectName(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclObjName());
+			documentDetails.setObjectName(fileName);
 			documentDetails.setAclCardId(dmsConfigurationElpResponseList.get(0).getDocDtlAttAclCardId());
 			DMSConfiguration.setDocumentDetails(documentDetails);
-			DMSConfiguration.setFileName(dmsConfigurationElpResponseList.get(0).getFileName());
+			DMSConfiguration.setFileName(fileName);
 			DMSConfiguration.setFileType("pdf");
 			DMSConfiguration.setStatusCode(String.valueOf(dmsResponseWithList.getStatusCode()));
 			DMSConfiguration.setStatusText(dmsResponseWithList.getStatusText());
@@ -172,7 +171,7 @@ public class KycUploadService {
 				+ "\t<documentAttributes>\n" + "\t<name>customer_id</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocumentDetails().getElpasaCif() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>wallet_id</name>\n" + "\t<value>"
-				+ dmsConfiguration.getDocumentDetails().getAclCardId() + "</value>\n" + "\t</documentAttributes>\n"
+				+ kycUploadRequest.getWalletId() + "</value>\n" + "\t</documentAttributes>\n"
 				+ "\t<documentAttributes>\n" + "\t<name>customer_name</name>\n" + "\t<value></value>\n"
 				+ "\t</documentAttributes>\n" + "\t<documentAttributes>\n" + "\t<name>acl_name</name>\n" + "\t<value>"
 				+ dmsConfiguration.getDocumentDetails().getAclName() + "</value>\n" + "\t</documentAttributes>\n"

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KycUploadRequest {
-	private String cardId;
+	private String walletId;
 	private String content;
 	private String documentType;
 
