@@ -25,6 +25,7 @@ public class WalletInquiryData {
     private String lastNameArabic;
     private String mobile;
     private String email;
+    private String preferredLanguage;
     private String walletStatus;
     private String createDate;
     private String lastTransactionDate;

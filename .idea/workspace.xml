@@ -6,14 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="2b743c3f-3952-484d-942f-47cce3250cae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/controller/AdPayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/controller/AdPayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/exceptionHandler/CommonExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/exceptionHandler/CommonExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/walletInquiry/WalletInquiryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/controller/AdPayController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/controller/AdPayController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/kycUpload/KycUploadRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/kycUpload/KycUploadRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/kycUpload/KycUploadService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/kycUpload/KycUploadService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/exceptionHandler/CommonExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/exceptionHandler/CommonExceptionHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" afterDir="false" />
     </list>

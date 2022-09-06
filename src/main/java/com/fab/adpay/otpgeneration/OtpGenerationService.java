@@ -30,7 +30,7 @@ public class OtpGenerationService {
     @Autowired
     WalletInquiryService walletInquiryService;
 
-    public GenerateOtpServiceRequest buildGenerateOtpServiceRequest(String mobileNumber) {
+    public GenerateOtpServiceRequest buildGenerateOtpServiceRequest(String mobileNumber, String prefLanguage) {
         ApplicationArea applicationArea = new ApplicationArea();
         applicationArea.setCorrelationId(UUID.randomUUID().toString());
         applicationArea.setInterfaceID(null);
@@ -48,7 +48,16 @@ public class OtpGenerationService {
         applicationArea.setTransactionDateTime(currentTimestamp.toString());
         applicationArea.setTransactionTimeZone(null);
         applicationArea.setSenderAuthorizationComments(null);
-        applicationArea.setLanguage("EN");
+        LOGGER.info("language : " + prefLanguage);
+
+        if(prefLanguage.contentEquals("1")){
+            applicationArea.setLanguage("EN");
+        } else if (prefLanguage.contentEquals("2")) {
+            applicationArea.setLanguage("AR");
+        }else{
+            applicationArea.setLanguage("EN");
+        }
+
 //        applicationArea.setCreationDateTime(UUID.randomUUID().toString());
 //        applicationArea.setRequiredExecutionDate(UUID.randomUUID().toString());
 
@@ -78,13 +87,13 @@ public class OtpGenerationService {
     public OtpGenerationResponse createOtp(Map<String, String> headers, OtpGenerationRequest request) throws Exception {
         OtpGenerationResponse otpGenerationResponse = new OtpGenerationResponse();
         String mobileNumber = fetchMobileNumberByCardId(headers, request);
-        GenerateOtpServiceRequest generateOtpServiceRequest = buildGenerateOtpServiceRequest(mobileNumber);
+        String prefLanguage = fetchLanguageByCardId(headers, request);
+        GenerateOtpServiceRequest generateOtpServiceRequest = buildGenerateOtpServiceRequest(mobileNumber,prefLanguage);
         String referenceNumber = fetchReferenceNumberFromExternalOTPGenerationApi(generateOtpServiceRequest);
         otpGenerationResponse.setReferenceNumber(referenceNumber);
         otpGenerationResponse.setWalletId(request.getValue());
         return otpGenerationResponse;
     }
-
     public String fetchMobileNumberByCardId(Map<String, String> headers, OtpGenerationRequest request) throws Exception {
         String cardId = request.getValue();
         String mobileNumber = "";
@@ -102,6 +111,26 @@ public class OtpGenerationService {
 
 
         return convertedMobileNumber;
+    }
+
+
+    public String fetchLanguageByCardId(Map<String, String> headers, OtpGenerationRequest request) throws Exception {
+        String cardId = request.getValue();
+        String mobileNumber = "";
+        WalletInquiryRequest walletInquiryRequest = new WalletInquiryRequest();
+        walletInquiryRequest.setIdentityType(0);
+        walletInquiryRequest.setIdentityNumber("");
+        walletInquiryRequest.setWalletId(request.getValue());
+        WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
+        LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
+//        System.out.println(walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile());
+        String prefLanguage = walletInquiryResponse.getWalletInquiryDataList().get(0).getPreferredLanguage();
+//        String convertedMobileNumber = walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile().replaceAll("[-]", "");
+//        System.out.println(convertedMobileNumber);
+
+
+
+        return prefLanguage;
     }
 
     public String fetchReferenceNumberFromExternalOTPGenerationApi(GenerateOtpServiceRequest generateOtpServiceRequest)

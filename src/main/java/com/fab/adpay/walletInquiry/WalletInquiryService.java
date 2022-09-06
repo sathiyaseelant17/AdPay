@@ -73,6 +73,7 @@ public class WalletInquiryService {
                             walletInquiryData.setLastNameArabic(rs.getString("lastname_arabic"));
                             walletInquiryData.setMobile(rs.getString("mobile"));
                             walletInquiryData.setEmail(rs.getString("emailid"));
+                            walletInquiryData.setPreferredLanguage(rs.getString("Preflanguage"));
                             walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
                             walletInquiryData.setCreateDate(rs.getString("createdate"));
                             walletInquiryData.setLastTransactionDate(rs.getString("lasttxndate"));
