@@ -17,21 +17,12 @@ public class WalletInquiryData {
     private String walletLabel;
     private String defaultWallet;
     private String walletType;
-    private String firstNameEnglish;
-    private String middleNameEnglish;
-    private String lastNameEnglish;
-    private String firstNameArabic;
-    private String middleNameArabic;
-    private String lastNameArabic;
-    private String mobile;
-    private String email;
-    private String preferredLanguage;
+
     private String walletStatus;
     private String createDate;
     private String lastTransactionDate;
     private String lastTopupAmount;
     private String lastTopupDate;
-    private BigDecimal walletLimit;
     private BigDecimal walletSpendLimitPerTransaction;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;

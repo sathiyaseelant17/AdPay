@@ -14,6 +14,7 @@ com/fab/adpay/AdpayApplication$1.class
 com/fab/adpay/customerOnboard/model/CustomerDetails.class
 com/fab/adpay/fetchCustomerOnbordingDetails/FetchDetailsRequest.class
 com/fab/adpay/otpgeneration/OtpGenerationResponse.class
+com/fab/adpay/customerOnboard/model/FinalResponse.class
 com/fab/adpay/otpvalidation/ErrorDetail.class
 com/fab/adpay/customerOnboard/model/Jurisdiction.class
 com/fab/adpay/walletStatusUpdate/WalletStatusUpdateResponse.class
@@ -26,11 +27,11 @@ com/fab/adpay/transactionHistory/TransactionHistoryRequest.class
 com/fab/adpay/model/ElpasoError.class
 com/fab/adpay/kycUpload/ErrorRes.class
 com/fab/adpay/walletLimit/UpdateWalletLimitService.class
+com/fab/adpay/fetchCustomerOnbordingDetails/model/ApplicationResponse.class
 com/fab/adpay/otpgeneration/OtpGenerationRequest.class
 com/fab/adpay/walletToWalletTransactions/WalletToWalletTransactionService.class
 com/fab/adpay/walletStatusUpdate/WalletStatusUpdateService.class
 com/fab/adpay/kycUpload/KycUploadResponse.class
-com/fab/adpay/fetchCustomerOnbordingDetails/model/RequestData.class
 com/fab/adpay/otpvalidation/OtpValidationApiResponse.class
 com/fab/adpay/voidService/VoidServiceRequest.class
 com/fab/adpay/otpvalidation/OtpValidationResponse.class
@@ -72,6 +73,7 @@ com/fab/adpay/otpgeneration/ApplicationArea.class
 com/fab/adpay/fetchCustomerOnbordingDetails/ApplicationDetails.class
 com/fab/adpay/customerOnboard/CustomerOnboardResponse.class
 com/fab/adpay/customerOnboard/BPMSResponse.class
+com/fab/adpay/walletInquiry/CommonData.class
 com/fab/adpay/walletTransactions/WalletTransactionResponse.class
 com/fab/adpay/walletInquiry/WalletInquiryRequest.class
 com/fab/adpay/otpvalidation/OtpValidationRequest.class
@@ -107,3 +109,4 @@ com/fab/adpay/walletInquiry/WalletInquiryResponse.class
 com/fab/adpay/otpvalidation/OtpValidationApiDataArea.class
 com/fab/adpay/kycUpload/DMSResponse.class
 com/fab/adpay/utils/HttpUtils.class
+com/fab/adpay/fetchCustomerOnbordingDetails/model/FetchRequestData.class

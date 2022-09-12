@@ -7,9 +7,11 @@ import com.fab.adpay.customerOnboard.BPMSResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardRequest;
 import com.fab.adpay.customerOnboard.CustomerOnboardResponse;
 import com.fab.adpay.customerOnboard.CustomerOnboardService;
+import com.fab.adpay.customerOnboard.model.FinalResponse;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsRequest;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsResponse;
 import com.fab.adpay.fetchCustomerOnbordingDetails.FetchDetailsService;
+import com.fab.adpay.fetchCustomerOnbordingDetails.model.FetchRequestData;
 import com.fab.adpay.kycUpload.DMSConfiguration;
 import com.fab.adpay.kycUpload.KycUploadRequest;
 import com.fab.adpay.kycUpload.KycUploadResponse;
@@ -66,11 +68,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -239,16 +245,58 @@ public class AdPayController {
     @PostMapping("/walletInquiry")
     WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
                                         @Valid @RequestBody WalletInquiryRequest request)
-            throws SQLException, IOException {
+            throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
         WalletInquiryResponse response = walletInquiryService.walletInquiry(headers, request);
+        LOGGER.info("Transaction id: {} walletInquiry response: {}", headers.get("transactionid"),
+                response);
+        if(response.getWalletInquiryDataList() == null || response.getStatusCode() == 96){
 
-        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
-                OBJECT_MAPPER.writeValueAsString(response));
-        return response;
+            FetchDetailsRequest fetchDetailsRequest = new FetchDetailsRequest();
+
+            fetchDetailsRequest.setRequestID(headers.get("transactionid"));
+            fetchDetailsRequest.setRequestTimeStamp(new Timestamp(new Date().getTime()).toString());
+            fetchDetailsRequest.setChannelID(headers.get("channelid"));
+
+            FetchRequestData fetchRequestData = new FetchRequestData();
+            fetchRequestData.setCustomerID(null);
+            fetchRequestData.setEmiratesID(request.getIdentityNumber());
+            fetchRequestData.setApplicationRefNo(null);
+            fetchRequestData.setMobileNumber(null);
+
+            fetchDetailsRequest.setRequestData(fetchRequestData);
+            LOGGER.info("Transaction id: {} Fetch request: {}", headers.get("transactionid"),
+                    fetchDetailsRequest);
+
+            JSONObject fetchDetailsResponse = fetchDetailsService.fetchCustomerOnboardingDetails(headers,fetchDetailsRequest);
+            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                    fetchDetailsResponse);
+            LOGGER.info("Transaction id: {} Response status: {}", headers.get("transactionid"),
+                    fetchDetailsResponse.getJSONObject("responseStatus").getString("status"));
+            if(fetchDetailsResponse.getJSONObject("responseStatus").getString("status").contentEquals("FAILURE")){
+                response.setWalletInquiryDataList(Collections.EMPTY_LIST);
+                response.setStatusText(fetchDetailsResponse.getJSONObject("responseStatus").getString("errorDescription"));
+            }else {
+                response.setWalletInquiryDataList(Collections.emptyList());
+                response.setStatusCode(0);
+                response.setStatusText(null);
+                response.setApplicationRefNo(fetchDetailsResponse.getJSONObject("responseData").getJSONObject("applicationDetails").getString("applicationRefNo"));
+                response.setApplicationStatus(fetchDetailsResponse.getJSONObject("responseData").getJSONObject("applicationDetails").getString("applicationStatus"));
+                response.setApplicationRemarks(fetchDetailsResponse.getJSONObject("responseData").getJSONObject("applicationDetails").getString("applicationRemarks"));
+                response.setApplicationCreatedDate(fetchDetailsResponse.getJSONObject("responseData").getJSONObject("applicationDetails").getString("applicationCreatedDate"));
+                response.setApplicationExpiryDate(fetchDetailsResponse.getJSONObject("responseData").getJSONObject("applicationDetails").getString("applicationExpiryDate"));
+
+            }
+            return response;
+        }else{
+            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                    OBJECT_MAPPER.writeValueAsString(response));
+            return response;
+        }
+
     }
 
     @PostMapping("/walletToWalletTransaction")
@@ -289,28 +337,28 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
         if(request.getWalletId().equals(null) || request.getWalletId().equals("")){
-            CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
-            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
-                    OBJECT_MAPPER.writeValueAsString(elpresponse));
-            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(elpresponse.getApplicationId(),headers,request);
+//            CustomerOnboardResponse elpresponse = customerOnboardService.customerOnboarding(headers, request);
+//            LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+//                    OBJECT_MAPPER.writeValueAsString(elpresponse));
+            FinalResponse bpmsResponse = customerOnboardService.initiateBPMS(null,headers,request);
             LOGGER.info("BPMS Response" , bpmsResponse);
-            return elpresponse;
+            return bpmsResponse;
         }else {
-            BPMSResponse bpmsResponse = customerOnboardService.initiateBPMS(request.getWalletId(),headers,request);
+            FinalResponse bpmsResponse = customerOnboardService.initiateBPMS(request.getWalletId(),headers,request);
             LOGGER.info("BPMS Response" , bpmsResponse);
             return bpmsResponse;
         }
     }
 
     @PostMapping("/fetchOnboardingDetails")
-    FetchDetailsResponse customerOnboard(@RequestHeader Map<String, String> headers,
+    JSONObject customerOnboard(@RequestHeader Map<String, String> headers,
                                          @Valid @RequestBody FetchDetailsRequest request)
             throws Exception {
 
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
-        FetchDetailsResponse response = fetchDetailsService.fetchCustomerOnboardingDetails(headers, request);
+        JSONObject response = fetchDetailsService.fetchCustomerOnboardingDetails(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(response));

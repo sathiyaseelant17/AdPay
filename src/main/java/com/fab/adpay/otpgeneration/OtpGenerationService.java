@@ -103,9 +103,9 @@ public class OtpGenerationService {
         walletInquiryRequest.setWalletId(request.getValue());
         WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
         LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
-        System.out.println(walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile());
+        System.out.println(walletInquiryResponse.getMobile());
 
-        String convertedMobileNumber = walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile().replaceAll("[-]", "");
+        String convertedMobileNumber = walletInquiryResponse.getMobile().replaceAll("[-]", "");
         System.out.println(convertedMobileNumber);
 
 
@@ -124,7 +124,7 @@ public class OtpGenerationService {
         WalletInquiryResponse walletInquiryResponse = walletInquiryService.walletInquiry(headers, walletInquiryRequest);
         LOGGER.info("WalletInquiryResponse : " + objectMapper.writeValueAsString(walletInquiryResponse));
 //        System.out.println(walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile());
-        String prefLanguage = walletInquiryResponse.getWalletInquiryDataList().get(0).getPreferredLanguage();
+        String prefLanguage = walletInquiryResponse.getPreferredLanguage();
 //        String convertedMobileNumber = walletInquiryResponse.getWalletInquiryDataList().get(0).getMobile().replaceAll("[-]", "");
 //        System.out.println(convertedMobileNumber);
 
