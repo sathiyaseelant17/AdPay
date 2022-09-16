@@ -37,14 +37,15 @@ public class RedemptionReqService {
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
+            System.out.println("timeof request" + new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", request.getTransactionSource());
             callableStatement.setString("@pi_vc_cardId", request.getWalletId());
             callableStatement.setInt("@pi_si_txntype#", request.getTransactionType());
             callableStatement.setString("@pi_vc_sourcemakerid", request.getSourceMakerId());
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTransactionRef());
-            callableStatement.setInt("@pi_nm_txnamount", request.getTransactionAmount());
-            callableStatement.setInt("@pi_nm_billamount", request.getBillAmount());
+            callableStatement.setBigDecimal("@pi_nm_txnamount", request.getTransactionAmount());
+            callableStatement.setBigDecimal("@pi_nm_billamount", request.getBillAmount());
             callableStatement.setString("@pi_vc_txncurrcode", request.getTransactionCurrencyCode());
             callableStatement.setString("@pi_vc_billcurrcode", request.getBillCurrencyCode());
             callableStatement.setInt("@pi_nm_txnrate", request.getTransactionRate());

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @ToString
@@ -15,8 +17,8 @@ public class RedemptionReqRequest {
     private String sourceMakerId;
     private String sourcePosId;
     private String sourceTransactionRef;
-    private int transactionAmount;
-    private int billAmount;
+    private BigDecimal transactionAmount;
+    private BigDecimal billAmount;
     private String transactionCurrencyCode;
     private String billCurrencyCode;
     private int transactionRate;

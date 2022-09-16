@@ -390,6 +390,7 @@ public class AdPayController {
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
 
+
         RedemptionReqResponse response = redemptionReqService.redemptionRequest(headers, request);
 
         LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
