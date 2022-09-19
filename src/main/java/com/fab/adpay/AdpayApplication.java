@@ -7,6 +7,10 @@ import javax.net.ssl.*;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +26,13 @@ public class AdpayApplication {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException {
 
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.HOUR, 4);
+		Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
+		System.out.println(timestamp);
+
+		System.out.println("tds"+new Timestamp(new Date().getTime()));
 
 		/* Start of Fix */
 		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {

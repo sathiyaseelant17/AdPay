@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -31,6 +32,16 @@ public class WalletTransactionService {
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@pi_vc_transactionTimezone", "GST");
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(new Date());
+//            calendar.add(Calendar.HOUR, 4);
+//            Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
+//
+//            callableStatement.setTimestamp("@pi_dt_transactiondate", timestamp);
+
+//            System.out.println("Header Transaction Date Time" + timestamp);
+            System.out.println("txntime"+ new Timestamp(new Date().getTime()));
+
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
             callableStatement.setString("@pi_vc_clientidentifier", headers.get("channelid"));

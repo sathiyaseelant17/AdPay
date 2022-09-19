@@ -33,6 +33,8 @@ public class WalletTopUpService {
             callableStatement.setString("@pi_vc_countryOforgin", "AE");
             callableStatement.setTimestamp("@pi_dt_transactiondate",
                     new Timestamp(new Date().getTime()));
+
+            System.out.println("txntime"+ new Timestamp(new Date().getTime()));
             callableStatement.setInt("@pi_ti_txnsource", req.getTransactionSource());
             callableStatement.setString("@pio_vc_cardid", req.getWalletId());
             callableStatement.setInt("@pi_si_txntype", req.getTxntype());

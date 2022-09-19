@@ -173,6 +173,7 @@ public class AdPayController {
     WalletTransactionResponse walletTransaction(@RequestHeader Map<String, String> headers,
                                                 @Valid @RequestBody WalletTransactionRequest request)
             throws SQLException, IOException {
+
         LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
                 OBJECT_MAPPER.writeValueAsString(request));
         WalletTransactionResponse response = walletTransactionService.walletTransaction(headers, request);
