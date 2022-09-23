@@ -17,7 +17,6 @@ public class WalletInquiryData {
     private String walletLabel;
     private String defaultWallet;
     private String walletType;
-
     private String walletStatus;
     private String createDate;
     private String lastTransactionDate;

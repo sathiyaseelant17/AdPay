@@ -1,4 +1,5 @@
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/BPMSRequest.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletInquiryFss/PreApprovedFss.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/addWallet/AddWalletRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletTopUp/WalletTopUpResponse.java
@@ -26,6 +27,7 @@
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/redemptionInquiry/RedemptionInquiryService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/fetchCustomerOnbordingDetails/model/ResponseStatus.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletInquiryFss/WalletInquiryFssService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/kycUpload/DMSConfigurationElpResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/kycUpload/KycUploadService.java
@@ -35,13 +37,16 @@
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/model/ElpasoError.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletTransactions/WalletTransactionRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/ResponseStatus.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletInquiryFss/WalletInquiryDataFss.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpvalidation/OtpValidationRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/AdpayApplication.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/voidService/VoidService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/LoggingInterceptor.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/addWallet/AddWalletResponse.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletInquiryFss/WalletInquiryFssResponse.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/fetchCustomerOnbordingDetails/ApplicationDetails.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletLimit/UpdateWalletLimitService.java
+/home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletInquiryFss/WalletInquiryFssRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/walletStatusUpdate/WalletStatusUpdateService.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/otpgeneration/GenerateOtpServiceRequest.java
 /home/sathiyaseelan/Prodian/Project/Adpay projects/adpayCB/AdPay/src/main/java/com/fab/adpay/customerOnboard/model/Jurisdiction.java

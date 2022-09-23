@@ -46,6 +46,9 @@ import com.fab.adpay.voidService.VoidServiceResponse;
 import com.fab.adpay.walletInquiry.WalletInquiryRequest;
 import com.fab.adpay.walletInquiry.WalletInquiryResponse;
 import com.fab.adpay.walletInquiry.WalletInquiryService;
+import com.fab.adpay.walletInquiryFss.WalletInquiryFssRequest;
+import com.fab.adpay.walletInquiryFss.WalletInquiryFssResponse;
+import com.fab.adpay.walletInquiryFss.WalletInquiryFssService;
 import com.fab.adpay.walletLimit.UpdateWalletLimitRequest;
 import com.fab.adpay.walletLimit.UpdateWalletLimitResponse;
 import com.fab.adpay.walletLimit.UpdateWalletLimitService;
@@ -138,6 +141,9 @@ public class AdPayController {
 
     @Autowired
     OtpValidationService otpValidationService;
+
+    @Autowired
+    WalletInquiryFssService walletInquiryFssService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdPayController.class);
 
@@ -242,6 +248,22 @@ public class AdPayController {
                 OBJECT_MAPPER.writeValueAsString(response));
         return response;
     }
+
+    @PostMapping("/walletInquiryFss")
+    WalletInquiryFssResponse walletInquiryFss(@RequestHeader Map<String, String> headers,
+                                              @Valid @RequestBody WalletInquiryFssRequest request)
+            throws SQLException, IOException {
+
+        LOGGER.info("Transaction id: {} Request data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(request));
+
+        WalletInquiryFssResponse response = walletInquiryFssService.walletInquiryFss(headers, request);
+
+        LOGGER.info("Transaction id: {} Response data: {}", headers.get("transactionid"),
+                OBJECT_MAPPER.writeValueAsString(response));
+        return response;
+    }
+
 
     @PostMapping("/walletInquiry")
     WalletInquiryResponse walletInquiry(@RequestHeader Map<String, String> headers,
