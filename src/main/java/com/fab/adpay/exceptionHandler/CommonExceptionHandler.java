@@ -45,6 +45,12 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, HttpStatus.OK);
     }
 
-    
 
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException ex, WebRequest request) {
+        LOGGER.error(request.getHeader("transactionid"), ex.getMessage(), ex);
+        final ApiError apiError = new ApiError(String.valueOf(294),
+                "Technical Error Occured, file size should be less than 5MB");
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.OK);
+    }
 }

@@ -45,10 +45,12 @@ public class VoidService {
             callableStatement.setString("@pi_vc_serviceid", req.getServiceId());
 
             callableStatement.execute();
+
             if (!(callableStatement.getInt("@po_vc_errcode") == 0)) {
                 throw new com.fab.adpay.exception.ElpasoException(callableStatement.getInt("@po_vc_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
+
             VoidServiceResponse res = new VoidServiceResponse();
             res.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
             res.setStatusText(callableStatement.getString("@po_vc_errortext"));

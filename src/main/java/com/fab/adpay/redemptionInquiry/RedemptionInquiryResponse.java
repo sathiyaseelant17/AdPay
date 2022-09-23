@@ -15,5 +15,7 @@ public class RedemptionInquiryResponse {
     private String statusText;
     private BigDecimal availableBalance;
     private BigDecimal currentBalance;
+    private int redeemStatus;
+
 
 }

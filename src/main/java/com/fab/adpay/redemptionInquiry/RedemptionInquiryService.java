@@ -27,6 +27,8 @@ public class RedemptionInquiryService {
             callableStatement.registerOutParameter("@po_si_errcode", Types.INTEGER);
             callableStatement.registerOutParameter("@po_de_avlbal", Types.DECIMAL);
             callableStatement.registerOutParameter("@po_de_curbal", Types.DECIMAL);
+            callableStatement.registerOutParameter("@pi_ti_RedeemStatus", Types.INTEGER);
+
 
             callableStatement.setString("@pi_vc_transactionIdentifier", headers.get("transactionid"));
             callableStatement.setString("@Pi_vc_clientidentifier", headers.get("channelid"));
@@ -41,7 +43,7 @@ public class RedemptionInquiryService {
             callableStatement.setString("@pi_vc_sourceposid", request.getSourcePosId());
             callableStatement.setString("@pi_vc_sourcetxnref", request.getSourceTransactionRef());
             callableStatement.setString("@pi_vc_RedeemAckRef", request.getRedeemAcknowledgementRef());
-            callableStatement.setInt("@pi_ti_RedeemStatus", request.getRedeemStatus());
+//            callableStatement.setInt("@pi_ti_RedeemStatus", request.getRedeemStatus());
             callableStatement.execute();
             if (!(callableStatement.getInt("@po_si_errcode") == 0)) {
                 throw new ElpasoException(callableStatement.getInt("@po_si_errcode"),
@@ -52,6 +54,7 @@ public class RedemptionInquiryService {
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));
             response.setAvailableBalance(callableStatement.getBigDecimal("@po_de_avlbal"));
             response.setCurrentBalance(callableStatement.getBigDecimal("@po_de_curbal"));
+            response.setRedeemStatus(callableStatement.getInt("@pi_ti_RedeemStatus"));
 
             logger.debug("TRANSACTION ID: {} Redemption Inquiry RESPONSE:{}", headers.get("transactionid"), response);
 

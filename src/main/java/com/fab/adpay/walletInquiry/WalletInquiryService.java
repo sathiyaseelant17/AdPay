@@ -43,6 +43,8 @@ public class WalletInquiryService {
 
 //            callableStatement.execute();
             List<WalletInquiryData> walletInquiryDataList = new ArrayList<>();
+            List <CommonData> commonDataList = new ArrayList<>();
+
             WalletInquiryResponse response = new WalletInquiryResponse();
             PreApproved preApprovePojo=new PreApproved();
             // JSONObject walletIndex=new JSONObject();
@@ -54,6 +56,7 @@ public class WalletInquiryService {
                     while (rs.next()) {
 //                       System.out.println("while confdition");
                         WalletInquiryData walletInquiryData = new WalletInquiryData();
+                        CommonData commonData = new CommonData();
                         preApprovePojo=new PreApproved();
                         walletInquiryData.setWalletId(rs.getString("walletid"));
                         if(walletMap.containsKey(walletInquiryData.getWalletId())) {
@@ -65,20 +68,21 @@ public class WalletInquiryService {
                             walletInquiryData.setWalletLabel(rs.getString("wallet label"));
                             walletInquiryData.setDefaultWallet(rs.getString("default wallet"));
                             walletInquiryData.setWalletType(rs.getString("wallet type"));
-                            walletInquiryData.setFirstNameEnglish(rs.getString("firstname_english"));
-                            walletInquiryData.setMiddleNameEnglish(rs.getString("middlename_english"));
-                            walletInquiryData.setLastNameEnglish(rs.getString("lastname_english"));
-                            walletInquiryData.setFirstNameArabic(rs.getString("firstname_arabic"));
-                            walletInquiryData.setMiddleNameArabic(rs.getString("middlename_arabic"));
-                            walletInquiryData.setLastNameArabic(rs.getString("lastname_arabic"));
-                            walletInquiryData.setMobile(rs.getString("mobile"));
-                            walletInquiryData.setEmail(rs.getString("emailid"));
+                            commonData.setFirstNameEnglish(rs.getString("firstname_english"));
+                            commonData.setMiddleNameEnglish(rs.getString("middlename_english"));
+                            commonData.setLastNameEnglish(rs.getString("lastname_english"));
+                            commonData.setFirstNameArabic(rs.getString("firstname_arabic"));
+                            commonData.setMiddleNameArabic(rs.getString("middlename_arabic"));
+                            commonData.setLastNameArabic(rs.getString("lastname_arabic"));
+                            commonData.setMobile(rs.getString("mobile"));
+                            commonData.setEmail(rs.getString("emailid"));
+                            commonData.setPreferredLanguage(rs.getString("Preflanguage"));
                             walletInquiryData.setWalletStatus(rs.getString("walletstatus#"));
                             walletInquiryData.setCreateDate(rs.getString("createdate"));
                             walletInquiryData.setLastTransactionDate(rs.getString("lasttxndate"));
                             walletInquiryData.setLastTopupAmount(rs.getString("lasttopupamount"));
                             walletInquiryData.setLastTopupDate(rs.getString("lasttopupdate"));
-                            walletInquiryData.setWalletLimit(rs.getBigDecimal("walletlimit"));
+                            commonData.setCustomerLimit(rs.getBigDecimal("customerlimit"));
                             walletInquiryData.setWalletSpendLimitPerTransaction(rs.getBigDecimal("walletspendlimitpertxn"));
                             walletInquiryData.setAvailableBalance(rs.getBigDecimal("avlbal"));
                             walletInquiryData.setCurrentBalance(rs.getBigDecimal("curbal"));
@@ -90,12 +94,25 @@ public class WalletInquiryService {
                             preApprovePojo.setServiceId(rs.getString("service id"));
                             walletInquiryData.getPreApproved().add(preApprovePojo);
                             walletInquiryDataList.add(walletInquiryData);
+                            commonDataList.add(commonData);
                             walletMap.put(walletInquiryData.getWalletId(),walletIndex);
                             walletIndex++;
                         }
                     }
                     response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
                     response.setStatusText(callableStatement.getString("@po_vc_errortext"));
+
+                    response.setFirstNameEnglish(commonDataList.get(0).getFirstNameEnglish());
+                    response.setMiddleNameEnglish(commonDataList.get(0).getMiddleNameEnglish());
+                    response.setLastNameEnglish(commonDataList.get(0).getLastNameEnglish());
+                    response.setFirstNameArabic(commonDataList.get(0).getFirstNameArabic());
+                    response.setMiddleNameArabic(commonDataList.get(0).getMiddleNameArabic());
+                    response.setLastNameArabic(commonDataList.get(0).getLastNameArabic());
+                    response.setMobile(commonDataList.get(0).getMobile());
+                    response.setEmail(commonDataList.get(0).getEmail());
+                    response.setPreferredLanguage(commonDataList.get(0).getPreferredLanguage());
+                    response.setCustomerLimit(commonDataList.get(0).getCustomerLimit());
+
                     response.setWalletInquiryDataList(walletInquiryDataList);
                 }else {
                     response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
@@ -103,7 +120,11 @@ public class WalletInquiryService {
                     response.setWalletInquiryDataList(null);
                 }
             }catch(Exception e) {
-                if ((callableStatement.getInt("@po_vc_errcode") != 0)) {
+                if(callableStatement.getInt("@po_vc_errcode") == 96){
+                    response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
+                    response.setStatusText(callableStatement.getString("@po_vc_errortext"));
+                }
+                if ((callableStatement.getInt("@po_vc_errcode") != 0) && callableStatement.getInt("@po_vc_errcode") != 96) {
                     throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
                             callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
                 }

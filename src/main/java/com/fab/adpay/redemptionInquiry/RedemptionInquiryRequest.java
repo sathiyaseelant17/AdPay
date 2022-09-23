@@ -16,6 +16,5 @@ public class RedemptionInquiryRequest {
     private String sourcePosId;
     private String sourceTransactionRef;
     private String redeemAcknowledgementRef;
-    private int redeemStatus;
 
 }

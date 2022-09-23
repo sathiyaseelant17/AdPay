@@ -11,4 +11,5 @@ public class PreApproved {
 
     private String adgeId;
     private String serviceId;
+    
 }

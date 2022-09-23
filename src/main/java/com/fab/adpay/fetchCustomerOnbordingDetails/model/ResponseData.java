@@ -13,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ResponseData {
     private ApplicationDetails applicationDetails;
-    private String product;
-    private String UAEPassResult;
-    private String TandCAgreed;
-    private String websitePageIdentifier;
-    private List<String> documentDetails;
-    private CustomerDetails customerDetails;
-    private FatcaCRSDetails fatcaCRSDetails;
+//    private String product;
+//    private String UAEPassResult;
+//    private String TandCAgreed;
+//    private String websitePageIdentifier;
+//    private List<String> documentDetails;
+//    private CustomerDetails customerDetails;
+//    private FatcaCRSDetails fatcaCRSDetails;
 }

@@ -107,6 +107,7 @@ public class CustomerOnboardService {
                 throw new ElpasoException(callableStatement.getInt("@po_vc_errcode"),
                         callableStatement.getString("@po_vc_errortext"), headers.get("transactionid"));
             }
+
             CustomerOnboardResponse response = new CustomerOnboardResponse();
             response.setStatusCode(callableStatement.getInt("@po_vc_errcode"));
             response.setStatusText(callableStatement.getString("@po_vc_errortext"));
@@ -122,7 +123,7 @@ public class CustomerOnboardService {
 
     }
 
-    public BPMSResponse initiateBPMS(String id, Map<String, String> headers, CustomerOnboardRequest request) {
+    public FinalResponse initiateBPMS(String id, Map<String, String> headers, CustomerOnboardRequest request) {
 
         String URL = System.getenv("INITIATE_BPMS");
         HttpHeaders header = new HttpHeaders();
@@ -163,7 +164,7 @@ public class CustomerOnboardService {
         customerDetails.setMiddleName(request.getMiddleName());
         customerDetails.setMobileNumber(request.getMobileNumber());
         customerDetails.setNationality(request.getNationality());
-        customerDetails.setOccupation("101");
+        customerDetails.setOccupation(request.getOccupation());
         customerDetails.setPEPStatus(request.getPepStatus());
         customerDetails.setPlaceOfBirth(request.getPlaceOfBirth());
         customerDetails.setPostalCode(request.getPostalCode());
@@ -262,13 +263,28 @@ public class CustomerOnboardService {
         System.out.println("payload"+ payload);
         HttpEntity<BPMSRequest> entity = new HttpEntity<BPMSRequest>(payload, header);
         BPMSResponse response=new BPMSResponse();
+        FinalResponse finalResponse = new FinalResponse();
         try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, entity, String.class);
             LOGGER.info("Transaction Id : {} Initiate BPMS Status Code: {}", headers.get("transactionid"), responseEntity.getStatusCode());
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 String bpmsResponse = responseEntity.getBody();
+
                 response = OBJECT_MAPPER.readValue(bpmsResponse,BPMSResponse.class);
+
+                LOGGER.info("Transaction Id : {} Initiate BPMS Response Code: {}", headers.get("transactionid"), response);
                 LOGGER.info("Transaction Id : {} Response body: {}", headers.get("transactionid"), bpmsResponse);
+
+                finalResponse.setStatus(response.getResponseStatus().getStatus());
+                finalResponse.setErrorDescription(response.getResponseStatus().getErrorDescription());
+                finalResponse.setApplicationRefNo(response.getResponseData().getApplicationRefNo());
+                finalResponse.setApplicationStatus(response.getResponseData().getApplicationStatus());
+                finalResponse.setApplicationRemarks(response.getResponseData().getApplicationRemarks());
+                finalResponse.setApplicationCreatedDate(response.getResponseData().getApplicationCreatedDate());
+                finalResponse.setApplicationExpiryDate(response.getResponseData().getApplicationExpiryDate());
+
+                LOGGER.info("Transaction Id : {} Response final body: {}", headers.get("transactionid"), finalResponse);
+
             } else {
                 LOGGER.info("Initiate BPMS Service Response status fails",responseEntity.getStatusCode());
             }
@@ -277,7 +293,7 @@ public class CustomerOnboardService {
 
         }
 
-        return response;
+        return finalResponse;
     }
 
 }
