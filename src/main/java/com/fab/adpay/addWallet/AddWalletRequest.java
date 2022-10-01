@@ -18,5 +18,4 @@ public class AddWalletRequest {
     private BigDecimal walletLimit;
     private BigDecimal walletSpendLimitPerTransaction;
 
-
 }
