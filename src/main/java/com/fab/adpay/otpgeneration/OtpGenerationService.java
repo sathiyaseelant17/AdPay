@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class OtpGenerationService {
+public class    OtpGenerationService {
 
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json; charset=utf-8");
     public static final MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
