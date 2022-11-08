@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6bea9f58-15a6-47a1-80bf-550fcc304cfa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/AdpayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/AdpayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/otpgeneration/OtpGenerationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fab/adpay/mqFtsListener/MQListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fab/adpay/mqFtsListener/MQListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/adpay-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/fab/adpay/mqFtsListener/MQListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fab/adpay/mqFtsListener/MQListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.fab.adpay.AdpayApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.fab.adpay.AdpayApplicationTests.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

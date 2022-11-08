@@ -14,7 +14,7 @@ public class MQListener {
     private static final Logger logger = LoggerFactory.getLogger(MQListener.class);
 
 
-    @JmsListener(destination = "FTS.ADIPIPAYEMENT.STATUS.OUT.LQ.AE")
+    @JmsListener(destination = "FTS.ADIPIPAYMENT.STATUS.OUT.LQ.AE")
     public void receive(Message message) throws JMSException {
 
         if (message instanceof TextMessage) {
