@@ -14,20 +14,12 @@ import java.io.*;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jms.annotation.EnableJms;
 import org.springframework.web.client.RestTemplate;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableJms
-@EnableSwagger2
 public class AdpayApplication {
 
-	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException , NullPointerException{
+	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
@@ -65,14 +57,7 @@ public class AdpayApplication {
 		/* End of the fix */
 		SpringApplication.run(AdpayApplication.class, args);
 	}
-	@Bean
-	public Docket apiDocket() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
-	}
+
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
