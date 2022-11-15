@@ -10,6 +10,7 @@ import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.*;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class AdpayApplication {
 
-	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException {
+	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException , NullPointerException{
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
