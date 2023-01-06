@@ -1,22 +1,27 @@
 package com.fab.adpay;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.springframework.boot.SpringApplication;
-import javax.net.ssl.*;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-import java.io.*;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class AdpayApplication {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException {
