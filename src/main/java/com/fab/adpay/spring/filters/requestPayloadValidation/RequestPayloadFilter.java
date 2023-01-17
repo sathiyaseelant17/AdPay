@@ -2,6 +2,8 @@ package com.fab.adpay.spring.filters.requestPayloadValidation;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
 import javax.servlet.FilterChain;
@@ -35,7 +37,7 @@ public class RequestPayloadFilter extends OncePerRequestFilter {
 		InputStream inputStream = cachedBodyHttpServletRequest.getInputStream();
 		String requestPayload = new String(StreamUtils.copyToByteArray(inputStream));
 		try {
-			if (!requestPayload.isEmpty() && hasHTMLTags(requestPayload)) {
+			if (!requestPayload.isEmpty() && (hasHTMLTags(requestPayload) || hasHTMLEncoded(requestPayload))) {
 				LOG.info("requestPayload \n {}", requestPayload);
 				throw new Exception("Do not send HTML tags in Request Payload");
 			}
@@ -48,6 +50,15 @@ public class RequestPayloadFilter extends OncePerRequestFilter {
 		}
 
 		filterChain.doFilter(cachedBodyHttpServletRequest, httpServletResponse);
+	}
+
+	private boolean hasHTMLEncoded(String requestPayload) throws UnsupportedEncodingException {
+		boolean isHtmlEncoded = false;
+		String decodedHtml = URLDecoder.decode(requestPayload, "UTF-8");
+		LOG.info("decodedHtml : {}", decodedHtml);
+		isHtmlEncoded = hasHTMLTags(decodedHtml);
+		LOG.info("isHtmlEncoded : {}", isHtmlEncoded);
+		return isHtmlEncoded;
 	}
 
 	public boolean hasHTMLTags(String text) {
